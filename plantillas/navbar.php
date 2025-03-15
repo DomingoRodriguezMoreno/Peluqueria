@@ -1,6 +1,6 @@
 <nav class="navbar">
-    <a href="#" class="logo">
-        <img src="imagenes/Logo.png" alt="Logo Peluquería" width = 50px>
+    <a href="../index.php" class="logo">
+        <img src="/TFGPeluqueria/imagenes/Logo.png" alt="Logo Peluquería" width = 50px>
     </a>
     <div class="nav-links">
         <a href="index.html">Inicio</a>
