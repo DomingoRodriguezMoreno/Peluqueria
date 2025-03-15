@@ -1,0 +1,16 @@
+
+Maria
+87654321B
+beauty456
+
+$2y$10$dmPX.Gq76BQTBsPjtSEXJOhfBnc3krPT31rhNw6XZ40oHV7ZNqr5K
+
+UPDATE empleados SET contraseña = '$2y$10$dmPX.Gq76BQTBsPjtSEXJOhfBnc3krPT31rhNw6XZ40oHV7ZNqr5K' WHERE dni = '87654321B';
+
+Ana
+600555666
+cliente789
+
+$2y$10$fG3kO.EVOmIOnlGAgO8MveRrtgDTCupLWodluTZtWoL06CWsUzJLG
+
+UPDATE clientes SET contraseña = '$2y$10$fG3kO.EVOmIOnlGAgO8MveRrtgDTCupLWodluTZtWoL06CWsUzJLG' WHERE telefono = '600555666';

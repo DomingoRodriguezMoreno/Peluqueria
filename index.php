@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peluquería Millan Vega</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!--http://localhost/TFGPeluqueria/-->
+    <!-- Barra de Navegación -->
+    <?php include 'plantillas/navbar.php'; ?>
+
+    <!-- Sección Hero con Introducción -->
+    <section class="hero">
+        <div class="intro-texto">
+            <img src="imagenes/Logo2.png" alt="Logo Peluquería">
+            <h1>¡Bienvenidos a Millán & Vega!</h1>
+            <p>
+              Donde el estilo cobra vida y la confianza se renueva con cada corte. 
+              En nuestro espacio, no solo transformamos cabellos, sino que creamos 
+              experiencias únicas que reflejan tu esencia. Con un equipo de expertos 
+              apasionados por la tendencia y la tradición, en Millán Vega nos dedicamos
+              a realzar tu belleza natural, ofreciéndote un servicio personalizado y de alta calidad.
+            </p>
+        </div>
+        
+        <!-- Redes Sociales -->
+        <div class="redes-sociales">
+    <a href="https://www.facebook.com/peluqueriavillamarta/" target="_blank"><img src="imagenes/facebook.png" alt="Facebook"></a>
+    <a href="https://www.instagram.com/millanyvega/" target="_blank"><img src="imagenes/instagram.png" alt="Instagram"></a>
+</div>
+    </section>
+
+  <!-- Modal Login -->
+  <div id="loginModal" class="modal">
+    <div class="modal-contenido">
+        <span class="cerrar" onclick="cerrarLogin()">&times;</span>
+        <h2>Iniciar Sesión</h2>
+        <form action="funcionalidades/login.php" method="POST">
+            <label for="identificador">DNI o Teléfono:</label>
+            <input type="text" id="identificador" name="identificador" required>
+            
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit">Ingresar</button>
+        </form>
+        <p>¿No tienes cuenta? <a href="paginas/registro.php">Regístrate aquí</a></p>
+    </div>
+  </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
