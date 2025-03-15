@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
-    header('Location: ../index.html'); // Redirigir si no está logueado como empleado
+    header('Location: /TFGPeluqueria/index.html'); // Redirigir si no está logueado como empleado
     exit();
 }
 ?>
@@ -14,6 +14,6 @@ if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado
 <body>
     <h1>Bienvenido, <?php echo $_SESSION['nombre']; ?></h1>
     <p>Aquí puedes gestionar citas, servicios, etc.</p>
-    <a href="../funcionalidades/logout.php">Cerrar sesión</a>
+    <a href="/TFGPeluqueria/funcionalidades/logout.php">Cerrar sesión</a>
 </body>
 </html>

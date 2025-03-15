@@ -32,7 +32,7 @@ if ($stmt_empleado->rowCount() > 0) {
         $_SESSION['nombre'] = $empleado['nombre'];
         $_SESSION['id_rol'] = $empleado['id_rol'];
         // Redirigir al panel de empleados
-        header('Location: ../paginas/panel_empleados.php');
+        header('Location: /TFGPeluqueria/paginas/panel_empleados.php');
         exit();
     } else {
         // Contraseña incorrecta
@@ -60,7 +60,7 @@ if ($stmt_empleado->rowCount() > 0) {
             $_SESSION['id_cliente'] = $cliente['id_cliente'];
             $_SESSION['nombre'] = $cliente['nombre'];
             // Redirigir al panel de clientes
-            header('Location: ../paginas/panel_clientes.php');
+            header('Location: /TFGPeluqueria/paginas/panel_clientes.php');
             exit();
         } else {
             // Contraseña incorrecta

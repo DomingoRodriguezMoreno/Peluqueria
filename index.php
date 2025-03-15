@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peluquería Millan Vega</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
     <!--http://localhost/TFGPeluqueria/-->
@@ -27,8 +27,8 @@
         
         <!-- Redes Sociales -->
         <div class="redes-sociales">
-    <a href="https://www.facebook.com/peluqueriavillamarta/" target="_blank"><img src="imagenes/facebook.png" alt="Facebook"></a>
-    <a href="https://www.instagram.com/millanyvega/" target="_blank"><img src="imagenes/instagram.png" alt="Instagram"></a>
+    <a href="https://www.facebook.com/peluqueriavillamarta/" target="_blank"><img src="/TFGPeluqueria/imagenes/facebook.png" alt="Facebook"></a>
+    <a href="https://www.instagram.com/millanyvega/" target="_blank"><img src="/TFGPeluqueria/imagenes/instagram.png" alt="Instagram"></a>
 </div>
     </section>
 
@@ -46,10 +46,10 @@
             
             <button type="submit">Ingresar</button>
         </form>
-        <p>¿No tienes cuenta? <a href="paginas/registro.php">Regístrate aquí</a></p>
+        <p>¿No tienes cuenta? <a href="/TFGPeluqueria/paginas/registro.php">Regístrate aquí</a></p>
     </div>
   </div>
 
-    <script src="js/script.js"></script>
+    <script src="/TFGPeluqueria/js/script.js"></script>
 </body>
 </html>
