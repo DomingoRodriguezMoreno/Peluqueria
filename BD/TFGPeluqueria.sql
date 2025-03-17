@@ -53,6 +53,34 @@ INSERT INTO roles_servicios (id_rol, id_servicio) VALUES
 (1, 2), -- Peluquero: Coloración
 (2, 3); -- Esteticien: Depilación facial
 
+-- Tipos_tratamiento
+CREATE TABLE tipos_tratamiento (
+    id_tipo INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_tipo VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- Insertar tipos
+INSERT INTO tipos_tratamiento (nombre_tipo) VALUES
+('Cortes'),
+('Tintes'),
+('Barbas'),
+('Depilación');
+
+-- Servicios_tipos
+CREATE TABLE servicios_tipos (
+    id_servicio INT,
+    id_tipo INT,
+    PRIMARY KEY (id_servicio, id_tipo),
+    FOREIGN KEY (id_servicio) REFERENCES servicios(id_servicio),
+    FOREIGN KEY (id_tipo) REFERENCES tipos_tratamiento(id_tipo)
+);
+
+-- Asignar tipos a servicios (ejemplo)
+INSERT INTO servicios_tipos (id_servicio, id_tipo) VALUES
+(1, 1), -- Corte de cabello -> Cortes
+(2, 2), -- Coloración -> Tintes
+(3, 4); -- Depilación facial -> Depilación
+
 -- Clientes
 CREATE TABLE clientes (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
