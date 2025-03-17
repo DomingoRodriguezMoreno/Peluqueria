@@ -1,0 +1,13 @@
+pagina citas:
+Estoy usando esa base de datos para crear una pagina para una peluqueria, 
+ahora estoy con la interfaz de las citas,  te explico brevemente como deseo que funcione, 
+la pagina debe conectarse con la base de datos y extraer los tratamientos para luego ponerlos 
+presentarselos al cliente de la sigiente manera Nombre | descripcion | tiempo | coste | ceckhbox, 
+la funcion de la checkbox es que al final de todo te ponga el coste y tiempo totales de todo lo 
+que ha marcado ademas de identificar los tratamientos que se asociaran a la citas en la base de datos
+
+tipos_tratamientos
+Necesito incluir los tipos de los tratamiento para una funcinalidad futura, 
+el dilema es como incluirlos me gusta la opcion de incluir una tabla de tipos_trtamiento 
+que tenga una id y el nombre del tipo (1 cortes, 2 tintes, 3 barbas, ...) y otra tabla que 
+asocie las ids de los tipos a las ids de los tratamientos como tabla de relacion. 
