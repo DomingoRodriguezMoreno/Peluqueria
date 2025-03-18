@@ -12,5 +12,7 @@ el dilema es como incluirlos me gusta la opcion de incluir una tabla de tipos_tr
 que tenga una id y el nombre del tipo (1 cortes, 2 tintes, 3 barbas, ...) y otra tabla que 
 asocie las ids de los tipos a las ids de los tratamientos como tabla de relacion. 
 
-login:
+login: (corregido)
 El desplegable del login solo esta disponible en la pagina principal
+    correcion:
+    Se ha incluido el login en el php de la barra de navegacion

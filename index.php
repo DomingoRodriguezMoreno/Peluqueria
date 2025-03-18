@@ -32,24 +32,6 @@
         </div>
     </section>
 
-  <!-- Modal Login -->
-  <div id="loginModal" class="modal">
-    <div class="modal-contenido">
-        <span class="cerrar" onclick="cerrarLogin()">&times;</span>
-        <h2>Iniciar Sesión</h2>
-        <form action="funcionalidades/login.php" method="POST">
-            <label for="identificador">DNI o Teléfono:</label>
-            <input type="text" id="identificador" name="identificador" required>
-            
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" required>
-            
-            <button type="submit">Ingresar</button>
-        </form>
-        <p>¿No tienes cuenta? <a href="/TFGPeluqueria/paginas/registro.php">Regístrate aquí</a></p>
-    </div>
-  </div>
 
-    <script src="/TFGPeluqueria/js/script.js"></script>
 </body>
 </html>

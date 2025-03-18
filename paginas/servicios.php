@@ -20,7 +20,7 @@ $tipos = $stmt_tipos->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="servicios-container">
         <h1>Nuestros Servicios</h1>
-
+        <br>
         <?php foreach ($tipos as $tipo): ?>
             <details class="desplegable-tipo">
                 <summary><?= htmlspecialchars($tipo['nombre_tipo']) ?></summary>
