@@ -6,12 +6,16 @@
 }
 
 :root {
-    --color-primario: #2c3e50;
-    --color-secundario: #e67e22;
+    --color-primario: #2c3e50; /* Azul oscuro */
+    --color-secundario: #e67e22; /* Naranja */
+    --fondo-beige: #FFF8DC; /* Beige claro */
+    --tabla-dorado: #DAA520; /* Dorado */
+    --color-desplegables: rgb(158, 84, 32); /* Marrón */
 }
 
 /* Barra de Navegación */
 .navbar {
+    height: 70px; /* Coincide con el padding-top del body */
     position: fixed;
     top: 0;
     width: 100%;
@@ -56,7 +60,7 @@
 }
 
 /* Sección Hero */
-.hero, .registros-container {
+.hero, .registros-container, .servicios-container {
     height: 100vh;
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
                 url('../imagenes/Fondo.jpg') center/cover;
@@ -66,7 +70,7 @@
     align-items: center;
     color: white;
     text-align: center;
-    padding-top: 120px; /* Aumenta el espacio superior */
+    padding-top: 90px; /* Aumenta el espacio superior */
     padding-bottom: 100px; /* Espacio inferior para las redes sociales */
     position: relative;
 }
@@ -205,4 +209,51 @@
 .modal a {
     color: var(--color-secundario);
     text-decoration: none;
+}
+
+/* Estilos para la tabla de servicios */
+.desplegable-tipo {
+    margin-bottom: 15px;
+    border: 2px solid var(--color-desplegables);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.desplegable-tipo summary {
+    background-color:var(--color-desplegables);
+    color: white;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.tabla-servicios {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    color:#000;
+}
+
+.tabla-servicios th {
+    background-color: var(--tabla-dorado);
+    padding: 12px;
+    text-align: center;
+}
+
+.tabla-servicios td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.tabla-servicios tr:last-child td {
+    border-bottom: none;
+}
+
+.sin-servicios {
+    padding: 20px;
+    text-align: center;
+    color: #000000;
+    font-style: italic;
+    background-color: white;
 }
