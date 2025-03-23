@@ -6,9 +6,10 @@ include 'conexion.php';
 $identificador = $_POST['identificador'];
 $password = $_POST['password'];
 
-// Depuración: Verificar datos del formulario
+/* Depuración: Verificar datos del formulario
 echo "Identificador proporcionado: $identificador<br>";
 echo "Contraseña proporcionada: $password<br>";
+*/
 
 // Verificar si es un empleado
 $query_empleado = "SELECT * FROM empleados WHERE dni = :identificador";
@@ -20,10 +21,10 @@ if ($stmt_empleado->rowCount() > 0) {
     // Es un empleado
     $empleado = $stmt_empleado->fetch(PDO::FETCH_ASSOC);
 
-    // Depuración: Verificar datos del empleado
+    /* Depuración: Verificar datos del empleado
     echo "Hash almacenado (empleado): " . $empleado['contraseña'] . "<br>";
     echo "Resultado de password_verify: " . (password_verify($password, $empleado['contraseña']) ? 'true' : 'false') . "<br>";
-
+    */
     if (password_verify($password, $empleado['contraseña'])) {
         // Contraseña válida
         session_start();
@@ -49,10 +50,10 @@ if ($stmt_empleado->rowCount() > 0) {
         // Es un cliente
         $cliente = $stmt_cliente->fetch(PDO::FETCH_ASSOC);
 
-        // Depuración: Verificar datos del cliente
+        /* Depuración: Verificar datos del cliente
         echo "Hash almacenado (cliente): " . $cliente['contraseña'] . "<br>";
         echo "Resultado de password_verify: " . (password_verify($password, $cliente['contraseña']) ? 'true' : 'false') . "<br>";
-
+        */
         if (password_verify($password, $cliente['contraseña'])) {
             // Contraseña válida
             session_start();
