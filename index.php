@@ -9,7 +9,13 @@
 <body>
     <!--http://localhost/TFGPeluqueria/-->
     <!-- Barra de Navegación -->
-    <?php include 'plantillas/navbar.php'; ?>
+    <?php
+        // Esto debe ser LO PRIMERO en el archivo (sin espacios ni saltos de línea antes)
+        session_start();
+
+        // Luego puedes incluir otros archivos
+        include 'plantillas/navbar.php';
+    ?>
 
     <!-- Sección Hero con Introducción -->
     <section class="hero">

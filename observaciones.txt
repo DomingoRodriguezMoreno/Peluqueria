@@ -16,3 +16,19 @@ login: (corregido)
 El desplegable del login solo esta disponible en la pagina principal
     correcion:
     Se ha incluido el login en el php de la barra de navegacion
+
+Pendientes:
+    Cambio Boton login por perfil
+    pagina perfil cliente
+        listado de citas propias
+        ¿Cambiar contraseña?
+    pagina perfil trabajador
+        listado citas generales
+    pagina citas
+        clientes
+            seleccionar servicios 
+                seleccionar dia
+        Trabajador
+            Selecciona cliente
+                seleccionar servicios 
+                    seleccionar dia

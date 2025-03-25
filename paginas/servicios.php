@@ -16,7 +16,11 @@ $tipos = $stmt_tipos->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
-    <?php include '../plantillas/navbar.php'; ?>
+    <?php 
+    session_start();
+
+    include '../plantillas/navbar.php'; 
+    ?>
 
     <div class="servicios-container">
         <h1>Nuestros Servicios</h1>

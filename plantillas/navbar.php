@@ -5,7 +5,15 @@
     <div class="nav-links">
         <a href="/TFGPeluqueria/paginas/servicios.php">Servicios</a>
         <a href="#citas">Coger Citas</a>
-        <button class="login-btn" onclick="mostrarLogin()">Login/Registro</button>
+        <?php if(isset($_SESSION['tipo_usuario'])): ?>
+            <!-- Mostrar perfil si está logueado -->
+            <a href="/TFGPeluqueria/paginas/panel_<?= $_SESSION['tipo_usuario'] ?>.php" class="profile-btn">
+                <?= htmlspecialchars($_SESSION['nombre']) ?> <!-- Sanitizar salida -->
+            </a>
+        <?php else: ?>
+            <!-- Mostrar botón de login si no está logueado -->
+            <button class="login-btn" onclick="mostrarLogin()">Login/Registro</button>
+        <?php endif; ?>
     </div>
 
       <!-- Modal Login -->

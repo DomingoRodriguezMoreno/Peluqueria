@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css"> <!-- Enlaza tu archivo CSS -->
 </head>
 <body>
-    <?php include '../plantillas/navbar.php'; ?>
+    <?php 
+    session_start();
+
+    include '../plantillas/navbar.php'; 
+    ?>
     
     <div class="registros-container">
         <h1>Registro de Cliente</h1>

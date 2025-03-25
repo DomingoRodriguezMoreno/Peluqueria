@@ -59,6 +59,20 @@
     background: #d35400; /* Cambia el color del botón al pasar el mouse */
 }
 
+.profile-btn {
+    padding: 8px 15px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.profile-btn:hover {
+    background: #45a049;
+}
+
 /* Sección Hero */
 .hero, .registros-container, .servicios-container {
     height: 100vh;
