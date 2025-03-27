@@ -91,9 +91,6 @@ CREATE TABLE clientes (
     contraseña VARCHAR(255) NOT NULL
 );
 
-INSERT INTO clientes (email, telefono, nombre, apellidos, contraseña) VALUES
-('cliente@example.com', '600555666', 'Ana', 'Gómez Martínez', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'); -- cliente789 
-
 -- Citas
 CREATE TABLE citas (
     id_cita INT AUTO_INCREMENT PRIMARY KEY,
