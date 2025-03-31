@@ -5,7 +5,7 @@ beauty456
 
 $2y$10$dmPX.Gq76BQTBsPjtSEXJOhfBnc3krPT31rhNw6XZ40oHV7ZNqr5K
 
-UPDATE empleados SET contraseña = '$2y$10$dmPX.Gq76BQTBsPjtSEXJOhfBnc3krPT31rhNw6XZ40oHV7ZNqr5K' WHERE dni = '87654321B';
+UPDATE empleados SET contraseña = '$2y$10$eane7EyENEvum8sMvryDceDWOVmmbLrYk0OaJ8vh9NiuHhLQGtuOi' WHERE dni = '12345678A';
 
 Ana
 600555666

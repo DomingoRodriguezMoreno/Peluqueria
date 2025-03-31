@@ -9,7 +9,8 @@ CREATE TABLE roles (
 
 INSERT INTO roles (nombre_rol) VALUES
 ('Peluquero'),
-('Esteticien');
+('Esteticien'),
+('Administrador');
 
 -- Empleados
 CREATE TABLE empleados (
@@ -24,8 +25,7 @@ CREATE TABLE empleados (
 );
 
 INSERT INTO empleados (dni, nombre, apellidos, telefono, email, id_rol, contraseña) VALUES
-('12345678A', 'Juan', 'Pérez García', '600111222', 'juan@peluqueria.com', 1, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'), -- password123 
-('87654321B', 'María', 'López Sánchez', '600333444', 'maria@peluqueria.com', 2, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'); -- beauty456 
+('12345678A', 'Juan', 'Pérez García', '600111222', 'juan@peluqueria.com', 3, '$2y$10$j7zMPVbssrj4.wdaDDDBa.Z.u1l9VecAccwRWOAjlaRVP3ZG4ckYy');
 
 -- Servicios
 CREATE TABLE servicios (
@@ -36,9 +36,10 @@ CREATE TABLE servicios (
     precio DECIMAL(10, 2) NOT NULL
 );
 INSERT INTO servicios (nombre_servicio, descripcion, duracion, precio) VALUES
-('Corte de cabello', 'Corte moderno y personalizado.', 30, 20.00),
+('Corte de caballero', 'Corte moderno y personalizado.', 30, 20.00),
 ('Coloración', 'Tinte y mechas profesionales.', 60, 50.00),
-('Depilación facial', 'Depilación con cera en zona facial.', 45, 30.00);
+('Depilación facial', 'Depilación con cera en zona facial.', 45, 30.00),
+('Corte de mujer', 'corte de cabello para mujeres', 50, 20.50);
 
 -- Roles_servicios
 CREATE TABLE roles_servicios (
@@ -49,9 +50,10 @@ CREATE TABLE roles_servicios (
     FOREIGN KEY (id_servicio) REFERENCES servicios(id_servicio)
 );
 INSERT INTO roles_servicios (id_rol, id_servicio) VALUES
-(1, 1), -- Peluquero: Corte de cabello
+(1, 1), -- Peluquero: Corte de caballero
 (1, 2), -- Peluquero: Coloración
-(2, 3); -- Esteticien: Depilación facial
+(2, 3), -- Esteticien: Depilación facial
+(1, 4); -- Peluquero: Corte de mujer
 
 -- Tipos_tratamiento
 CREATE TABLE tipos_tratamiento (
@@ -77,9 +79,10 @@ CREATE TABLE servicios_tipos (
 
 -- Asignar tipos a servicios (ejemplo)
 INSERT INTO servicios_tipos (id_servicio, id_tipo) VALUES
-(1, 1), -- Corte de cabello -> Cortes
+(1, 1), -- Corte de caballero -> Cortes
 (2, 2), -- Coloración -> Tintes
-(3, 4); -- Depilación facial -> Depilación
+(3, 4), -- Depilación facial -> Depilación
+(4, 1); -- Corte de mujer -> Cortes
 
 -- Clientes
 CREATE TABLE clientes (
@@ -98,7 +101,7 @@ CREATE TABLE citas (
     fecha_cita DATE NOT NULL,
     hora_inicio TIME NOT NULL,
     hora_fin TIME NOT NULL,
-    estado ENUM('pendiente', 'confirmada', 'cancelada') NOT NULL,
+    estado ENUM('reservada', 'cancelada', 'finalizada') NOT NULL,
     duracion_total INT NOT NULL,  -- Duración total en minutos
     precio_final DECIMAL(10, 2),
     FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
@@ -114,3 +117,16 @@ CREATE TABLE citas_servicios (
     FOREIGN KEY (id_servicio) REFERENCES servicios(id_servicio),
     FOREIGN KEY (id_empleado) REFERENCES empleados(dni)
 );
+
+-- Habilitar el planificador de eventos (solo si no está activado)
+SET GLOBAL event_scheduler = ON;
+
+-- Crear evento para actualizar el estado de las citas
+CREATE EVENT actualizar_estado_citas
+ON SCHEDULE EVERY 1 MINUTE
+STARTS CURRENT_TIMESTAMP
+DO
+    UPDATE citas
+    SET estado = 'finalizada'
+    WHERE estado = 'reservada'
+    AND CONCAT(fecha_cita, ' ', hora_fin) < NOW()

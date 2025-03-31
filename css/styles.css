@@ -9,8 +9,8 @@
     --color-primario: #2c3e50; /* Azul oscuro */
     --color-secundario: #e67e22; /* Naranja */
     --fondo-beige: #FFF8DC; /* Beige claro */
-    --tabla-dorado: #DAA520; /* Dorado */
-    --color-desplegables: rgb(158, 84, 32); /* Marrón */
+    --tabla-dorado: #20d4da; /* nombre columnas */
+    --color-desplegables: rgba(25, 121, 230, 0.459); /* Marrón */
 }
 
 /* Barra de Navegación */
