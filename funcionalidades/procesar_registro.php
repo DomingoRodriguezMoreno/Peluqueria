@@ -36,13 +36,6 @@ if ($stmt_email->rowCount() > 0) {
 // Encriptar la contraseña
 $hash = password_hash($contraseña, PASSWORD_DEFAULT);
 
-/* Depuración: Verificar los valores
-echo "Nombre: $nombre<br>";
-echo "Apellidos: $apellidos<br>";
-echo "Teléfono: $telefono<br>";
-echo "Email: $email<br>";
-echo "Hash: $hash<br>";
-*/
 // Insertar el nuevo cliente en la base de datos
 $query_insert = "INSERT INTO clientes (nombre, apellidos, telefono, email, contraseña) 
                  VALUES (:nombre, :apellidos, :telefono, :email, :contrasena)";
