@@ -30,7 +30,7 @@
                 
                 <button type="submit">Ingresar</button>
             </form>
-            <p>¿No tienes cuenta? <a href="/TFGPeluqueria/paginas/registro.php">Regístrate aquí</a></p>
+            <p>¿No tienes cuenta? <a href="/TFGPeluqueria/paginas/registro_cliente.php">Regístrate aquí</a></p>
         </div>
     </div>
 

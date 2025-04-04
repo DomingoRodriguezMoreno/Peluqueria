@@ -227,7 +227,7 @@
 
 /* Estilos para la tabla de servicios */
 .desplegable-tipo {
-    margin-bottom: 15px;
+    margin-bottom: 8px; /* espacio entre elementos */
     border: 2px solid var(--color-desplegables);
     border-radius: 15px;
     overflow: hidden;
@@ -303,9 +303,6 @@
     border-bottom: none;
 }
 
-.tabla-citas tr:nth-child(even) {
-    background-color: var(--fondo-beige);
-}
 
 /* Estado de las citas */
 .estado-cita {
@@ -363,7 +360,7 @@
 .botones-panel {
     display: flex;
     flex-direction: column;  /* Apila los botones verticalmente */
-    gap: 0.5rem;            /* Espacio entre botones (ajustado desde 2rem) */
+    gap: 0.5rem;            /* Espacio entre botones */
     margin: 2rem 0;         /* Conserva el margen original */
     align-items: center;    /* Centra los botones horizontalmente */
 }
@@ -415,4 +412,41 @@
 
 .logout-btn:active {
     transform: translateY(0);
+}
+
+/* Botones de alta y baja para clientes y empleados */
+/* Contenedor para botones en línea */
+.contenedor-botones {
+    display: flex;
+    gap: 10px; /* Espacio entre botones */
+    margin: 15px 0;
+}
+
+.boton-alta, .boton-baja {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin: 10px 5px;
+}
+
+.boton-alta {
+    background-color: #4CAF50; /* Verde */
+    border: 2px solid #45a049;
+}
+
+.boton-alta:hover {
+    background-color: #45a049;
+}
+
+.boton-baja {
+    background-color: #f44336; /* Rojo */
+    border: 2px solid #da190b;
+}
+
+.boton-baja:hover {
+    background-color: #da190b;
 }

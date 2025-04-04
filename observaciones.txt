@@ -17,18 +17,42 @@ El desplegable del login solo esta disponible en la pagina principal
     correcion:
     Se ha incluido el login en el php de la barra de navegacion
 
+Citas
+Tienen 3 estados 'reservada', 'cancelada' y 'finalizada' una vez que pasa la hora final de la cita
+su estado cambia de 'reservada' a 'finalizada' salvo que haya sido 'cancelada'. Para ello se usa un
+evento que actualiza las citas cada minuto
+
+Panel empleado
+Este muestra 3 botones que corresponden a la lista de empleados, clientes y citas. 
+En la lista de empleados si el empleado que esta logeado es un admin apareceran las opciones 
+de dar de alta y eliminar un trabajador. esto ocurrira tambien para los empleados
+
 Pendientes:
-    Cambio Boton login por perfil
-    pagina perfil cliente
-        listado de citas propias
-        ¿Cambiar contraseña?
-    pagina perfil trabajador
-        listado citas generales
-    pagina citas
-        clientes
-            seleccionar servicios 
-                seleccionar dia
-        Trabajador
-            Selecciona cliente
-                seleccionar servicios 
-                    seleccionar dia
+[X]    Cambio Boton login por perfil
+
+[X]    pagina perfil cliente
+[X]        listado de citas propias
+[ ]        ¿Cambiar contraseña?
+
+[X]    pagina perfil trabajador
+[X]        listado empleados
+[ ]             Dar alta nuevo empleado     
+[ ]        listado clientes
+[ ]        listado citas generales
+
+[ ]    pagina citas
+
+Flujo de eventos en las citas
+clientes
+    seleccionar servicios 
+        seleccionar dia
+Trabajador
+    Selecciona cliente
+        seleccionar servicios 
+            seleccionar dia
+
+Ideas
+    Verificar si puedo usar github pages para montar mi pagina
+    Buscar un servidor online similar a aws que me permita crear una instancia de ubuntu server
+
+Servidor Oracle
