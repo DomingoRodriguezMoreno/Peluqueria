@@ -11,7 +11,8 @@
     session_start();
     include '../plantillas/navbar.php'; 
     require_once '../funcionalidades/verificar_admin.php'; // Verificar si el usuario es administrador
-
+    require_once '../funcionalidades/conexion.php';
+    
     ?>
     
     <div class="registros-container">
@@ -47,8 +48,25 @@
             <div class="form-group">
                 <label for="id_rol">Rol:</label>
                 <select id="id_rol" name="id_rol" required>
-                    <option value="1">Peluquero</option>
-                    <option value="2">Esteticien</option>
+                    <?php
+                    try {
+                        // Consulta para obtener roles
+                        $query = "SELECT id_rol, nombre_rol FROM roles"; 
+                        $stmt = $conn->query($query);
+
+                        if ($stmt->rowCount() > 0) {
+                            while ($rol = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                echo '<option value="' . htmlspecialchars($rol['id_rol']) . '">' 
+                                    . htmlspecialchars($rol['nombre_rol']) . '</option>';
+                            }
+                        } else {
+                            echo '<option value="">No hay roles registrados</option>';
+                        }
+                    } catch (PDOException $e) {
+                        // Manejo de errores (opcional: registrar el error)
+                        echo '<option value="">Error al cargar roles</option>';
+                    }
+                    ?>
                 </select>
             </div>
 

@@ -22,10 +22,17 @@ Tienen 3 estados 'reservada', 'cancelada' y 'finalizada' una vez que pasa la hor
 su estado cambia de 'reservada' a 'finalizada' salvo que haya sido 'cancelada'. Para ello se usa un
 evento que actualiza las citas cada minuto
 
+coger citas
+quiero una pagina que use el estilo principal, esta pagina será un interfaz para coger citas, 
+se compondrá de una listados de los servicios disponibles similar a la pagina "servicios.php" 
+pero estos servicios tendrán un checkbox y según se vayan seleccionando servicios en un cuadro 
+resumen en la esquina superior derecha aparecerán el tiempo y coste totales
+
 Panel empleado
 Este muestra 3 botones que corresponden a la lista de empleados, clientes y citas. 
 En la lista de empleados si el empleado que esta logeado es un admin apareceran las opciones 
 de dar de alta y eliminar un trabajador. esto ocurrira tambien para los empleados
+
 
 Pendientes:
 [X]    Cambio Boton login por perfil
@@ -38,7 +45,7 @@ Pendientes:
 [X]        listado empleados
 [ ]             Dar alta nuevo empleado     
 [ ]        listado clientes
-[ ]        listado citas generales
+[ ]        Añadir tratamiento
 
 [ ]    pagina citas
 
@@ -55,4 +62,16 @@ Ideas
     Verificar si puedo usar github pages para montar mi pagina
     Buscar un servidor online similar a aws que me permita crear una instancia de ubuntu server
 
+Administrador (Solucionado)
+eliminar el rol de administrador y añadir una columna a los empleados de tipo boolean llamada
+"es_admin" que identificara a los adminstradores con un 1
+Corregir todo lo que conlleva en las paginas/funciones que verifican que la sesion pertenece a 
+in emleado administrador
+    Solucion:
+        como la verificacion de admin esta encampsulada en una funcionalidad php solo he tenido
+        que modificar dicha funcionalidad y la pagina ha continuado su correcto funcionamiento
+
 Servidor Oracle
+
+
+tree C:\xampp\htdocs\TFGPeluqueria /F /A
