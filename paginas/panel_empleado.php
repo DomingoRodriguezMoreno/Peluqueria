@@ -16,7 +16,7 @@ include '../plantillas/navbar.php';
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
-    <div class="contenedor-empleado">
+    <div class="contenedor-principal">
         <h1>Bienvenido, <?php echo $_SESSION['nombre']; ?></h1>
         
         <div class="botones-panel">

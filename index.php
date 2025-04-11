@@ -17,8 +17,8 @@
         include 'plantillas/navbar.php';
     ?>
 
-    <!-- Sección Hero con Introducción -->
-    <section class="hero">
+    <!-- Sección contenedor-principal con Introducción -->
+    <section class="contenedor-principal">
         <div class="intro-texto">
             <img src="imagenes/Logo2.png" alt="Logo Peluquería">
             <h1>¡Bienvenidos a Millán & Vega!</h1>

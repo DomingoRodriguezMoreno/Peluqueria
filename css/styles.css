@@ -74,7 +74,7 @@
 }
 
 /* Estilo principal de las paginas */
-.hero, .registros-container, .servicios-container, .panel-container, .contenedor-empleado {
+.contenedor-principal, .registros-container {
     height: 100vh;
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
                 url('../imagenes/Fondo.jpg') center/cover;

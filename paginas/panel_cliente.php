@@ -36,7 +36,7 @@ try {
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
-    <div class="panel-container">
+    <div class="contenedor-principal">
         <h1>Bienvenido, <?php echo $_SESSION['nombre']; ?></h1>
 
         <h2>Tus Citas</h2>

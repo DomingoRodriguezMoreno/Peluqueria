@@ -75,3 +75,90 @@ Servidor Oracle
 
 
 tree C:\xampp\htdocs\TFGPeluqueria /F /A
+
+Necesito que me eches una mano elaborando la documentación de unos códigos de una pagina que estoy creando, la documentación debe estar al nivel de un a defensa de TFG, 
+es decir, debe cubrir cualquier posible pregunta, principalmente céntrate en la funcionalidad y utilidad, ya que las principales preguntas que espero son del tipo 
+¿Y por que has puesto esa linea? o ¿Porque ha echo eso?. Esto son los archivos que tengo, dime tu en que orden quieres verlos: 
+Listado de rutas de carpetas
+C:\XAMPP\HTDOCS\TFGPELUQUERIA
+|   index.php
+|   observaciones.txt
+|
++---BD
+|       TFGPeluqueria.sql
+|
++---css
+|       styles.css
+|
++---funcionalidades
+|       conexion.php
+|       login.php
+|       logout.php
+|       procesar_registro_cliente.php
+|       procesar_registro_empleados.php
+|       verificar_admin.php
+|
++---imagenes
+|       facebook.png
+|       Fondo.jpg
+|       instagram.png
+|       Logo.png
+|       Logo2.png
+|       Logo3.png
+|
++---js
+|       script.js
+|
++---paginas
+|       clientes.php
+|       eliminarEmpleado.php
+|       empleados.php
+|       panel_cliente.php
+|       panel_empleado.php
+|       registro_cliente.php
+|       registro_empleados.php
+|       servicios.php
+|
+\---plantillas
+        navbar.php
+
+
+
+Orden de analisis
+BD/TFGPeluqueria.sql (base de todo el sistema).
+
+funcionalidades/conexion.php (núcleo de conexión).
+
+Módulos de autenticación (login.php, logout.php, verificar_admin.php).
+
+Registros (procesar_registro_*.php).
+
+Frontend (css/, js/, plantillas/).
+
+Vistas (paginas/).
+
+
+
+1. **Ejemplo Directo:**
+
+*"Explica cómo funciona [tema X] en lenguaje natural, como si contaras una historia técnica."*
+
+*"Describe el proceso de [proceso Y] en párrafos fluidos, sin usar viñetas."*
+
+2. **Contextualizando:**
+
+*"Necesito entender mejor [concepto Z]. ¿Podrías redactar una explicación narrativa, similar a la que hiciste para el flujo del ESP32 y el backend?"*
+
+3. **Referencia al Formato:**
+
+*"Haz una explicación en el estilo de 'lenguaje natural' que usaste para el sistema de control de acceso."*
+
+### Características clave de este formato:
+
+- **Narrativa Fluida:** Explicación secuencial sin divisiones marcadas.
+
+- **Detalles Técnicos Integrados:** Conceptos técnicos insertados de manera natural.
+
+- **Ejemplos Prácticos:** Analogías o casos de uso para claridad.
+
+- **Enfoque en Causa-Efecto:** Cómo cada componente influye en el siguiente paso.

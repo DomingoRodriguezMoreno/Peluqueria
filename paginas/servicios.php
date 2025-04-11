@@ -22,7 +22,7 @@ $tipos = $stmt_tipos->fetchAll(PDO::FETCH_ASSOC);
     include '../plantillas/navbar.php'; 
     ?>
 
-    <div class="servicios-container">
+    <div class="contenedor-principal">
         <h1>Nuestros Servicios</h1>
         <br>
         <?php foreach ($tipos as $tipo): ?>
