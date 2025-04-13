@@ -23,10 +23,7 @@ su estado cambia de 'reservada' a 'finalizada' salvo que haya sido 'cancelada'. 
 evento que actualiza las citas cada minuto
 
 coger citas
-quiero una pagina que use el estilo principal, esta pagina será un interfaz para coger citas, 
-se compondrá de una listados de los servicios disponibles similar a la pagina "servicios.php" 
-pero estos servicios tendrán un checkbox y según se vayan seleccionando servicios en un cuadro 
-resumen en la esquina superior derecha aparecerán el tiempo y coste totales
+Ahora que ya tenemos esto quiero que me ayudes a crear la pagina para las citas, quiero una pagina que use el estilo principal, esta pagina será un interfaz para coger citas, se compondrá de una listados de los servicios disponibles, estos servicios tendrán un checkbox y según se vayan seleccionando servicios en un cuadro resumen en la esquina superior derecha aparecerán el tiempo y coste totales. Tras haber terminado se debe permitir que el cliente escoja el dia y la hora (dentro que las que sean posibles) para su cita
 
 Panel empleado
 Este muestra 3 botones que corresponden a la lista de empleados, clientes y citas. 
