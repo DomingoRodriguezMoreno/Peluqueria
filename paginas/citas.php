@@ -26,6 +26,7 @@ include '../funcionalidades/conexion.php';
         <!-- Listado de servicios -->
         <div class="lista-servicios">
             <h2>Selecciona tus servicios</h2>
+            <br>
             
             <?php
             // Obtener tipos de tratamiento
