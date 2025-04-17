@@ -29,38 +29,42 @@ include '../funcionalidades/conexion.php';
             <br>
             
             <?php
-            // Obtener tipos de tratamiento
             $sql = "SELECT * FROM tipos_tratamiento ORDER BY nombre_tipo";
             $result = $conn->query($sql);
+            $tipos = $result->fetchAll(PDO::FETCH_ASSOC);
             
-            while($tipo = $result->fetch(PDO::FETCH_ASSOC)) {
-                echo '<details class="desplegable-tipo">';
-                echo '<summary>'.$tipo['nombre_tipo'].'</summary>';
-                
-                // Obtener servicios de este tipo
-                $sql_servicios = "SELECT s.* 
-                                 FROM servicios s
-                                 JOIN servicios_tipos st ON s.id_servicio = st.id_servicio
-                                 WHERE st.id_tipo = :id_tipo";
-                $stmt = $conn->prepare($sql_servicios);
-                $stmt->execute(['id_tipo' => $tipo['id_tipo']]);
-                
-                echo '<table class="tabla-servicios">';
-                while($servicio = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    echo '<tr>';
-                    echo '<td><input type="checkbox" 
-                                    class="servicio-checkbox" 
-                                    value="'.$servicio['id_servicio'].'"
-                                    data-duracion="'.$servicio['duracion'].'"
-                                    data-precio="'.$servicio['precio'].'"></td>';
-                    echo '<td>'.$servicio['nombre_servicio'].'</td>';
-                    echo '<td>'.$servicio['duracion'].' min</td>';
-                    echo '<td>'.$servicio['precio'].' €</td>';
-                    echo '</tr>';
-                }
-                echo '</table></details>';
-            }
-            ?>
+            foreach ($tipos as $tipo): ?>
+                <details class="desplegable-tipo">
+                    <summary><?= htmlspecialchars($tipo['nombre_tipo']) ?></summary>
+                    
+                    <?php
+                    $sql_servicios = "SELECT s.* 
+                                    FROM servicios s
+                                    JOIN servicios_tipos st ON s.id_servicio = st.id_servicio
+                                    WHERE st.id_tipo = :id_tipo";
+                    $stmt = $conn->prepare($sql_servicios);
+                    $stmt->execute(['id_tipo' => $tipo['id_tipo']]);
+                    $servicios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+                    
+                    <table class="tabla-servicios">
+                        <?php foreach ($servicios as $servicio): ?>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" 
+                                           class="servicio-checkbox"
+                                           value="<?= htmlspecialchars($servicio['id_servicio']) ?>"
+                                           data-duracion="<?= htmlspecialchars($servicio['duracion']) ?>"
+                                           data-precio="<?= htmlspecialchars($servicio['precio']) ?>">
+                                </td>
+                                <td><?= htmlspecialchars($servicio['nombre_servicio']) ?></td>
+                                <td><?= htmlspecialchars($servicio['duracion']) ?> min</td>
+                                <td><?= number_format($servicio['precio'], 2) ?> €</td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </details>
+            <?php endforeach; ?>
         </div>
 
         <!-- Formulario de fecha/hora -->
