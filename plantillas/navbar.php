@@ -4,7 +4,7 @@
     </a>
     <div class="nav-links">
         <a href="/TFGPeluqueria/paginas/servicios.php">Servicios</a>
-        <a href="/TFGPeluqueria/paginas/citas.php">Coger Citas</a>
+        <a href="/TFGPeluqueria/paginas/coger_citas.php">Coger Citas</a>
         <?php if(isset($_SESSION['tipo_usuario'])): ?>
             <!-- Mostrar perfil si está logueado -->
             <a href="/TFGPeluqueria/paginas/panel_<?= $_SESSION['tipo_usuario'] ?>.php" class="profile-btn">

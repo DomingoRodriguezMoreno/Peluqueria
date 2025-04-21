@@ -34,7 +34,7 @@ try {
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
-    <div class="contenedor-empleado">
+    <div class="contenedor-principal">
         <h1>Listado de Empleados</h1>
         
         <table class="tabla-citas">

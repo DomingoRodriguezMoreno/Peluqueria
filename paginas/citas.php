@@ -1,84 +1,79 @@
 <?php
 session_start();
-include '../funcionalidades/conexion.php';
-?>
+// Verificar que sea un empleado
+if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
+    header('Location: /TFGPeluqueria/index.html');
+    exit();
+}
 
+require_once '../funcionalidades/conexion.php';
+include '../plantillas/navbar.php'; // Navbar específico para empleados
+
+// Obtener todas las citas con datos del cliente
+$citas = [];
+try {
+    $stmt = $conn->prepare("
+        SELECT c.id_cita, c.fecha_cita, c.hora_inicio, c.estado, 
+               c.duracion_total, c.precio_final,
+               GROUP_CONCAT(s.nombre_servicio SEPARATOR ', ') AS servicios,
+               CONCAT(cli.nombre, ' ', cli.apellidos) AS cliente,
+               cli.telefono
+        FROM citas c
+        JOIN clientes cli ON c.id_cliente = cli.id_cliente
+        JOIN citas_servicios cs ON c.id_cita = cs.id_cita
+        JOIN servicios s ON cs.id_servicio = s.id_servicio
+        GROUP BY c.id_cita
+        ORDER BY c.fecha_cita DESC, c.hora_inicio DESC
+    ");
+    $stmt->execute();
+    $citas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Error al obtener citas: " . $e->getMessage();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservar Cita - Millán Vega</title>
+    <title>Panel Empleado - Todas las Citas</title>
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
-    <?php include '../plantillas/navbar.php'; ?>
-    
-    <section class="contenedor-principal citas">
-        <!-- Resumen flotante -->
-        <div class="resumen-cita">
-            <h3>Resumen de Cita</h3>
-            <p>Tiempo total: <span id="tiempo-total">0</span> min</p>
-            <p>Coste total: <span id="coste-total">0.00</span> €</p>
-            <button onclick="mostrarCalendario()" id="btn-continuar" disabled>Continuar</button>
-        </div>
-
-        <!-- Listado de servicios -->
-        <div class="lista-servicios">
-            <h2>Selecciona tus servicios</h2>
-            <br>
-            
-            <?php
-            $sql = "SELECT * FROM tipos_tratamiento ORDER BY nombre_tipo";
-            $result = $conn->query($sql);
-            $tipos = $result->fetchAll(PDO::FETCH_ASSOC);
-            
-            foreach ($tipos as $tipo): ?>
-                <details class="desplegable-tipo">
-                    <summary><?= htmlspecialchars($tipo['nombre_tipo']) ?></summary>
-                    
-                    <?php
-                    $sql_servicios = "SELECT s.* 
-                                    FROM servicios s
-                                    JOIN servicios_tipos st ON s.id_servicio = st.id_servicio
-                                    WHERE st.id_tipo = :id_tipo";
-                    $stmt = $conn->prepare($sql_servicios);
-                    $stmt->execute(['id_tipo' => $tipo['id_tipo']]);
-                    $servicios = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                    ?>
-                    
-                    <table class="tabla-servicios">
-                        <?php foreach ($servicios as $servicio): ?>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" 
-                                           class="servicio-checkbox"
-                                           value="<?= htmlspecialchars($servicio['id_servicio']) ?>"
-                                           data-duracion="<?= htmlspecialchars($servicio['duracion']) ?>"
-                                           data-precio="<?= htmlspecialchars($servicio['precio']) ?>">
-                                </td>
-                                <td><?= htmlspecialchars($servicio['nombre_servicio']) ?></td>
-                                <td><?= htmlspecialchars($servicio['duracion']) ?> min</td>
-                                <td><?= number_format($servicio['precio'], 2) ?> €</td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </table>
-                </details>
-            <?php endforeach; ?>
-        </div>
-
-        <!-- Formulario de fecha/hora -->
-        <div id="formulario-cita" style="display:none;">
-            <h2>Selecciona fecha y hora</h2>
-            <form action="../funcionalidades/procesar_cita.php" method="POST" id="form-cita">
-                <input type="date" name="fecha" id="fecha-cita" required>
-                <input type="time" name="hora" id="hora-cita" required>
-                <div id="servicios-seleccionados"></div>
-                <button type="submit">Confirmar Cita</button>
-            </form>
-        </div>
-    </section>
-
-    <script src="/TFGPeluqueria/js/script.js"></script>
+    <div class="contenedor-principal">
+        <h1>Citas Registradas</h1>
+        
+        <?php if (empty($citas)): ?>
+            <p>No hay citas programadas.</p>
+        <?php else: ?>
+            <table class="tabla-citas">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Servicios</th>
+                        <th>Duración</th>
+                        <th>Precio</th>
+                        <th>Estado</th>
+                        <th>Cliente</th>
+                        <th>Teléfono</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($citas as $cita): ?>
+                        <tr>
+                            <td><?= date('d/m/Y', strtotime($cita['fecha_cita'])) ?></td>
+                            <td><?= date('H:i', strtotime($cita['hora_inicio'])) ?></td>
+                            <td><?= $cita['servicios'] ?></td>
+                            <td><?= $cita['duracion_total'] ?> min</td>
+                            <td><?= number_format($cita['precio_final'], 2) ?> €</td>
+                            <td><span class="estado-cita estado-<?= $cita['estado'] ?>"><?= ucfirst($cita['estado']) ?></span></td>
+                            <td><?= $cita['cliente'] ?></td>
+                            <td><?= $cita['telefono'] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+    </div>
 </body>
 </html>
