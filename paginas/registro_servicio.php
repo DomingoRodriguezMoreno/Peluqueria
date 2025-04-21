@@ -27,7 +27,7 @@ try {
 
     <div class="contenedor-principal registros-container">
         <h1>Registrar Nuevo Tratamiento</h1>
-        <form action="../funcionalidades/procesar_tratamiento.php" method="POST">
+        <form action="../funcionalidades/procesar_servicio.php" method="POST">
             <!-- Campos existentes -->
             <div class="form-group">
                 <label for="nombre">Nombre del Tratamiento:</label>
