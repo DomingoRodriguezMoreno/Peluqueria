@@ -40,11 +40,13 @@ Pendientes:
 
 [X]    pagina perfil trabajador
 [X]        listado empleados
-[ ]             Dar alta nuevo empleado     
-[ ]        listado clientes
+[X]             (Administrador) Dar alta nuevo empleado
+[X]             (Administrador) Dar baja nuevo empleado  
+[X]        listado clientes
 [ ]        Añadir tratamiento
 
-[ ]    pagina citas
+[X]    pagina citas
+[ ]        CAlendario interactivo
 
 Flujo de eventos en las citas
 clientes
@@ -91,22 +93,17 @@ C:\XAMPP\HTDOCS\TFGPELUQUERIA
 |       conexion.php
 |       login.php
 |       logout.php
+|       procesar_cita.php
 |       procesar_registro_cliente.php
 |       procesar_registro_empleados.php
+|       procesar_tratamiento.php
 |       verificar_admin.php
-|
-+---imagenes
-|       facebook.png
-|       Fondo.jpg
-|       instagram.png
-|       Logo.png
-|       Logo2.png
-|       Logo3.png
 |
 +---js
 |       script.js
 |
 +---paginas
+|       citas.php
 |       clientes.php
 |       eliminarEmpleado.php
 |       empleados.php
@@ -114,6 +111,7 @@ C:\XAMPP\HTDOCS\TFGPELUQUERIA
 |       panel_empleado.php
 |       registro_cliente.php
 |       registro_empleados.php
+|       registro_tratamiento.php
 |       servicios.php
 |
 \---plantillas
@@ -159,3 +157,9 @@ Vistas (paginas/).
 - **Ejemplos Prácticos:** Analogías o casos de uso para claridad.
 
 - **Enfoque en Causa-Efecto:** Cómo cada componente influye en el siguiente paso.
+
+
+el objetivo principal del proyecto eran una pagina que permitiera coger citas a los clientes, 
+revisar todas las citas a los trabajadores y administrar hasta cierto punto la peluquería 
+al administrador (Alta/baja empleados), en base a esto ultimo se te ocurre alguna función/pagina 
+que añadir

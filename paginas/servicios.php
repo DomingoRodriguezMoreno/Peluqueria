@@ -1,6 +1,12 @@
 <?php
-include '../funcionalidades/conexion.php'; // Incluye la conexión
+session_start();
 
+require_once '../funcionalidades/conexion.php'; // Incluir la conexión a la base de datos
+require_once '../funcionalidades/verificar_admin.php'; // Verificar si el usuario es administrador
+include '../plantillas/navbar.php'; // Incluir la barra de navegación
+
+// Verificar si es admin
+$esAdmin = esAdministrador($conn);
 // Obtener todos los tipos de tratamiento ordenados por ID
 $query_tipos = "SELECT * FROM tipos_tratamiento ORDER BY id_tipo ASC";
 $stmt_tipos = $conn->query($query_tipos);
@@ -16,11 +22,6 @@ $tipos = $stmt_tipos->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
-    <?php 
-    session_start();
-
-    include '../plantillas/navbar.php'; 
-    ?>
 
     <div class="contenedor-principal">
         <h1>Nuestros Servicios</h1>
@@ -62,6 +63,13 @@ $tipos = $stmt_tipos->fetchAll(PDO::FETCH_ASSOC);
                 <?php endif; ?>
             </details>
         <?php endforeach; ?>
+
+        <div class="contenedor-botones">
+            <?php if ($esAdmin): ?>
+                <a href="/TFGPELUQUERIA/paginas/registro_tratamiento.php" class="boton-alta">Nuevo Servicio</a>
+                <a href="/TFGPELUQUERIA/paginas/eliminar_tratamiento.php" class="boton-baja">Eliminar servicio</a>
+            <?php endif; ?>
+        </div>
     </div>
 </body>
 </html>
