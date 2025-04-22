@@ -36,30 +36,35 @@ Pendientes:
 
 [X]    pagina perfil cliente
 [X]        listado de citas propias
-[ ]        ¿Cambiar contraseña?
+[?]        Cambiar contraseña
 
-[X]    pagina perfil trabajador
-[X]        listado empleados
-[X]             (Administrador) Dar alta nuevo empleado
-[X]             (Administrador) Dar baja nuevo empleado  
-[X]        listado clientes
-[ ]        Añadir tratamiento
+[X] pagina perfil trabajador
+[X]     listado empleados
+[X]         (Administrador) Dar alta nuevo empleado
+[X]         (Administrador) Dar baja nuevo empleado  
+[X]     listado clientes
+[?]         (Administrador) Dar alta nuevo cliente
+[?]         (Administrador) Dar baja nuevo cliente  
+[X]     listado servicios
+[X]         (Administrador) Dar alta nuevo empleado
+[X]         (Administrador) Dar baja nuevo empleado  
 
-[X]    pagina citas
-[ ]        CAlendario interactivo
+[X] pagina citas
+[ ]     Diferencia flujo de eventos Clientes/Trabajador
+[X]         Citas propias (Clientes)
+[ ]             Mensaje de error, si no se coge la cita
+[ ]         Citas Agenas (Emplados)
+[ ]        Calendario interactivo
 
 Flujo de eventos en las citas
 clientes
     seleccionar servicios 
-        seleccionar dia
+        seleccionar dia/hora
 Trabajador
     Selecciona cliente
         seleccionar servicios 
-            seleccionar dia
+            seleccionar dia/hora
 
-Ideas
-    Verificar si puedo usar github pages para montar mi pagina
-    Buscar un servidor online similar a aws que me permita crear una instancia de ubuntu server
 
 Administrador (Solucionado)
 eliminar el rol de administrador y añadir una columna a los empleados de tipo boolean llamada
@@ -72,15 +77,11 @@ in emleado administrador
 
 Servidor Oracle
 
-
 tree C:\xampp\htdocs\TFGPeluqueria /F /A
 
-Necesito que me eches una mano elaborando la documentación de unos códigos de una pagina que estoy creando, la documentación debe estar al nivel de un a defensa de TFG, 
-es decir, debe cubrir cualquier posible pregunta, principalmente céntrate en la funcionalidad y utilidad, ya que las principales preguntas que espero son del tipo 
-¿Y por que has puesto esa linea? o ¿Porque ha echo eso?. Esto son los archivos que tengo, dime tu en que orden quieres verlos: 
 Listado de rutas de carpetas
 C:\XAMPP\HTDOCS\TFGPELUQUERIA
-|   index.php
+|   index.php 
 |   observaciones.txt
 |
 +---BD
@@ -117,49 +118,35 @@ C:\XAMPP\HTDOCS\TFGPELUQUERIA
 \---plantillas
         navbar.php
 
+Presentacion
+Abrir Pagina >> Mostrar servicios >> login Empleado >> Pagina Empleados >> logout
+Login Empleado Admin >> Alta empleado >> baja empleado >> alta servicio >> logout
+Login Cliente >> Panel cliente >> Cogercita (nuevo servicio) >> panel cliente >> Fin
+
+Formato memoria? (reunion anterior)
+Fecha limite 
 
 
-Orden de analisis
-BD/TFGPeluqueria.sql (base de todo el sistema).
-
-funcionalidades/conexion.php (núcleo de conexión).
-
-Módulos de autenticación (login.php, logout.php, verificar_admin.php).
-
-Registros (procesar_registro_*.php).
-
-Frontend (css/, js/, plantillas/).
-
-Vistas (paginas/).
-
-
-
-1. **Ejemplo Directo:**
-
-*"Explica cómo funciona [tema X] en lenguaje natural, como si contaras una historia técnica."*
-
-*"Describe el proceso de [proceso Y] en párrafos fluidos, sin usar viñetas."*
-
-2. **Contextualizando:**
-
-*"Necesito entender mejor [concepto Z]. ¿Podrías redactar una explicación narrativa, similar a la que hiciste para el flujo del ESP32 y el backend?"*
-
-3. **Referencia al Formato:**
-
-*"Haz una explicación en el estilo de 'lenguaje natural' que usaste para el sistema de control de acceso."*
-
-### Características clave de este formato:
-
-- **Narrativa Fluida:** Explicación secuencial sin divisiones marcadas.
-
-- **Detalles Técnicos Integrados:** Conceptos técnicos insertados de manera natural.
-
-- **Ejemplos Prácticos:** Analogías o casos de uso para claridad.
-
-- **Enfoque en Causa-Efecto:** Cómo cada componente influye en el siguiente paso.
-
-
-el objetivo principal del proyecto eran una pagina que permitiera coger citas a los clientes, 
-revisar todas las citas a los trabajadores y administrar hasta cierto punto la peluquería 
-al administrador (Alta/baja empleados), en base a esto ultimo se te ocurre alguna función/pagina 
-que añadir
+index.php
+conexion.php
+login.php
+logout.php
+procesar_cita.php
+procesar_registro_cliente.php
+procesar_registro_empleados.php
+procesar_servicio.php
+verificar_admin.php
+script.js
+citas.php
+clientes.php
+coger_citas.php
+eliminarEmpleado.php
+eliminar_sercicio.php
+empleados.php
+panel_cliente.php
+panel_empleado.php
+registro_cliente.php
+registro_empleados.php
+registro_servicio.php
+servicios.php
+navbar.php
