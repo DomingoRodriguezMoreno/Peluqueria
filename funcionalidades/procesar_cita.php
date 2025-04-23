@@ -2,7 +2,7 @@
 session_start();
 include '../funcionalidades/conexion.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['id_cliente'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $conn->beginTransaction();
         

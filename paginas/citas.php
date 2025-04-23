@@ -2,7 +2,7 @@
 session_start();
 // Verificar que sea un empleado
 if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
-    header('Location: /TFGPeluqueria/index.html');
+    header('Location: /TFGPeluqueria/index.php');
     exit();
 }
 
