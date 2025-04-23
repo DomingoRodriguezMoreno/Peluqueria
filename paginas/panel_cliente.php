@@ -60,7 +60,7 @@ try {
                         <?php 
                         $fechaActual = new DateTime();
                         $fechaCita = new DateTime($cita['fecha_cita'] . ' ' . $cita['hora_inicio']);
-                        $puedeCancelar = ($fechaCita > $fechaActual) && ($cita['estado'] == 'pendiente' || $cita['estado'] == 'confirmada');
+                        $puedeCancelar = ($fechaCita > $fechaActual) && ($cita['estado'] === 'reservada');
                         ?>
                         <tr>
                             <td><?= date('d/m/Y', strtotime($cita['fecha_cita'])) ?></td>
@@ -70,9 +70,13 @@ try {
                             <td><?= number_format($cita['precio_final'], 2) ?> €</td>
                             <td><span class="estado-cita estado-<?= $cita['estado'] ?>"><?= ucfirst($cita['estado']) ?></span></td>
                             <td>
-                                <form action="cancelar_cita.php" method="POST" style="display: inline;">
+                                <form action="../funcionalidades/cancelar_cita.php" method="POST" style="display: inline;">
                                     <input type="hidden" name="id_cita" value="<?= $cita['id_cita'] ?>">
-                                    <button type="submit" class="cancelar-btn" <?= !$puedeCancelar ? 'disabled' : '' ?>>
+                                    <!-- En el botón, agregar un tooltip cuando esté deshabilitado -->
+                                    <button 
+                                        type="submit" 
+                                        class="cancelar-btn" 
+                                        <?= !$puedeCancelar ? 'disabled title="Solo puedes cancelar citas futuras en estado pendiente/confirmada."' : '' ?>>
                                         Cancelar
                                     </button>
                                 </form>

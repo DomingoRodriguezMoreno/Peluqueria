@@ -68,14 +68,17 @@ include '../funcionalidades/conexion.php';
         </div>
 
         <!-- Formulario de fecha/hora -->
-        <div id="formulario-cita" style="display:none;">
-            <h2>Selecciona fecha y hora</h2>
-            <form action="../funcionalidades/procesar_cita.php" method="POST" id="form-cita">
-                <input type="date" name="fecha" id="fecha-cita" required>
-                <input type="time" name="hora" id="hora-cita" required>
-                <div id="servicios-seleccionados"></div>
-                <button type="submit">Confirmar Cita</button>
-            </form>
+        <div id="citaModal" class="modal">
+            <div class="modal-contenido">
+                <span class="cerrar" onclick="cerrarCitaModal()">&times;</span>
+                <h2>Selecciona fecha y hora</h2>
+                <form action="../funcionalidades/procesar_cita.php" method="POST" id="form-cita">
+                    <input type="date" name="fecha" id="fecha-cita" required>
+                    <input type="time" name="hora" id="hora-cita" required>
+                    <div id="servicios-seleccionados"></div>
+                    <button type="submit">Confirmar Cita</button>
+                </form>
+            </div>
         </div>
     </section>
 

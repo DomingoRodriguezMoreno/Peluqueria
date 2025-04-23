@@ -49,12 +49,30 @@ function actualizarResumen() {
 }
 
 function mostrarCalendario() {
-    const formulario = document.getElementById('formulario-cita');
+    const modal = document.getElementById('citaModal');
     const serviciosSeleccionados = document.getElementById('servicios-seleccionados');
     
-    formulario.style.display = 'block';
+    modal.style.display = 'block';
     const servicios = Array.from(document.querySelectorAll('.servicio-checkbox:checked'))
                         .map(s => `<input type="hidden" name="servicios[]" value="${s.value}">`);
     
     serviciosSeleccionados.innerHTML = servicios.join('');
+}
+
+// Añadir funciones para manejar el modal
+function cerrarCitaModal() {
+    document.getElementById('citaModal').style.display = 'none';
+}
+
+// Actualizar el window.onclick existente
+window.onclick = function(event) {
+    const loginModal = document.getElementById('loginModal');
+    const citaModal = document.getElementById('citaModal');
+    
+    if (event.target == loginModal) {
+        loginModal.style.display = 'none';
+    }
+    if (event.target == citaModal) {
+        citaModal.style.display = 'none';
+    }
 }
