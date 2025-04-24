@@ -20,6 +20,7 @@ CREATE TABLE empleados (
     telefono VARCHAR(15),
     email VARCHAR(100),
     id_rol INT,
+    activo boolean DEFAULT true,
     contraseña VARCHAR(255) NOT NULL,
     FOREIGN KEY (id_rol) REFERENCES roles(id_rol)
 );

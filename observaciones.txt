@@ -31,11 +31,16 @@ En la lista de empleados si el empleado que esta logeado es un admin apareceran 
 de dar de alta y eliminar un trabajador. esto ocurrira tambien para los empleados
 
 
-Pendientes:
+Tareas:
 [X]    Cambio Boton login por perfil
+
+[ ]    Reemplazar toda eliminacion/baja por un valor en la BD llamado esta_activo
+        para asi no eliminar nada de la BD
 
 [X]    pagina perfil cliente
 [X]        listado de citas propias
+[ ]             Debe Mostrar todas las citas incluso las canceladas
+[ ]             Alt: Al iniciar sesion tras una cancelacion Mostrar un mensaje
 [?]        Cambiar contraseña
 
 [X] pagina perfil trabajador
@@ -46,8 +51,12 @@ Pendientes:
 [?]         (Administrador) Dar alta nuevo cliente
 [?]         (Administrador) Dar baja nuevo cliente  
 [X]     listado servicios
-[X]         (Administrador) Dar alta nuevo empleado
-[X]         (Administrador) Dar baja nuevo empleado  
+[X]         (Administrador) Dar alta nuevo servicio
+[X]         (Administrador) Dar baja nuevo servicio
+[X]     listado citas
+[ ]         Debe Mostrar todas las citas incluso las canceladas
+[ ]         (Administrador) Dar alta nuevo citas
+[ ]         (Administrador) Dar baja nuevo citas  
 
 [X] pagina citas
 [ ]     Diferencia flujo de eventos Clientes/Trabajador
@@ -55,6 +64,9 @@ Pendientes:
 [ ]             Mensaje de error, si no se coge la cita
 [ ]         Citas Agenas (Emplados)
 [ ]        Calendario interactivo
+
+[ ] Sustituir Eliminacion por alteracion > añadir valor esta_activo a BD como identificacion de los
+    trabajadores actuales
 
 Flujo de eventos en las citas
 clientes

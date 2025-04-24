@@ -14,11 +14,15 @@ include '../plantillas/navbar.php'; // Incluir la barra de navegación
 $esAdmin = esAdministrador($conn);
 
 // Obtener lista completa de empleados
+$mostrar = $_GET['mostrar'] ?? 'activos';
+$condicion = ($mostrar === 'inactivos') ? 'e.activo = 0' : 'e.activo = 1';
 $empleados = [];
+
 try {
     $sql = "SELECT e.dni, e.nombre, e.apellidos, e.telefono, e.email, r.nombre_rol 
             FROM empleados e
-            INNER JOIN roles r ON e.id_rol = r.id_rol";
+            INNER JOIN roles r ON e.id_rol = r.id_rol
+            WHERE $condicion";
     $stmt = $conn->query($sql);
     $empleados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -50,7 +54,8 @@ try {
             </thead>
             <tbody>
                 <?php foreach ($empleados as $empleado): ?>
-                    <tr>
+                    <tr <?= $esAdmin ? 'onclick="window.location=\'editar_empleado.php?dni=' . htmlspecialchars($empleado['dni']) . '\'"' : '' ?> 
+                    class="<?= $esAdmin ? 'clickable-row' : '' ?>">
                         <td><?= htmlspecialchars($empleado['dni']) ?></td>
                         <td><?= htmlspecialchars($empleado['nombre']) ?></td>
                         <td><?= htmlspecialchars($empleado['apellidos']) ?></td>
@@ -65,7 +70,9 @@ try {
         <div class="contenedor-botones">
             <?php if ($esAdmin): ?>
                 <a href="/TFGPELUQUERIA/paginas/registro_empleados.php" class="boton-alta">Alta empleado</a>
-                <a href="/TFGPELUQUERIA/paginas/eliminarEmpleado.php" class="boton-baja">Baja empleado</a>
+                <a href="empleados.php?mostrar=<?= $mostrar === 'activos' ? 'inactivos' : 'activos' ?>" class="boton-baja">
+                    <?= $mostrar === 'activos' ? 'Ver inactivos' : 'Ver activos' ?>
+                </a>
             <?php endif; ?>
         </div>
     </div>

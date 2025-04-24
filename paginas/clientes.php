@@ -60,7 +60,6 @@ try {
         <div class="contenedor-botones">
             <?php if ($esAdmin): ?>
                 <a href="registro_cliente.php" class="boton-alta">Registrar Cliente</a>
-                <a href="EliminarCliente.php" class="boton-baja">Eliminar Cliente</a>
             <?php endif; ?>
         </div>
     </div>

@@ -12,7 +12,7 @@ echo "Contraseña proporcionada: $password<br>";
 */
 
 // Verificar si es un empleado
-$query_empleado = "SELECT * FROM empleados WHERE dni = :identificador";
+$query_empleado = "SELECT * FROM empleados WHERE dni = :identificador && activo = 1";
 $stmt_empleado = $conn->prepare($query_empleado);
 $stmt_empleado->bindParam(':identificador', $identificador);
 $stmt_empleado->execute();
