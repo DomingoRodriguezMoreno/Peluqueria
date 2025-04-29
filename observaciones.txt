@@ -97,22 +97,22 @@ ssh -i TFG.pem ubuntu@13.219.48.123
 ssh-keygen -R 13.219.48.123 
 
 SCP
-scp -i TFG.pem tfgpeluqueria.sql ubuntu@13.219.48.123:/home/ubuntu/
-mysql -u root -p < ~/tfgpeluqueria.sql
+scp -i TFG.pem /TFGPeluqueria.sql ubuntu@13.219.48.123:/home/ubuntu/
+mysql -u root -p < ~//TFGPeluqueria.sql
 
-scp -i TFG.pem -r "TFGPeluqueria\*" ubuntu@13.219.48.123:~/TFGPeluqueria
+scp -i TFG.pem -r "/TFGPeluqueria\*" ubuntu@13.219.48.123:~//TFGPeluqueria
 
 
 
-tree C:\xampp\htdocs\TFGPeluqueria /F /A
+tree C:\xampp\htdocs\/TFGPeluqueria /F /A
 
 Listado de rutas de carpetas
-C:\XAMPP\HTDOCS\TFGPELUQUERIA
+C:\XAMPP\HTDOCS\/TFGPeluqueria
 |   index.php 
 |   observaciones.txt
 |
 +---BD
-|       TFGPeluqueria.sql
+|       /TFGPeluqueria.sql
 |
 +---css
 |       styles.css

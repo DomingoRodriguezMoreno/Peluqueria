@@ -1,19 +1,19 @@
 <?php
 session_start();
 if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
-    header('Location: ../index.php');
+    header('Location: /TFGPeluqueria/index.php');
     exit();
 }
 
-require_once '../funcionalidades/conexion.php'; // Asegúrate de incluir la conexión si es necesaria
-include '../plantillas/navbar.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php'; // Asegúrate de incluir la conexión si es necesaria
+include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Panel de Empleados</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
     <div class="contenedor-principal">
@@ -25,7 +25,7 @@ include '../plantillas/navbar.php';
             <a href="clientes.php" class="boton-panel">Clientes</a> 
         </div>
 
-        <a href="../funcionalidades/logout.php" class="logout-btn">Cerrar sesión</a>
+        <a href="/TFGPeluqueria/funcionalidades/logout.php" class="logout-btn">Cerrar sesión</a>
     </div>
 </body>
 </html>

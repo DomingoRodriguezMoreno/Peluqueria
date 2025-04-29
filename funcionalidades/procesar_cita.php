@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../funcionalidades/conexion.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
@@ -30,11 +30,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         $conn->commit();
-        header("Location: ../paginas/citas.php?success=1");
+        header("Location: /TFGPeluqueria/paginas/citas.php?success=1");
     } catch (PDOException $e) {
         $conn->rollBack();
-        header("Location: ../paginas/citas.php?error=1");
+        header("Location: /TFGPeluqueria/paginas/citas.php?error=1");
     }
 } else {
-    header("Location: ../index.php");
+    header("Location: /TFGPeluqueria/index.php");
 }

@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Empleado</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
     <?php 
     session_start();
-    include '../plantillas/navbar.php'; 
-    require_once '../funcionalidades/verificar_admin.php'; // Verificar si el usuario es administrador
-    require_once '../funcionalidades/conexion.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; 
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php'; // Verificar si el usuario es administrador
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
     
     ?>
     
     <div class="registros-container">
         <h1>Registro de Empleado</h1>
-        <form action="../funcionalidades/procesar_registro_empleados.php" method="POST">
+        <form action="/TFGPeluqueria/funcionalidades/procesar_registro_empleados.php" method="POST">
             <input type="hidden" name="tipo_usuario" value="empleado"> <!-- Campo oculto para diferenciar -->
             
             <div class="form-group">

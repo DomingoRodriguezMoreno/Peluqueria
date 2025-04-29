@@ -1,6 +1,6 @@
 <?php
-require_once '../funcionalidades/conexion.php';
-require_once '../funcionalidades/verificar_admin.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php';
 
 // Obtener todos los servicios para el desplegable
 try {
@@ -44,10 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_servicio'])) {
 <head>
     <meta charset="UTF-8">
     <title>Eliminar Tratamiento</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
-    <?php include '../plantillas/navbar.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; ?>
 
     <div class="contenedor-principal">
         <h1>Eliminar Tratamiento</h1>

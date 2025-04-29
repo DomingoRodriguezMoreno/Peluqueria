@@ -1,6 +1,6 @@
 <?php
-require_once '../funcionalidades/conexion.php';
-require_once '../funcionalidades/verificar_admin.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         ]);
 
         $conn->commit();
-        header("Location: ../paginas/servicios.php?exito=1");
+        header("Location: /TFGPeluqueria/paginas/servicios.php?exito=1");
         
     } catch (PDOException $e) {
         $conn->rollBack();

@@ -2,12 +2,12 @@
 session_start();
 // Verificar que sea un empleado
 if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
-    header('Location: ../index.php');
+    header('Location: /TFGPeluqueria/index.php');
     exit();
 }
 
-require_once '../funcionalidades/conexion.php';
-include '../plantillas/navbar.php'; // Navbar específico para empleados
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // Navbar específico para empleados
 
 // Obtener todas las citas con datos del cliente
 $citas = [];
@@ -36,7 +36,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Panel Empleado - Todas las Citas</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
     <div class="contenedor-principal">

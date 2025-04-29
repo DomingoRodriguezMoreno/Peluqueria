@@ -2,13 +2,13 @@
 session_start();
 // Verificar autenticación y tipo de usuario
 if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
-    header('Location: ../index.php');
+    header('Location: /TFGPeluqueria/index.php');
     exit();
 }
 
-require_once '../funcionalidades/conexion.php'; // Incluir la conexión a la base de datos
-require_once '../funcionalidades/verificar_admin.php'; // Verificar si el usuario es administrador
-include '../plantillas/navbar.php'; // Incluir la barra de navegación
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php'; // Incluir la conexión a la base de datos
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php'; // Verificar si el usuario es administrador
+include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // Incluir la barra de navegación
 
 // Verificar si es admin
 $esAdmin = esAdministrador($conn);
@@ -30,7 +30,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Empleados</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
     <div class="contenedor-principal">

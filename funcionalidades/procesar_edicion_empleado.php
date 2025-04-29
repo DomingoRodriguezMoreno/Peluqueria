@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once 'conexion.php';
-require_once 'verificar_admin.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . 'conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . 'verificar_admin.php';
 
 if (!esAdministrador($conn)) {
     die("Acceso no autorizado");
@@ -32,7 +32,7 @@ try {
     $stmt = $conn->prepare($query);
     $stmt->execute(array_merge([':dni' => $dni], $campos));
     
-    header("Location: ../paginas/empleados.php");
+    header("Location: /TFGPeluqueria/paginas/empleados.php");
 } catch (PDOException $e) {
     die("Error al actualizar: " . $e->getMessage());
 }

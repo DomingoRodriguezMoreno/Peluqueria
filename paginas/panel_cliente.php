@@ -1,13 +1,13 @@
 <?php
 session_start();
 if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'cliente') {
-    header('Location: ../index.php');
+    header('Location: /TFGPeluqueria/index.php');
     exit();
 }
 
-require_once '../funcionalidades/conexion.php'; // Ajusta la ruta según tu estructura
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php'; // Ajusta la ruta según tu estructura
 
-include '../plantillas/navbar.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
 // Obtener citas del cliente
 $citas = [];
 try {
@@ -33,7 +33,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Panel de Clientes</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
     <div class="contenedor-principal">
@@ -70,7 +70,7 @@ try {
                             <td><?= number_format($cita['precio_final'], 2) ?> €</td>
                             <td><span class="estado-cita estado-<?= $cita['estado'] ?>"><?= ucfirst($cita['estado']) ?></span></td>
                             <td>
-                                <form action="../funcionalidades/cancelar_cita.php" method="POST" style="display: inline;">
+                                <form action="/TFGPeluqueria/funcionalidades/cancelar_cita.php" method="POST" style="display: inline;">
                                     <input type="hidden" name="id_cita" value="<?= $cita['id_cita'] ?>">
                                     <!-- En el botón, agregar un tooltip cuando esté deshabilitado -->
                                     <button 
@@ -86,7 +86,7 @@ try {
                 </tbody>
             </table>
         <?php endif; ?>
-        <a href="../funcionalidades/logout.php" class="logout-btn">Cerrar sesión</a>
+        <a href="/TFGPeluqueria/funcionalidades/logout.php" class="logout-btn">Cerrar sesión</a>
     </div>
 </body>
 </html>

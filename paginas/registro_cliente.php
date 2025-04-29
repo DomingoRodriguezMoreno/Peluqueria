@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Cliente</title>
-    <link rel="stylesheet" href="../css/styles.css"> <!-- Enlaza tu archivo CSS -->
+    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css"> <!-- Enlaza tu archivo CSS -->
 </head>
 <body>
     <?php 
     session_start();
 
-    include '../plantillas/navbar.php'; 
+    include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; 
     ?>
     
     <div class="registros-container">
         <h1>Registro de Cliente</h1>
-        <form action="../funcionalidades/procesar_registro_cliente.php" method="POST">
+        <form action="/TFGPeluqueria/funcionalidades/procesar_registro_cliente.php" method="POST">
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" required>

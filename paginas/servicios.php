@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-require_once '../funcionalidades/conexion.php'; // Incluir la conexión a la base de datos
-require_once '../funcionalidades/verificar_admin.php'; // Verificar si el usuario es administrador
-include '../plantillas/navbar.php'; // Incluir la barra de navegación
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php'; // Incluir la conexión a la base de datos
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php'; // Verificar si el usuario es administrador
+include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // Incluir la barra de navegación
 
 // Verificar si es admin
 $esAdmin = esAdministrador($conn);
@@ -19,7 +19,7 @@ $tipos = $stmt_tipos->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servicios de Peluquería</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
 
@@ -66,8 +66,8 @@ $tipos = $stmt_tipos->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="contenedor-botones">
             <?php if ($esAdmin): ?>
-                <a href="../paginas/registro_servicio.php" class="boton-alta">Nuevo Servicio</a>
-                <a href="../paginas/eliminar_sercicio.php" class="boton-baja">Eliminar servicio</a>
+                <a href="/TFGPeluqueria/paginas/registro_servicio.php" class="boton-alta">Nuevo Servicio</a>
+                <a href="/TFGPeluqueria/paginas/eliminar_sercicio.php" class="boton-baja">Eliminar servicio</a>
             <?php endif; ?>
         </div>
     </div>

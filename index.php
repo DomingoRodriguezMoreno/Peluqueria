@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peluquería Millan Vega</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
     <?php
@@ -12,7 +12,7 @@
         session_start();
 
         // Luego puedes incluir otros archivos
-        include 'plantillas/navbar.php';
+        include './plantillas/navbar.php';
     ?>
 
     <!-- Sección contenedor-principal con Introducción -->
@@ -31,8 +31,8 @@
         
         <!-- Redes Sociales -->
         <div class="redes-sociales">
-            <a href="https://www.facebook.com/peluqueriavillamarta/" target="_blank"><img src="../imagenes/facebook.png" alt="Facebook"></a>
-            <a href="https://www.instagram.com/millanyvega/" target="_blank"><img src="../imagenes/instagram.png" alt="Instagram"></a>
+            <a href="https://www.facebook.com/peluqueriavillamarta/" target="_blank"><img src="/TFGPeluqueria/imagenes/facebook.png" alt="Facebook"></a>
+            <a href="https://www.instagram.com/millanyvega/" target="_blank"><img src="/TFGPeluqueria/imagenes/instagram.png" alt="Instagram"></a>
         </div>
     </section>
 

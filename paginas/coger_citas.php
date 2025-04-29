@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../funcionalidades/conexion.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
 ?>
 
 <!DOCTYPE html>
@@ -9,10 +9,10 @@ include '../funcionalidades/conexion.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservar Cita - Millán Vega</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
-    <?php include '../plantillas/navbar.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; ?>
     
     <section class="contenedor-principal citas">
         <!-- Resumen flotante -->
@@ -72,7 +72,7 @@ include '../funcionalidades/conexion.php';
             <div class="modal-contenido">
                 <span class="cerrar" onclick="cerrarCitaModal()">&times;</span>
                 <h2>Selecciona fecha y hora</h2>
-                <form action="../funcionalidades/procesar_cita.php" method="POST" id="form-cita">
+                <form action="/TFGPeluqueria/funcionalidades/procesar_cita.php" method="POST" id="form-cita">
                     <input type="date" name="fecha" id="fecha-cita" required>
                     <input type="time" name="hora" id="hora-cita" required>
                     <div id="servicios-seleccionados"></div>
@@ -82,6 +82,6 @@ include '../funcionalidades/conexion.php';
         </div>
     </section>
 
-    <script src="../js/script.js"></script>
+    <script src="/TFGPeluqueria/js/script.js"></script>
 </body>
 </html>

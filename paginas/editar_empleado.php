@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once '../funcionalidades/conexion.php';
-require_once '../funcionalidades/verificar_admin.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php';
 
 if (!esAdministrador($conn)) {
-    header('Location: ../index.php');
+    header('Location: /TFGPeluqueria/index.php');
     exit();
 }
 
@@ -32,14 +32,14 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Editar Empleado</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
-    <?php include '../plantillas/navbar.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; ?>
     
     <div class="registros-container">
         <h1>Editar Empleado</h1>
-        <form action="../funcionalidades/procesar_edicion_empleado.php" method="POST">
+        <form action="/TFGPeluqueria/funcionalidades/procesar_edicion_empleado.php" method="POST">
             <input type="hidden" name="dni" value="<?= htmlspecialchars($empleado['dni']) ?>">
             
             <!-- Campos editables -->

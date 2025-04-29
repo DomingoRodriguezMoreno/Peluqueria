@@ -1,5 +1,5 @@
-create database TFGPeluqueria;
-use TFGPeluqueria;
+create database /TFGPeluqueria;
+use /TFGPeluqueria;
 
 -- Roles
 CREATE TABLE roles (

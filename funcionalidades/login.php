@@ -1,6 +1,6 @@
 <?php
 // Incluir la conexión a la base de datos
-include 'conexion.php';
+include $_SERVER['DOCUMENT_ROOT'] . 'conexion.php';
 
 // Obtener datos del formulario
 $identificador = $_POST['identificador'];
@@ -33,7 +33,7 @@ if ($stmt_empleado->rowCount() > 0) {
         $_SESSION['nombre'] = $empleado['nombre'];
         $_SESSION['id_rol'] = $empleado['id_rol'];
         // Redirigir al panel de empleados
-        header('Location: ../');
+        header('Location: /TFGPeluqueria/');
         exit();
     } else {
         // Contraseña incorrecta
@@ -61,7 +61,7 @@ if ($stmt_empleado->rowCount() > 0) {
             $_SESSION['id_cliente'] = $cliente['id_cliente'];
             $_SESSION['nombre'] = $cliente['nombre'];
             // Redirigir al panel de clientes
-            header('Location: ../index.php');
+            header('Location: /TFGPeluqueria/index.php');
             exit();
         } else {
             // Contraseña incorrecta

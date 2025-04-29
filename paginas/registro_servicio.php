@@ -1,6 +1,6 @@
 <?php
-require_once '../funcionalidades/conexion.php';
-require_once '../funcionalidades/verificar_admin.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php';
 
 try {
     // Obtener roles y tipos de tratamiento
@@ -20,14 +20,14 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Nuevo Tratamiento</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
-    <?php include '../plantillas/navbar.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; ?>
 
     <div class="contenedor-principal registros-container">
         <h1>Registrar Nuevo Tratamiento</h1>
-        <form action="../funcionalidades/procesar_servicio.php" method="POST">
+        <form action="/TFGPeluqueria/funcionalidades/procesar_servicio.php" method="POST">
             <div class="form-group">
                 <label for="nombre">Nombre del Tratamiento:</label>
                 <input type="text" name="nombre" required>
