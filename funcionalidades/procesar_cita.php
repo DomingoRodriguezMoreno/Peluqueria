@@ -30,11 +30,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         $conn->commit();
-        header("Location: /TFGPeluqueria/paginas/citas.php?success=1");
+        header("Location: ../paginas/citas.php?success=1");
     } catch (PDOException $e) {
         $conn->rollBack();
-        header("Location: /TFGPeluqueria/paginas/citas.php?error=1");
+        header("Location: ../paginas/citas.php?error=1");
     }
 } else {
-    header("Location: /TFGPeluqueria/index.php");
+    header("Location: ../index.php");
 }

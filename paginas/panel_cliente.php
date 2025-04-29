@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'cliente') {
-    header('Location: /TFGPeluqueria/index.php');
+    header('Location: ../index.php');
     exit();
 }
 
@@ -33,7 +33,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Panel de Clientes</title>
-    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
     <div class="contenedor-principal">
@@ -86,7 +86,7 @@ try {
                 </tbody>
             </table>
         <?php endif; ?>
-        <a href="/TFGPeluqueria/funcionalidades/logout.php" class="logout-btn">Cerrar sesión</a>
+        <a href="../funcionalidades/logout.php" class="logout-btn">Cerrar sesión</a>
     </div>
 </body>
 </html>

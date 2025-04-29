@@ -49,7 +49,7 @@ $stmt_insert->bindParam(':contrasena', $hash);
 if ($stmt_insert->execute()) {
     echo "Registro exitoso. ¡Bienvenido, $nombre!";
     // Redirigir al login después de 3 segundos
-    header("Refresh: 3; url=/TFGPeluqueria/index.php");
+    header("Refresh: 3; url=../index.php");
 } else {
     echo "Error al registrar el cliente.";
 }

@@ -32,7 +32,7 @@ try {
     $stmt = $conn->prepare($query);
     $stmt->execute(array_merge([':dni' => $dni], $campos));
     
-    header("Location: /TFGPeluqueria/paginas/empleados.php");
+    header("Location: ../paginas/empleados.php");
 } catch (PDOException $e) {
     die("Error al actualizar: " . $e->getMessage());
 }

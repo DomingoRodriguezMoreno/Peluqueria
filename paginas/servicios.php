@@ -19,7 +19,7 @@ $tipos = $stmt_tipos->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servicios de Peluquería</title>
-    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
 
@@ -66,8 +66,8 @@ $tipos = $stmt_tipos->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="contenedor-botones">
             <?php if ($esAdmin): ?>
-                <a href="/TFGPELUQUERIA/paginas/registro_servicio.php" class="boton-alta">Nuevo Servicio</a>
-                <a href="/TFGPELUQUERIA/paginas/eliminar_sercicio.php" class="boton-baja">Eliminar servicio</a>
+                <a href="../paginas/registro_servicio.php" class="boton-alta">Nuevo Servicio</a>
+                <a href="../paginas/eliminar_sercicio.php" class="boton-baja">Eliminar servicio</a>
             <?php endif; ?>
         </div>
     </div>

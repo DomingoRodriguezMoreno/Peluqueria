@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
-    header('Location: /TFGPeluqueria/index.php');
+    header('Location: ../index.php');
     exit();
 }
 
@@ -13,7 +13,7 @@ include '../plantillas/navbar.php';
 <head>
     <meta charset="UTF-8">
     <title>Panel de Empleados</title>
-    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
     <div class="contenedor-principal">
@@ -25,7 +25,7 @@ include '../plantillas/navbar.php';
             <a href="clientes.php" class="boton-panel">Clientes</a> 
         </div>
 
-        <a href="/TFGPeluqueria/funcionalidades/logout.php" class="logout-btn">Cerrar sesión</a>
+        <a href="../funcionalidades/logout.php" class="logout-btn">Cerrar sesión</a>
     </div>
 </body>
 </html>

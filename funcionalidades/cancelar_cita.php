@@ -5,7 +5,7 @@ require_once '../funcionalidades/conexion.php';
 // Verificar autenticación y tipo de usuario
 if (!isset($_SESSION['tipo_usuario']) || 
     ($_SESSION['tipo_usuario'] !== 'cliente' && $_SESSION['tipo_usuario'] !== 'empleado')) {
-    header('Location: /TFGPeluqueria/index.php');
+    header('Location: ../index.php');
     exit();
 }
 
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_cita'])) {
 
         // Redirección
         $pagina = ($_SESSION['tipo_usuario'] === 'cliente') ? 'panel_cliente.php' : 'citas.php';
-        header("Location: /TFGPeluqueria/paginas/$pagina");
+        header("Location: ../paginas/$pagina");
 
     } catch (Exception $e) {
         $conn->rollBack();

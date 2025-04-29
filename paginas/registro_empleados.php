@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Empleado</title>
-    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
     <?php 
@@ -17,7 +17,7 @@
     
     <div class="registros-container">
         <h1>Registro de Empleado</h1>
-        <form action="/TFGPeluqueria/funcionalidades/procesar_registro_empleados.php" method="POST">
+        <form action="../funcionalidades/procesar_registro_empleados.php" method="POST">
             <input type="hidden" name="tipo_usuario" value="empleado"> <!-- Campo oculto para diferenciar -->
             
             <div class="form-group">

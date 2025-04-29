@@ -9,7 +9,7 @@ include '../funcionalidades/conexion.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservar Cita - Millán Vega</title>
-    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
     <?php include '../plantillas/navbar.php'; ?>
@@ -82,6 +82,6 @@ include '../funcionalidades/conexion.php';
         </div>
     </section>
 
-    <script src="/TFGPeluqueria/js/script.js"></script>
+    <script src="../js/script.js"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 session_start();
 // Verificar autenticación y tipo de usuario
 if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
-    header('Location: /TFGPeluqueria/index.php');
+    header('Location: ../index.php');
     exit();
 }
 
@@ -35,7 +35,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Empleados</title>
-    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
     <div class="contenedor-principal">
@@ -69,7 +69,7 @@ try {
         
         <div class="contenedor-botones">
             <?php if ($esAdmin): ?>
-                <a href="/TFGPELUQUERIA/paginas/registro_empleados.php" class="boton-alta">Alta empleado</a>
+                <a href="../paginas/registro_empleados.php" class="boton-alta">Alta empleado</a>
                 <a href="empleados.php?mostrar=<?= $mostrar === 'activos' ? 'inactivos' : 'activos' ?>" class="boton-baja">
                     <?= $mostrar === 'activos' ? 'Ver inactivos' : 'Ver activos' ?>
                 </a>

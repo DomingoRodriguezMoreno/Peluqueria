@@ -39,24 +39,25 @@ Tareas:
 
 [X]    pagina perfil cliente
 [X]        listado de citas propias
-[ ]             Debe Mostrar todas las citas incluso las canceladas
-[ ]             Alt: Al iniciar sesion tras una cancelacion Mostrar un mensaje
+[X]             Debe Mostrar todas las citas incluso las canceladas
+[ ]             Alt: Al iniciar sesion tras una cancelacion por parte de
+                los trabajadores Mostrar un mensaje
 [?]        Cambiar contraseña
 
 [X] pagina perfil trabajador
 [X]     listado empleados
 [X]         (Administrador) Dar alta nuevo empleado
-[X]         (Administrador) Dar baja nuevo empleado  
+[X]         (Administrador) Editar empleado  
 [X]     listado clientes
-[?]         (Administrador) Dar alta nuevo cliente
-[?]         (Administrador) Dar baja nuevo cliente  
+[X]         (Administrador) Dar alta nuevo cliente
+[ ]         (Administrador) Editar cliente  
 [X]     listado servicios
 [X]         (Administrador) Dar alta nuevo servicio
-[X]         (Administrador) Dar baja nuevo servicio
+[X]         (Administrador) Editar servicio
 [X]     listado citas
-[ ]         Debe Mostrar todas las citas incluso las canceladas
+[X]         Debe Mostrar todas las citas incluso las canceladas
 [ ]         (Administrador) Dar alta nuevo citas
-[ ]         (Administrador) Dar baja nuevo citas  
+[ ]         (Administrador) Editar citas  
 
 [X] pagina citas
 [ ]     Diferencia flujo de eventos Clientes/Trabajador
@@ -67,6 +68,8 @@ Tareas:
 
 [ ] Sustituir Eliminacion por alteracion > añadir valor esta_activo a BD como identificacion de los
     trabajadores actuales
+
+[ ] Cambiar enlaces absolutos a relativos para evitar problemas tras transferir el proyecto a una instancia
 
 Flujo de eventos en las citas
 clientes
@@ -87,7 +90,19 @@ in emleado administrador
         como la verificacion de admin esta encampsulada en una funcionalidad php solo he tenido
         que modificar dicha funcionalidad y la pagina ha continuado su correcto funcionamiento
 
-Servidor Oracle
+Servidor AWS
+ssh -i TFG.pem ubuntu@13.219.48.123
+
+//Eliminar los registros echos con la ip
+ssh-keygen -R 13.219.48.123 
+
+SCP
+scp -i TFG.pem tfgpeluqueria.sql ubuntu@13.219.48.123:/home/ubuntu/
+mysql -u root -p < ~/tfgpeluqueria.sql
+
+scp -i TFG.pem -r "TFGPeluqueria\*" ubuntu@13.219.48.123:~/TFGPeluqueria
+
+
 
 tree C:\xampp\htdocs\TFGPeluqueria /F /A
 

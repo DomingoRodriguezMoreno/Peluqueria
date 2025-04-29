@@ -1,13 +1,13 @@
 <nav class="navbar">
-    <a href="/TFGPeluqueria/index.php" class="logo">
-        <img src="/TFGPeluqueria/imagenes/Logo2.png" alt="Logo Peluquería" width = 50px>
+    <a href="../index.php" class="logo">
+        <img src="../imagenes/Logo2.png" alt="Logo Peluquería" width = 50px>
     </a>
     <div class="nav-links">
-        <a href="/TFGPeluqueria/paginas/servicios.php">Servicios</a>
-        <a href="/TFGPeluqueria/paginas/coger_citas.php">Coger Citas</a>
+        <a href="../paginas/servicios.php">Servicios</a>
+        <a href="../paginas/coger_citas.php">Coger Citas</a>
         <?php if(isset($_SESSION['tipo_usuario'])): ?>
             <!-- Mostrar perfil si está logueado -->
-            <a href="/TFGPeluqueria/paginas/panel_<?= $_SESSION['tipo_usuario'] ?>.php" class="profile-btn">
+            <a href="../paginas/panel_<?= $_SESSION['tipo_usuario'] ?>.php" class="profile-btn">
                 <?= htmlspecialchars($_SESSION['nombre']) ?> <!-- Sanitizar salida -->
             </a>
         <?php else: ?>
@@ -21,7 +21,7 @@
         <div class="modal-contenido">
             <span class="cerrar" onclick="cerrarLogin()">&times;</span>
             <h2>Iniciar Sesión</h2>
-            <form action="/TFGPeluqueria/funcionalidades/login.php" method="POST">
+            <form action="../funcionalidades/login.php" method="POST">
                 <label for="identificador">DNI o Teléfono:</label>
                 <input type="text" id="identificador" name="identificador" required>
                 
@@ -30,9 +30,9 @@
                 
                 <button type="submit">Ingresar</button>
             </form>
-            <p>¿No tienes cuenta? <a href="/TFGPeluqueria/paginas/registro_cliente.php">Regístrate aquí</a></p>
+            <p>¿No tienes cuenta? <a href="../paginas/registro_cliente.php">Regístrate aquí</a></p>
         </div>
     </div>
 
-  <script src="/TFGPeluqueria/js/script.js"></script>
+  <script src="../js/script.js"></script>
 </nav>

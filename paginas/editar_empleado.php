@@ -4,7 +4,7 @@ require_once '../funcionalidades/conexion.php';
 require_once '../funcionalidades/verificar_admin.php';
 
 if (!esAdministrador($conn)) {
-    header('Location: /TFGPeluqueria/index.php');
+    header('Location: ../index.php');
     exit();
 }
 
@@ -32,14 +32,14 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Editar Empleado</title>
-    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
     <?php include '../plantillas/navbar.php'; ?>
     
     <div class="registros-container">
         <h1>Editar Empleado</h1>
-        <form action="/TFGPeluqueria/funcionalidades/procesar_edicion_empleado.php" method="POST">
+        <form action="../funcionalidades/procesar_edicion_empleado.php" method="POST">
             <input type="hidden" name="dni" value="<?= htmlspecialchars($empleado['dni']) ?>">
             
             <!-- Campos editables -->

@@ -62,7 +62,7 @@ try {
     if ($stmt->execute()) {
         echo "Empleado registrado exitosamente.";
         // Redirigir después de 3 segundos
-        header("Refresh: 3; url=/TFGPeluqueria/paginas/empleados.php");
+        header("Refresh: 3; url=../paginas/empleados.php");
     }
 } catch (PDOException $e) {
     if ($e->getCode() == 23000) {
