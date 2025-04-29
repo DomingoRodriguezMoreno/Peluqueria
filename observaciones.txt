@@ -97,11 +97,20 @@ ssh -i TFG.pem ubuntu@13.219.48.123
 ssh-keygen -R 13.219.48.123 
 
 SCP
-scp -i TFG.pem /TFGPeluqueria.sql ubuntu@13.219.48.123:/home/ubuntu/
-mysql -u root -p < ~//TFGPeluqueria.sql
+scp -i TFG.pem TFGPeluqueria.sql ubuntu@13.219.48.123:/home/ubuntu/
+sudo mysql -u root -p < ~/TFGPeluqueria.sql
 
-scp -i TFG.pem -r "/TFGPeluqueria\*" ubuntu@13.219.48.123:~//TFGPeluqueria
+scp -i TFG.pem -r "TFGPeluqueria\*" ubuntu@13.219.48.123:~/TFGPeluqueria
 
+CREATE USER 'domingo'@'localhost' IDENTIFIED BY 'doromo96';
+GRANT ALL PRIVILEGES ON TFGPeluqueria.* TO 'domingo'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+
+$host = 'localhost'; // Servidor de la base de datos
+$dbname = 'TFGPeluqueria'; // Nombre de la base de datos
+$user = 'domingo'; // Usuario de MySQL (por defecto en XAMPP es 'root')
+$password = 'doromo96'; // Contraseña de MySQL (por defecto en XAMPP está vacía)
 
 
 tree C:\xampp\htdocs\/TFGPeluqueria /F /A

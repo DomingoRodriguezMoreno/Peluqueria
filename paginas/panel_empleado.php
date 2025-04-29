@@ -20,9 +20,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
         <h1>Bienvenido, <?php echo $_SESSION['nombre']; ?></h1>
         
         <div class="botones-panel">
-            <a href="empleados.php" class="boton-panel">Empleados</a>
-            <a href="citas.php" class="boton-panel">Citas</a>
-            <a href="clientes.php" class="boton-panel">Clientes</a> 
+            <a href="/TFGPeluqueria/paginas/empleados.php" class="boton-panel">Empleados</a>
+            <a href="/TFGPeluqueria/paginas/citas.php" class="boton-panel">Citas</a>
+            <a href="/TFGPeluqueria/paginas/clientes.php" class="boton-panel">Clientes</a> 
         </div>
 
         <a href="/TFGPeluqueria/funcionalidades/logout.php" class="logout-btn">Cerrar sesión</a>

@@ -1,6 +1,6 @@
 <?php
 // Incluir la conexión a la base de datos
-include $_SERVER['DOCUMENT_ROOT'] . 'conexion.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
 
 // Obtener datos del formulario
 $identificador = $_POST['identificador'];

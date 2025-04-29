@@ -14,12 +14,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // I
 $esAdmin = esAdministrador($conn);
 
 // Obtener lista completa de empleados
-$empleados = [];
+$clientes = [];
 try {
-    $sql = "SELECT c.nombre, c.apellidos, c.telefono, c.email 
+    $sql = "SELECT c.id_cliente, c.nombre, c.apellidos, c.telefono, c.email 
             FROM clientes c";
     $stmt = $conn->query($sql);
-    $empleados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     error_log("Error al obtener clientes: " . $e->getMessage());
 }
@@ -46,12 +46,12 @@ try {
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($empleados as $empleado): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($empleado['nombre']) ?></td>
-                        <td><?= htmlspecialchars($empleado['apellidos']) ?></td>
-                        <td><?= htmlspecialchars($empleado['telefono']) ?></td>
-                        <td><?= htmlspecialchars($empleado['email']) ?></td>
+                <?php foreach ($clientes as $cliente): ?>
+                    <tr <?= $esAdmin ? 'onclick="window.location=\'editar_cliente.php?id_cliente=' . htmlspecialchars($cliente['id_cliente']) . '\'"' : '' ?>>
+                        <td><?= htmlspecialchars($cliente['nombre']) ?></td>
+                        <td><?= htmlspecialchars($cliente['apellidos']) ?></td>
+                        <td><?= htmlspecialchars($cliente['telefono']) ?></td>
+                        <td><?= htmlspecialchars($cliente['email']) ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

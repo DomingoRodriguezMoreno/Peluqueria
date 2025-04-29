@@ -11,6 +11,9 @@ $esAdmin = esAdministrador($conn);
 $query_tipos = "SELECT * FROM tipos_tratamiento ORDER BY id_tipo ASC";
 $stmt_tipos = $conn->query($query_tipos);
 $tipos = $stmt_tipos->fetchAll(PDO::FETCH_ASSOC);
+
+$mostrar = $_GET['mostrar'] ?? 'activos';
+$condicion = ($mostrar === 'inactivos') ? 's.activo = 0' : 's.activo = 1';
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +38,7 @@ $tipos = $stmt_tipos->fetchAll(PDO::FETCH_ASSOC);
                 $query_servicios = "SELECT s.* 
                                 FROM servicios s
                                 JOIN servicios_tipos st ON s.id_servicio = st.id_servicio
-                                WHERE st.id_tipo = :id_tipo";
+                                WHERE st.id_tipo = :id_tipo AND $condicion";
                 $stmt_serv = $conn->prepare($query_servicios);
                 $stmt_serv->execute([':id_tipo' => $tipo['id_tipo']]);
                 $servicios = $stmt_serv->fetchAll(PDO::FETCH_ASSOC);
@@ -50,7 +53,7 @@ $tipos = $stmt_tipos->fetchAll(PDO::FETCH_ASSOC);
                             <th>Precio</th>
                         </tr>
                         <?php foreach ($servicios as $servicio): ?>
-                            <tr>
+                            <tr onclick="window.location='editar_servicio.php?id_servicio=<?= $servicio['id_servicio'] ?>'">
                                 <td><?= htmlspecialchars($servicio['nombre_servicio']) ?></td>
                                 <td><?= htmlspecialchars($servicio['descripcion']) ?></td>
                                 <td><?= $servicio['duracion'] ?> min</td>
@@ -67,7 +70,9 @@ $tipos = $stmt_tipos->fetchAll(PDO::FETCH_ASSOC);
         <div class="contenedor-botones">
             <?php if ($esAdmin): ?>
                 <a href="/TFGPeluqueria/paginas/registro_servicio.php" class="boton-alta">Nuevo Servicio</a>
-                <a href="/TFGPeluqueria/paginas/eliminar_sercicio.php" class="boton-baja">Eliminar servicio</a>
+                <a href="servicios.php?mostrar=<?= $mostrar === 'activos' ? 'inactivos' : 'activos' ?>" class="boton-baja">
+                    <?= $mostrar === 'activos' ? 'Ver inactivos' : 'Ver activos' ?>
+                </a>
             <?php endif; ?>
         </div>
     </div>

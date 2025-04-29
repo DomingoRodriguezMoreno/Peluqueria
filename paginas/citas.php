@@ -7,7 +7,11 @@ if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado
 }
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // Navbar específico para empleados
+
+$esAdmin = esAdministrador($conn); 
+
 
 // Obtener todas las citas con datos del cliente
 $citas = [];
@@ -60,7 +64,7 @@ try {
                 </thead>
                 <tbody>
                     <?php foreach ($citas as $cita): ?>
-                        <tr>
+                        <tr <?= $esAdmin ? 'onclick="window.location=\'editar_cita.php?id_cita=' . htmlspecialchars($cita['id_cita']) . '\'"' : '' ?>>
                             <td><?= date('d/m/Y', strtotime($cita['fecha_cita'])) ?></td>
                             <td><?= date('H:i', strtotime($cita['hora_inicio'])) ?></td>
                             <td><?= $cita['servicios'] ?></td>
