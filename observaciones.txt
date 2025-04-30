@@ -34,7 +34,7 @@ de dar de alta y eliminar un trabajador. esto ocurrira tambien para los empleado
 Tareas:
 [X]    Cambio Boton login por perfil
 
-[ ]    Reemplazar toda eliminacion/baja por un valor en la BD llamado esta_activo
+[X]    Reemplazar toda eliminacion/baja por un valor en la BD llamado esta_activo
         para asi no eliminar nada de la BD
 
 [X]    pagina perfil cliente
@@ -50,14 +50,14 @@ Tareas:
 [X]         (Administrador) Editar empleado  
 [X]     listado clientes
 [X]         (Administrador) Dar alta nuevo cliente
-[ ]         (Administrador) Editar cliente  
+[X]         (Administrador) Editar cliente  
 [X]     listado servicios
 [X]         (Administrador) Dar alta nuevo servicio
 [X]         (Administrador) Editar servicio
 [X]     listado citas
 [X]         Debe Mostrar todas las citas incluso las canceladas
 [ ]         (Administrador) Dar alta nuevo citas
-[ ]         (Administrador) Editar citas  
+[X]         (Administrador) Editar citas  
 
 [X] pagina citas
 [ ]     Diferencia flujo de eventos Clientes/Trabajador
@@ -66,10 +66,8 @@ Tareas:
 [ ]         Citas Agenas (Emplados)
 [ ]        Calendario interactivo
 
-[ ] Sustituir Eliminacion por alteracion > añadir valor esta_activo a BD como identificacion de los
+[X] Sustituir Eliminacion por alteracion > añadir valor esta_activo a BD como identificacion de los
     trabajadores actuales
-
-[ ] Cambiar enlaces absolutos a relativos para evitar problemas tras transferir el proyecto a una instancia
 
 Flujo de eventos en las citas
 clientes

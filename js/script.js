@@ -1,3 +1,6 @@
+let duracionTotal = 0;
+let fechaSeleccionada = null;
+
 // Función para mostrar el modal
 function mostrarLogin() {
     document.getElementById('loginModal').style.display = 'block';
@@ -25,7 +28,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Actualizar resumen al cambiar checkboxes
         checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', actualizarResumen);
+            checkbox.addEventListener('change', () => {
+                actualizarResumen();
+                duracionTotal = Array.from(document.querySelectorAll('.servicio-checkbox:checked'))
+                .reduce((sum, el) => sum + parseInt(el.dataset.duracion), 0);
+                actualizarCalendario(); // Añade esta línea
+            });
         });
 
         // Establecer fecha mínima (mañana)
@@ -53,10 +61,98 @@ function mostrarCalendario() {
     const serviciosSeleccionados = document.getElementById('servicios-seleccionados');
     
     modal.style.display = 'block';
+    actualizarCalendario(); // Llama al nuevo calendario
+    
+    // Mantén esta parte para los servicios
     const servicios = Array.from(document.querySelectorAll('.servicio-checkbox:checked'))
                         .map(s => `<input type="hidden" name="servicios[]" value="${s.value}">`);
     
     serviciosSeleccionados.innerHTML = servicios.join('');
+}
+
+// ================ NUEVAS FUNCIONALIDADES CALENDARIO ================
+function actualizarCalendario() {
+    if (duracionTotal === 0) return;
+    
+    fetch(`/TFGPeluqueria/funcionalidades/obtener_disponibilidad.php?duracion=${duracionTotal}`)
+        .then(response => response.json())
+        .then(dias => {
+            const hoy = new Date();
+            const mesActual = hoy.toLocaleString('es-ES', { month: 'long', year: 'numeric' });
+            let html = `<h4>${mesActual}</h4><table class="calendario"><tr>`;
+            
+            ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'].forEach(dia => {
+                html += `<th>${dia}</th>`;
+            });
+            
+            html += '</tr><tr>';
+            
+            Object.entries(dias).forEach(([fecha, disponible]) => {
+                const fechaObj = new Date(fecha);
+                if (fechaObj.getDay() === 1 && html.endsWith('</tr>')) {
+                    html += '<tr>';
+                }
+                
+                const clase = disponible ? 'dia-disponible' : 'dia-no-disponible';
+                html += `<td class="${clase}" data-fecha="${fecha}">${fechaObj.getDate()}</td>`;
+                
+                if (fechaObj.getDay() === 0) {
+                    html += '</tr>';
+                }
+            });
+            
+            html += '</table>';
+            document.getElementById('calendario').innerHTML = html;
+            
+            // Manejar clic en días disponibles
+            document.querySelectorAll('.dia-disponible').forEach(dia => {
+                dia.addEventListener('click', () => {
+                    fechaSeleccionada = dia.dataset.fecha;
+                    document.getElementById('fecha-seleccionada').value = fechaSeleccionada;
+                    cargarHorarios(fechaSeleccionada);
+                });
+            });
+        });
+}
+
+function cargarHorarios(fecha) {
+    document.getElementById('hora-seleccionada').value = ''; // Reset hora seleccionada
+    fetch(`/TFGPeluqueria/funcionalidades/obtener_disponibilidad.php?duracion=${duracionTotal}&fecha=${fecha}`)
+        .then(response => response.json())
+        .then(({horarios}) => {
+            let html = '<div class="horario-container">';
+            horarios.forEach(tramo => {
+                html += `
+                    <div class="tramo-horario tramo-libre" 
+                         data-hora="${tramo.inicio}"
+                         onclick="seleccionarHorario(this, '${tramo.inicio}')">
+                        ${tramo.inicio} - ${tramo.fin}
+                    </div>
+                `;
+            });
+            html += '</div>';
+            
+            document.getElementById('horarios').innerHTML = html;
+            document.getElementById('horarios-container').style.display = 'block';
+        });
+}
+
+function seleccionarHorario(elemento, hora) {
+    // Remover selección previa
+    document.querySelectorAll('.tramo-seleccionado').forEach(el => {
+        el.classList.remove('tramo-seleccionado');
+    });
+    
+    // Añadir nueva selección
+    elemento.classList.add('tramo-seleccionado');
+    document.getElementById('hora-seleccionada').value = hora;
+    document.getElementById('btn-continuar').disabled = false;
+    
+    // Scroll automático al botón
+    document.querySelector('#form-cita button').scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest'
+    });
 }
 
 // Añadir funciones para manejar el modal

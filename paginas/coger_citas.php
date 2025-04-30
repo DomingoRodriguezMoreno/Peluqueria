@@ -72,16 +72,28 @@ include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php
             <div class="modal-contenido">
                 <span class="cerrar" onclick="cerrarCitaModal()">&times;</span>
                 <h2>Selecciona fecha y hora</h2>
+                
+                <!-- Nuevos elementos añadidos -->
+                <div class="calendario-container">
+                    <h3>Selecciona una fecha</h3>
+                    <div id="calendario"></div>
+                </div>
+
+                <div id="horarios-container" style="display:none; margin-top:20px;">
+                    <h3>Horarios disponibles</h3>
+                    <div id="horarios"></div>
+                </div>
+
                 <form action="/TFGPeluqueria/funcionalidades/procesar_cita.php" method="POST" id="form-cita">
-                    <input type="date" name="fecha" id="fecha-cita" required>
-                    <input type="time" name="hora" id="hora-cita" required>
+                    <input type="hidden" name="fecha" id="fecha-seleccionada">
+                    <input type="hidden" name="hora" id="hora-seleccionada">
                     <div id="servicios-seleccionados"></div>
-                    <button type="submit">Confirmar Cita</button>
+                    <button type="submit" style="margin-top:20px;">Confirmar Cita</button>
                 </form>
             </div>
         </div>
+        
     </section>
-
     <script src="/TFGPeluqueria/js/script.js"></script>
 </body>
 </html>
