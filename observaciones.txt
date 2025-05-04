@@ -64,10 +64,16 @@ Tareas:
 [X]         Citas propias (Clientes)
 [ ]             Mensaje de error, si no se coge la cita
 [ ]         Citas Agenas (Emplados)
-[ ]        Calendario interactivo
 
 [X] Sustituir Eliminacion por alteracion > añadir valor esta_activo a BD como identificacion de los
     trabajadores actuales
+
+Implementar una funcionalidad que, al completarse la reserva de una cita en la peluquería, 
+envíe automáticamente un correo electrónico de confirmación al cliente. Para ello, se utilizará 
+la librería PHPMailer, que permite enviar correos desde PHP de forma segura y con soporte para 
+autenticación SMTP. El correo incluirá los datos básicos de la cita 
+(como fecha, hora y servicios contratados), y se enviará justo después de registrar la cita 
+en la base de datos. 
 
 Flujo de eventos en las citas
 clientes
