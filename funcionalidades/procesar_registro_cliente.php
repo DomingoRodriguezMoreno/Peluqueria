@@ -1,6 +1,10 @@
 <?php
+session_start();
 // Incluir la conexión a la base de datos
-include $_SERVER['DOCUMENT_ROOT'] . 'conexion.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+
+$_SESSION['form_data_cliente'] = $_POST; // Guardar datos en sesión
+unset($_SESSION['form_data_cliente']['contraseña']); // No guardar la contraseña en la sesión
 
 // Obtener datos del formulario
 $nombre = $_POST['nombre'];
@@ -11,8 +15,9 @@ $contraseña = $_POST['contraseña'];
 
 // Validar que los campos no estén vacíos
 if (empty($nombre) || empty($apellidos) || empty($telefono) || empty($email) || empty($contraseña)) {
-    die("Todos los campos son obligatorios.");
-}
+    $_SESSION['error_cliente'] = "Todos los campos son obligatorios.";
+    header('Location: /TFGPeluqueria/paginas/registro_cliente.php');
+    exit();}
 
 // Validar que el teléfono y el email no estén registrados previamente
 $query_telefono = "SELECT id_cliente FROM clientes WHERE telefono = :telefono";
@@ -21,7 +26,9 @@ $stmt_telefono->bindParam(':telefono', $telefono);
 $stmt_telefono->execute();
 
 if ($stmt_telefono->rowCount() > 0) {
-    die("El teléfono ya está registrado.");
+    $_SESSION['error_cliente'] = "El teléfono ya está registrado.";
+    header('Location: /TFGPeluqueria/paginas/registro_cliente.php');
+    exit();
 }
 
 $query_email = "SELECT id_cliente FROM clientes WHERE email = :email";
@@ -30,7 +37,9 @@ $stmt_email->bindParam(':email', $email);
 $stmt_email->execute();
 
 if ($stmt_email->rowCount() > 0) {
-    die("El email ya está registrado.");
+    $_SESSION['error_cliente'] = "El email ya está registrado.";
+    header('Location: /TFGPeluqueria/paginas/registro_cliente.php');
+    exit();
 }
 
 // Encriptar la contraseña
@@ -48,8 +57,9 @@ $stmt_insert->bindParam(':contrasena', $hash);
 
 if ($stmt_insert->execute()) {
     echo "Registro exitoso. ¡Bienvenido, $nombre!";
+    unset($_SESSION['form_data_cliente']); // Limpiar datos de sesión
     // Redirigir al login después de 3 segundos
-    header("Refresh: 3; url=/TFGPeluqueria/index.php");
+    header("Refresh: 1; url=/TFGPeluqueria/index.php");
 } else {
     echo "Error al registrar el cliente.";
 }

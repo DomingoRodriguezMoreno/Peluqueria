@@ -75,6 +75,7 @@ autenticación SMTP. El correo incluirá los datos básicos de la cita
 (como fecha, hora y servicios contratados), y se enviará justo después de registrar la cita 
 en la base de datos. 
 
+
 Flujo de eventos en las citas
 clientes
     seleccionar servicios 

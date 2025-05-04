@@ -10,7 +10,12 @@
     <?php 
     session_start();
 
-    include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; 
+    include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
+
+    if (isset($_SESSION['error_cliente'])) {
+        echo "<script>alert('".$_SESSION['error_cliente']."');</script>";
+        unset($_SESSION['error_cliente']);
+    }
     ?>
     
     <div class="registros-container">
@@ -18,22 +23,22 @@
         <form action="/TFGPeluqueria/funcionalidades/procesar_registro_cliente.php" method="POST">
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
+                <input type="text" id="nombre" name="nombre" value="<?= htmlspecialchars($_SESSION['form_data_cliente']['nombre'] ?? '') ?>" required>
             </div>
 
             <div class="form-group">
                 <label for="apellidos">Apellidos:</label>
-                <input type="text" id="apellidos" name="apellidos" required>
+                <input type="text" id="apellidos" name="apellidos" value="<?= htmlspecialchars($_SESSION['form_data_cliente']['apellidos'] ?? '') ?>" required>
             </div>
 
             <div class="form-group">
                 <label for="telefono">Teléfono:</label>
-                <input type="text" id="telefono" name="telefono" required>
+                <input type="text" id="telefono" name="telefono" value="<?= htmlspecialchars($_SESSION['form_data_cliente']['telefono'] ?? '') ?>" required>
             </div>
 
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" value="<?= htmlspecialchars($_SESSION['form_data_cliente']['email'] ?? '') ?>" required>
             </div>
 
             <div class="form-group">

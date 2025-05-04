@@ -9,10 +9,15 @@
 <body>
     <?php 
     session_start();
+
     include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; 
     require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php'; // Verificar si el usuario es administrador
     require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
     
+    if (isset($_SESSION['error'])) {
+        echo "<script>alert('".$_SESSION['error']."');</script>";
+        unset($_SESSION['error']);
+    }
     ?>
     
     <div class="registros-container">
@@ -22,27 +27,27 @@
             
             <div class="form-group">
                 <label for="dni">DNI:</label>
-                <input type="text" id="dni" name="dni" required>
+                <input type="text" id="dni" name="dni" value="<?= $_SESSION['form_data']['dni'] ?? '' ?>" required>
             </div>
 
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
+                <input type="text" id="nombre" name="nombre" name="nombre" value="<?= htmlspecialchars($_SESSION['form_data']['nombre'] ?? '') ?>" required>
             </div>
 
             <div class="form-group">
                 <label for="apellidos">Apellidos:</label>
-                <input type="text" id="apellidos" name="apellidos" required>
+                <input type="text" id="apellidos" name="apellidos" name="apellidos" value="<?= htmlspecialchars($_SESSION['form_data']['apellidos'] ?? '') ?>" required>
             </div>
 
             <div class="form-group">
                 <label for="telefono">Teléfono:</label>
-                <input type="text" id="telefono" name="telefono" required>
+                <input type="text" id="telefono" name="telefono" value="<?= htmlspecialchars($_SESSION['form_data']['telefono'] ?? '') ?>" required>
             </div>
 
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" value="<?= htmlspecialchars($_SESSION['form_data']['email'] ?? '') ?>" required>
             </div>
 
             <div class="form-group">
@@ -63,7 +68,6 @@
                             echo '<option value="">No hay roles registrados</option>';
                         }
                     } catch (PDOException $e) {
-                        // Manejo de errores (opcional: registrar el error)
                         echo '<option value="">Error al cargar roles</option>';
                     }
                     ?>

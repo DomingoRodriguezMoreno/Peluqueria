@@ -1,6 +1,10 @@
 <?php
+session_start();
 // Incluir la conexión a la base de datos
-include $_SERVER['DOCUMENT_ROOT'] . 'conexion.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+
+$_SESSION['form_data'] = $_POST; // Guardar datos en sesión
+unset($_SESSION['form_data']['contraseña']); // No guardar la contraseña en la sesión
 
 // Obtener datos del formulario
 $dni = $_POST['dni'];
@@ -38,7 +42,9 @@ foreach ($verificaciones as $campo => $query) {
     $stmt->bindParam(':valor', ${$campo});
     $stmt->execute();
     if ($stmt->rowCount() > 0) {
-        die("El $campo ya está registrado.");
+        $_SESSION['error'] = "El $campo ya está registrado.";
+        header('Location: /TFGPeluqueria/paginas/registro_empleados.php'); // Redirigir al formulario
+        exit();
     }
 }
 
@@ -62,7 +68,9 @@ try {
     if ($stmt->execute()) {
         echo "Empleado registrado exitosamente.";
         // Redirigir después de 3 segundos
-        header("Refresh: 3; url=/TFGPeluqueria/paginas/empleados.php");
+        unset($_SESSION['form_data']);  // Limpiar datos de sesión
+        unset($_SESSION['error']); // Limpiar error de sesión
+        header("Refresh: 1; url=/TFGPeluqueria/paginas/empleados.php");
     }
 } catch (PDOException $e) {
     if ($e->getCode() == 23000) {
