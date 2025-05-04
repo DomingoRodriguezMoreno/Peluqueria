@@ -1,5 +1,8 @@
 let duracionTotal = 0;
 let fechaSeleccionada = null;
+let mesVisible = (new Date()).getMonth(); // 0 = enero
+let anioVisible = (new Date()).getFullYear();
+
 
 // Función para mostrar el modal
 function mostrarLogin() {
@@ -20,19 +23,17 @@ window.onclick = function(event) {
 }
 
 // ======================= FUNCIONALIDAD CITAS ======================= 
-document.addEventListener('DOMContentLoaded', function() {
-    // Solo ejecutar en la página de citas
+document.addEventListener('DOMContentLoaded', function () {
     if (document.querySelector('.contenedor-principal.citas')) {
         const checkboxes = document.querySelectorAll('.servicio-checkbox');
         const fechaInput = document.getElementById('fecha-cita');
-        
-        // Actualizar resumen al cambiar checkboxes
+
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', () => {
                 actualizarResumen();
                 duracionTotal = Array.from(document.querySelectorAll('.servicio-checkbox:checked'))
-                .reduce((sum, el) => sum + parseInt(el.dataset.duracion), 0);
-                actualizarCalendario(); // Añade esta línea
+                    .reduce((sum, el) => sum + parseInt(el.dataset.duracion), 0);
+                actualizarCalendario(); // Se actualiza el calendario al seleccionar servicios
             });
         });
 
@@ -45,12 +46,12 @@ document.addEventListener('DOMContentLoaded', function() {
 function actualizarResumen() {
     let totalTiempo = 0;
     let totalPrecio = 0;
-    
+
     document.querySelectorAll('.servicio-checkbox:checked').forEach(servicio => {
         totalTiempo += parseInt(servicio.dataset.duracion);
         totalPrecio += parseFloat(servicio.dataset.precio);
     });
-    
+
     document.getElementById('tiempo-total').textContent = totalTiempo;
     document.getElementById('coste-total').textContent = totalPrecio.toFixed(2);
     document.getElementById('btn-continuar').disabled = totalTiempo === 0;
@@ -59,52 +60,57 @@ function actualizarResumen() {
 function mostrarCalendario() {
     const modal = document.getElementById('citaModal');
     const serviciosSeleccionados = document.getElementById('servicios-seleccionados');
-    
+
     modal.style.display = 'block';
-    actualizarCalendario(); // Llama al nuevo calendario
-    
-    // Mantén esta parte para los servicios
+    actualizarCalendario(); // Generar calendario del mes actual
+
     const servicios = Array.from(document.querySelectorAll('.servicio-checkbox:checked'))
-                        .map(s => `<input type="hidden" name="servicios[]" value="${s.value}">`);
-    
+        .map(s => `<input type="hidden" name="servicios[]" value="${s.value}">`);
     serviciosSeleccionados.innerHTML = servicios.join('');
 }
 
 // ================ NUEVAS FUNCIONALIDADES CALENDARIO ================
 function actualizarCalendario() {
     if (duracionTotal === 0) return;
-    
-    fetch(`/TFGPeluqueria/funcionalidades/obtener_disponibilidad.php?duracion=${duracionTotal}`)
+
+    fetch(`/TFGPeluqueria/funcionalidades/obtener_disponibilidad.php?duracion=${duracionTotal}&mes=${mesVisible + 1}&anio=${anioVisible}`)
         .then(response => response.json())
         .then(dias => {
-            const hoy = new Date();
-            const mesActual = hoy.toLocaleString('es-ES', { month: 'long', year: 'numeric' });
-            let html = `<h4>${mesActual}</h4><table class="calendario"><tr>`;
-            
+            const mesActual = new Date(anioVisible, mesVisible);
+            const nombreMes = mesActual.toLocaleString('es-ES', { month: 'long' });
+
+            let html = `
+                <div class="navegacion-mes">
+                    <button onclick="cambiarMes(-1)">←</button>
+                    <h4>${nombreMes} de ${anioVisible}</h4>
+                    <button onclick="cambiarMes(1)">→</button>
+                </div>
+                <table class="calendario"><tr>
+            `;
+
             ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'].forEach(dia => {
                 html += `<th>${dia}</th>`;
             });
-            
+
             html += '</tr><tr>';
-            
+
             Object.entries(dias).forEach(([fecha, disponible]) => {
                 const fechaObj = new Date(fecha);
                 if (fechaObj.getDay() === 1 && html.endsWith('</tr>')) {
                     html += '<tr>';
                 }
-                
+
                 const clase = disponible ? 'dia-disponible' : 'dia-no-disponible';
                 html += `<td class="${clase}" data-fecha="${fecha}">${fechaObj.getDate()}</td>`;
-                
+
                 if (fechaObj.getDay() === 0) {
                     html += '</tr>';
                 }
             });
-            
+
             html += '</table>';
             document.getElementById('calendario').innerHTML = html;
-            
-            // Manejar clic en días disponibles
+
             document.querySelectorAll('.dia-disponible').forEach(dia => {
                 dia.addEventListener('click', () => {
                     fechaSeleccionada = dia.dataset.fecha;
@@ -113,6 +119,20 @@ function actualizarCalendario() {
                 });
             });
         });
+}
+
+function cambiarMes(delta) {
+    mesVisible += delta;
+
+    if (mesVisible < 0) {
+        mesVisible = 11;
+        anioVisible--;
+    } else if (mesVisible > 11) {
+        mesVisible = 0;
+        anioVisible++;
+    }
+
+    actualizarCalendario();
 }
 
 function cargarHorarios(fecha) {
@@ -138,20 +158,17 @@ function cargarHorarios(fecha) {
 }
 
 function seleccionarHorario(elemento, hora) {
-    // Remover selección previa
     document.querySelectorAll('.tramo-seleccionado').forEach(el => {
         el.classList.remove('tramo-seleccionado');
     });
-    
-    // Añadir nueva selección
+
     elemento.classList.add('tramo-seleccionado');
     document.getElementById('hora-seleccionada').value = hora;
     document.getElementById('btn-continuar').disabled = false;
-    
-    // Scroll automático al botón
+
     document.querySelector('#form-cita button').scrollIntoView({
         behavior: 'smooth',
-        block: 'nearest'
+        block: 'center'
     });
 }
 

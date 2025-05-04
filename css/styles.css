@@ -645,6 +645,28 @@ calendario {
     border: 2px solid #000;
 }
 
+.navegacion-mes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.navegacion-mes button {
+    background-color: var(--color-primario);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.navegacion-mes button:hover {
+    background-color: #1a252f;
+}
+
 
 @media (max-width: 768px) {
     .modal-contenido {
