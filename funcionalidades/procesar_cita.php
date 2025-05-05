@@ -4,6 +4,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
+        if (empty($_POST['servicios'])) {
+            throw new Exception("Debes seleccionar al menos un servicio.");
+        }
+
         $conn->beginTransaction();
         
         // Insertar cita directamente
@@ -34,8 +38,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } catch (PDOException $e) {
         $conn->rollBack();
 
-        // Manejar error genérico
-        $_SESSION['error_cita'] = "Error: " . $e->getMessage(); 
+        // Extraer código de error MySQL
+        $errorCode = $e->errorInfo[1];
+        $errorMessage = $e->getMessage();
+
+        // Mensajes personalizados
+        $userMessage = "Error al procesar la cita. Por favor, inténtalo de nuevo.";
+
+        $_SESSION['error_cita'] = $userMessage;
         header("Location: /TFGPeluqueria/paginas/coger_citas.php");
         exit();
     }

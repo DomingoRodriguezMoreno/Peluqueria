@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-05-2025 a las 11:38:28
+-- Tiempo de generación: 05-05-2025 a las 16:59:39
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -30,6 +30,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ActualizarCita` (IN `cita_id` INT) 
     DECLARE nueva_hora_fin TIME;
     DECLARE hora_inicio TIME;
     DECLARE fecha_cita DATE;
+    DECLARE empleado_id VARCHAR(20);
+    DECLARE overlap_exists INT;
 
     -- Obtener datos de la cita
     SELECT c.hora_inicio, c.fecha_cita 
@@ -59,16 +61,39 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ActualizarCita` (IN `cita_id` INT) 
         hora_fin = nueva_hora_fin
     WHERE id_cita = cita_id;
 
-    -- Validar horario
+    -- Validar horario laboral
     IF NOT (
         (hora_inicio >= '09:00:00' AND nueva_hora_fin <= '14:00:00') 
         OR 
         (hora_inicio >= '16:00:00' AND nueva_hora_fin <= '19:00:00')
     ) THEN
-        -- Eliminar la cita si no cumple el horario
         DELETE FROM citas WHERE id_cita = cita_id;
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Horario no válido (9:00-14:00 y 16:00-19:00)';
+    END IF;
+
+    -- Obtener empleado asignado a la cita (asumimos un solo empleado por cita para simplificar)
+    SELECT id_empleado INTO empleado_id
+    FROM citas_servicios
+    WHERE id_cita = cita_id
+    LIMIT 1;
+
+    -- Validar solapamiento de horarios para el empleado
+    SELECT COUNT(*) INTO overlap_exists
+    FROM citas c
+    JOIN citas_servicios cs ON c.id_cita = cs.id_cita
+    WHERE cs.id_empleado = empleado_id
+    AND c.fecha_cita = fecha_cita
+    AND c.id_cita != cita_id  -- Excluir la cita actual
+    AND (
+        (c.hora_inicio < nueva_hora_fin) AND 
+        (c.hora_fin > hora_inicio)
+    );
+
+    IF overlap_exists > 0 THEN
+        DELETE FROM citas WHERE id_cita = cita_id;
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'El empleado ya tiene una cita en este horario.';
     END IF;
 END$$
 
@@ -101,7 +126,8 @@ INSERT INTO `citas` (`id_cita`, `id_cliente`, `fecha_cita`, `hora_inicio`, `hora
 (25, 1, '2025-05-08', '09:18:00', '13:18:00', 'reservada', 240, 1.00),
 (26, 1, '2025-05-06', '09:07:00', '13:07:00', 'reservada', 240, 1.00),
 (27, 1, '2025-05-06', '09:07:00', '09:57:00', 'reservada', 50, 20.50),
-(28, 1, '2025-05-06', '09:07:00', '09:37:00', 'reservada', 30, 20.01);
+(28, 1, '2025-05-06', '09:07:00', '09:37:00', 'reservada', 30, 20.01),
+(39, 1, '2025-05-09', '09:30:00', '10:20:00', 'reservada', 50, 20.50);
 
 --
 -- Disparadores `citas`
@@ -145,7 +171,8 @@ INSERT INTO `citas_servicios` (`id_cita`, `id_servicio`, `id_empleado`) VALUES
 (25, 10, '12345678A'),
 (26, 10, '12345678A'),
 (27, 4, '12345678A'),
-(28, 1, '12345678A');
+(28, 1, '12345678A'),
+(39, 4, '12345678A');
 
 --
 -- Disparadores `citas_servicios`
@@ -159,50 +186,6 @@ DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `actualizar_duracion_precio_update` AFTER UPDATE ON `citas_servicios` FOR EACH ROW BEGIN
     CALL ActualizarCita(NEW.id_cita);
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `validar_disponibilidad_empleado` BEFORE INSERT ON `citas_servicios` FOR EACH ROW BEGIN
-    DECLARE nueva_hora_inicio TIME;
-    DECLARE nueva_fecha DATE;
-    DECLARE total_duracion INT;
-    DECLARE nueva_hora_fin TIME;
-    DECLARE overlap_exists INT;
-
-    -- Paso 1: Obtener hora_inicio y fecha de la nueva cita
-    SELECT c.hora_inicio, c.fecha_cita 
-    INTO nueva_hora_inicio, nueva_fecha
-    FROM citas c
-    WHERE c.id_cita = NEW.id_cita;
-
-    -- Paso 2: Calcular duración total de los servicios de la nueva cita
-    SELECT SUM(s.duracion) 
-    INTO total_duracion
-    FROM servicios s
-    JOIN citas_servicios cs ON s.id_servicio = cs.id_servicio
-    WHERE cs.id_cita = NEW.id_cita;
-
-    -- Paso 3: Calcular hora_fin de la nueva cita
-    SET nueva_hora_fin = ADDTIME(nueva_hora_inicio, SEC_TO_TIME(total_duracion * 60));
-
-    -- Paso 4: Buscar solapamientos con otras citas del mismo empleado
-    SELECT COUNT(*) INTO overlap_exists
-    FROM citas c
-    JOIN citas_servicios cs ON c.id_cita = cs.id_cita
-    WHERE cs.id_empleado = NEW.id_empleado
-    AND c.fecha_cita = nueva_fecha
-    AND c.id_cita != NEW.id_cita  -- Excluir la cita actual
-    AND (
-        (c.hora_inicio < nueva_hora_fin) AND 
-        (c.hora_fin > nueva_hora_inicio)
-    );
-
-    -- Paso 5: Lanzar error si hay solapamiento
-    IF overlap_exists > 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'El empleado ya tiene una cita en este horario.';
-    END IF;
 END
 $$
 DELIMITER ;
@@ -448,7 +431,7 @@ ALTER TABLE `tipos_tratamiento`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`

@@ -93,10 +93,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php
                 <form action="/TFGPeluqueria/funcionalidades/procesar_cita.php" method="POST" id="form-cita">
                     <input type="hidden" name="id_cliente" value="<?= $id_cliente ?>">
                     <input type="date" name="fecha" id="fecha-cita" required>
-                    <input type="time" name="hora" id="hora-cita" value="<?= htmlspecialchars($_SESSION['form_data_cita']['hora'] ?? '') ?>" required>
+                    <input type="time" name="hora" id="hora-cita" required>
                     <div id="servicios-seleccionados">
                         <?php foreach ($servicios_guardados as $servicio): ?>
-                            <input type="hidden" name="servicios[]" value="<?= htmlspecialchars($servicio) ?>">
+                            <input type="hidden" name="servicios[]">
                         <?php endforeach; ?>
                     </div>
                     <button type="submit">Confirmar Cita</button>
