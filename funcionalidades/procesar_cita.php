@@ -6,13 +6,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $conn->beginTransaction();
         
-        // Insertar cita
+        // Insertar cita directamente
         $stmt = $conn->prepare("INSERT INTO citas 
             (id_cliente, fecha_cita, hora_inicio, estado, duracion_total, precio_final)
             VALUES (?, ?, ?, 'reservada', 0, 0)");
         
         $stmt->execute([
-            $_SESSION['id_cliente'],
+            $_POST['id_cliente'],
             $_POST['fecha'],
             $_POST['hora']
         ]);
@@ -33,7 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: /TFGPeluqueria/paginas/citas.php?success=1");
     } catch (PDOException $e) {
         $conn->rollBack();
-        header("Location: /TFGPeluqueria/paginas/citas.php?error=1");
+
+        // Manejar error genérico
+        $_SESSION['error_cita'] = "Error: " . $e->getMessage(); 
+        header("Location: /TFGPeluqueria/paginas/coger_citas.php");
+        exit();
     }
 } else {
     header("Location: /TFGPeluqueria/index.php");

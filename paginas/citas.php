@@ -12,7 +12,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // N
 
 $esAdmin = esAdministrador($conn); 
 
-
 // Obtener todas las citas con datos del cliente
 $citas = [];
 try {
@@ -78,6 +77,12 @@ try {
                 </tbody>
             </table>
         <?php endif; ?>
+
+        <div class="contenedor-botones">
+            <?php if ($esAdmin): ?>
+                <a href="/TFGPeluqueria/paginas/seleccionar_cliente.php" class="boton-alta">Nueva cita</a>
+            <?php endif; ?>
+        </div>
     </div>
 </body>
 </html>

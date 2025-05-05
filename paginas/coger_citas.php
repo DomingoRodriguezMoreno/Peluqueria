@@ -1,6 +1,18 @@
 <?php
 session_start();
+
+if (isset($_GET['id_cliente']) && isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'empleado') {
+    $id_cliente = $_GET['id_cliente'];
+} else {
+    // Verificar que el cliente esté logueado
+    if (!isset($_SESSION['id_cliente'])) {
+        header('Location: /TFGPeluqueria/index.php');
+        exit();
+    }
+    $id_cliente = $_SESSION['id_cliente'];
+}
 include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +41,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php
             <br>
             
             <?php
+
+            if (isset($_SESSION['error_cita'])) {
+                echo '<div class="error-mensaje">' . htmlspecialchars($_SESSION['error_cita']) . '</div>';
+                unset($_SESSION['error_cita']);
+            }
+
             $sql = "SELECT * FROM tipos_tratamiento ORDER BY nombre_tipo";
             $result = $conn->query($sql);
             $tipos = $result->fetchAll(PDO::FETCH_ASSOC);
@@ -73,15 +91,31 @@ include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php
                 <span class="cerrar" onclick="cerrarCitaModal()">&times;</span>
                 <h2>Selecciona fecha y hora</h2>
                 <form action="/TFGPeluqueria/funcionalidades/procesar_cita.php" method="POST" id="form-cita">
+                    <input type="hidden" name="id_cliente" value="<?= $id_cliente ?>">
                     <input type="date" name="fecha" id="fecha-cita" required>
-                    <input type="time" name="hora" id="hora-cita" required>
-                    <div id="servicios-seleccionados"></div>
+                    <input type="time" name="hora" id="hora-cita" value="<?= htmlspecialchars($_SESSION['form_data_cita']['hora'] ?? '') ?>" required>
+                    <div id="servicios-seleccionados">
+                        <?php foreach ($servicios_guardados as $servicio): ?>
+                            <input type="hidden" name="servicios[]" value="<?= htmlspecialchars($servicio) ?>">
+                        <?php endforeach; ?>
+                    </div>
                     <button type="submit">Confirmar Cita</button>
                 </form>
             </div>
         </div>
     </section>
-
     <script src="/TFGPeluqueria/js/script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Marcar checkboxes guardados
+        <?php foreach ($servicios_guardados as $servicio_id): ?>
+            document.querySelectorAll('.servicio-checkbox[value="<?= $servicio_id ?>"]')
+                .forEach(checkbox => checkbox.checked = true);
+        <?php endforeach; ?>
+        
+        // Actualizar resumen
+        actualizarResumenCita();
+    });
+    </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-05-2025 a las 10:22:01
+-- Tiempo de generación: 05-05-2025 a las 11:38:28
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -96,7 +96,12 @@ CREATE TABLE `citas` (
 --
 
 INSERT INTO `citas` (`id_cita`, `id_cliente`, `fecha_cita`, `hora_inicio`, `hora_fin`, `estado`, `duracion_total`, `precio_final`) VALUES
-(23, 1, '2025-05-06', '09:01:00', '13:01:00', 'reservada', 240, 1.00);
+(23, 1, '2025-05-06', '09:01:00', '13:01:00', 'reservada', 240, 1.00),
+(24, 1, '2025-05-07', '09:13:00', '13:13:00', 'reservada', 240, 1.00),
+(25, 1, '2025-05-08', '09:18:00', '13:18:00', 'reservada', 240, 1.00),
+(26, 1, '2025-05-06', '09:07:00', '13:07:00', 'reservada', 240, 1.00),
+(27, 1, '2025-05-06', '09:07:00', '09:57:00', 'reservada', 50, 20.50),
+(28, 1, '2025-05-06', '09:07:00', '09:37:00', 'reservada', 30, 20.01);
 
 --
 -- Disparadores `citas`
@@ -135,7 +140,12 @@ CREATE TABLE `citas_servicios` (
 --
 
 INSERT INTO `citas_servicios` (`id_cita`, `id_servicio`, `id_empleado`) VALUES
-(23, 10, '12345678A');
+(23, 10, '12345678A'),
+(24, 10, '12345678A'),
+(25, 10, '12345678A'),
+(26, 10, '12345678A'),
+(27, 4, '12345678A'),
+(28, 1, '12345678A');
 
 --
 -- Disparadores `citas_servicios`
@@ -154,24 +164,41 @@ $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `validar_disponibilidad_empleado` BEFORE INSERT ON `citas_servicios` FOR EACH ROW BEGIN
+    DECLARE nueva_hora_inicio TIME;
+    DECLARE nueva_fecha DATE;
+    DECLARE total_duracion INT;
+    DECLARE nueva_hora_fin TIME;
     DECLARE overlap_exists INT;
-    DECLARE hora_fin_cita TIME;
 
-    SELECT hora_fin INTO hora_fin_cita 
-    FROM citas 
-    WHERE id_cita = NEW.id_cita;
+    -- Paso 1: Obtener hora_inicio y fecha de la nueva cita
+    SELECT c.hora_inicio, c.fecha_cita 
+    INTO nueva_hora_inicio, nueva_fecha
+    FROM citas c
+    WHERE c.id_cita = NEW.id_cita;
 
+    -- Paso 2: Calcular duración total de los servicios de la nueva cita
+    SELECT SUM(s.duracion) 
+    INTO total_duracion
+    FROM servicios s
+    JOIN citas_servicios cs ON s.id_servicio = cs.id_servicio
+    WHERE cs.id_cita = NEW.id_cita;
+
+    -- Paso 3: Calcular hora_fin de la nueva cita
+    SET nueva_hora_fin = ADDTIME(nueva_hora_inicio, SEC_TO_TIME(total_duracion * 60));
+
+    -- Paso 4: Buscar solapamientos con otras citas del mismo empleado
     SELECT COUNT(*) INTO overlap_exists
     FROM citas c
     JOIN citas_servicios cs ON c.id_cita = cs.id_cita
     WHERE cs.id_empleado = NEW.id_empleado
-    AND c.fecha_cita = (SELECT fecha_cita FROM citas WHERE id_cita = NEW.id_cita)
+    AND c.fecha_cita = nueva_fecha
     AND c.id_cita != NEW.id_cita  -- Excluir la cita actual
     AND (
-        (c.hora_inicio < hora_fin_cita) AND 
-        (hora_fin_cita > c.hora_inicio)
+        (c.hora_inicio < nueva_hora_fin) AND 
+        (c.hora_fin > nueva_hora_inicio)
     );
 
+    -- Paso 5: Lanzar error si hay solapamiento
     IF overlap_exists > 0 THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'El empleado ya tiene una cita en este horario.';
@@ -202,7 +229,8 @@ CREATE TABLE `clientes` (
 INSERT INTO `clientes` (`id_cliente`, `email`, `telefono`, `nombre`, `apellidos`, `contraseña`) VALUES
 (1, 'dominrodri5@gmail.com', '666777999', 'Domingo', 'Rodriguez MorenA', '$2y$10$7f5PKdGT2OdjkVSphLN0G.CeoSvdeFKP5BMYXlJdHIsdr7k5Y7mZG'),
 (2, 'dominrodri@gmail.com', '671673501', 'Paco', 'Pepe', '$2y$10$8z.OFRDgrsSMTTD006ogBerBpvTxxFYmYZVBsZ3ukQ1YVtFe5H2ua'),
-(3, 'd@g', '000000000', 'pedri', 'a', '$2y$10$XIkUjtfyhi5lYNW8GK/RXeJNvOCXXYZFbFl9RzBFlhZyvRiKSSPDy');
+(3, 'd@g', '000000000', 'pedri', 'a', '$2y$10$XIkUjtfyhi5lYNW8GK/RXeJNvOCXXYZFbFl9RzBFlhZyvRiKSSPDy'),
+(4, '1@2', '000000001', 'Domingo', 'Rodriguez Moreno', '$2y$10$eat0tKZtOwKhO1IS1tgacO11XV8oiuikhfPjB70Rxw0v7QkVpY1f2');
 
 -- --------------------------------------------------------
 
@@ -228,6 +256,7 @@ CREATE TABLE `empleados` (
 
 INSERT INTO `empleados` (`dni`, `nombre`, `apellidos`, `telefono`, `email`, `id_rol`, `contraseña`, `es_admin`, `activo`) VALUES
 ('12345678A', 'Juan', 'Pérez García', '600111222', 'juan@peluqueria.com', 1, '$2y$10$eane7EyENEvum8sMvryDceDWOVmmbLrYk0OaJ8vh9NiuHhLQGtuOi', 1, 1),
+('12345678B', 'Q', 'a', '111111222', '1@2', 1, '$2y$10$48cFyhgQ/oVC9b8MBG/hsePMeV/nu1X8KLsqV2J0Z5DT9k948RE4C', 0, 0),
 ('32154687A', 'Domingo', 'Rodriguez Moreno', '671673501', 'aa@Z', 4, '$2y$10$qKIWLqvEmHJWhDL0SRz44e0F0g.ZTxDTrHomaHd2BcnUZoE1c.Kyi', 0, 1),
 ('87654321X', 'Cafca', 'lumne', '123321123', 'cafca@L', 1, '$2y$10$XUKwD7Du7b9S8OEmAR6UNOEc1aC/LTnP7niacfJFd1ltMI.Eu33P.', 1, 1);
 
@@ -419,13 +448,13 @@ ALTER TABLE `tipos_tratamiento`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`

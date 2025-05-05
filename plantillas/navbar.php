@@ -1,10 +1,19 @@
+<?php session_start();?>
 <nav class="navbar">
     <a href="/TFGPeluqueria/index.php" class="logo">
         <img src="/TFGPeluqueria/imagenes/Logo2.png" alt="Logo Peluquería" width = 50px>
     </a>
     <div class="nav-links">
-        <a href="/TFGPeluqueria/paginas/servicios.php">Servicios</a>
-        <a href="/TFGPeluqueria/paginas/coger_citas.php">Coger Citas</a>
+    <?php // Mostrar "Servicios" a todos excepto empleados
+        if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado'): ?>
+            <a href="/TFGPeluqueria/paginas/servicios.php">Servicios</a>
+        <?php endif; ?>
+
+        <?php // Mostrar "Coger Citas" solo a clientes logueados
+        if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'cliente'): ?>
+            <a href="/TFGPeluqueria/paginas/coger_citas.php">Coger Citas</a>
+        <?php endif; ?>
+
         <?php if(isset($_SESSION['tipo_usuario'])): ?>
             <!-- Mostrar perfil si está logueado -->
             <a href="/TFGPeluqueria/paginas/panel_<?= $_SESSION['tipo_usuario'] ?>.php" class="profile-btn">

@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . 'conexion.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . 'verificar_admin.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php';
 
 if (!esAdministrador($conn)) {
     die("Acceso no autorizado");

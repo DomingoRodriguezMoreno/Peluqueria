@@ -56,14 +56,16 @@ Tareas:
 [X]         (Administrador) Editar servicio
 [X]     listado citas
 [X]         Debe Mostrar todas las citas incluso las canceladas
-[ ]         (Administrador) Dar alta nuevo citas
+[X]         (Administrador) Dar alta nuevo citas
 [X]         (Administrador) Editar citas  
 
+[ ]     Gestion errores login
+
 [X] pagina citas
-[ ]     Diferencia flujo de eventos Clientes/Trabajador
+[X]     Diferencia flujo de eventos Clientes/Trabajador
 [X]         Citas propias (Clientes)
 [ ]             Mensaje de error, si no se coge la cita
-[ ]         Citas Agenas (Emplados)
+[X]         Citas Agenas (Emplados)
 
 [X] Sustituir Eliminacion por alteracion > añadir valor esta_activo a BD como identificacion de los
     trabajadores actuales
@@ -76,14 +78,10 @@ autenticación SMTP. El correo incluirá los datos básicos de la cita
 en la base de datos. 
 
 
-Flujo de eventos en las citas
-clientes
-    seleccionar servicios 
-        seleccionar dia/hora
-Trabajador
-    Selecciona cliente
-        seleccionar servicios 
-            seleccionar dia/hora
+Flujo normal
+clientes >> pag coger_citas >> seleccionar servicios >> seleccionar dia/hora
+Flujo trabajador
+Trabajador >> pag intermedia >> Selecciona cliente >> pag coger_citas >> seleccionar servicios >> seleccionar dia/hora
 
 
 Administrador (Solucionado)
