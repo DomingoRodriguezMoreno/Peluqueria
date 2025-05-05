@@ -24,9 +24,24 @@ try {
     if (!$cliente) {
         die("Cliente no encontrado en la base de datos");
     }
+
+    // Guardar datos originales para recuperación en errores
+    $_SESSION['original_data_cliente'] = [
+        'telefono' => $cliente['telefono']
+    ];
+
 } catch (PDOException $e) {
     die("Error de base de datos: " . $e->getMessage());
 }
+
+// Combinar datos: originales + ediciones (si existen)
+$cliente = array_merge(
+    $_SESSION['original_data_cliente'] ?? [],
+    $_SESSION['form_data_edicion_cliente'] ?? $cliente
+);
+
+// Limpiar datos temporales después de usarlos
+unset($_SESSION['form_data_edicion_cliente']);
 ?>
 
 <!DOCTYPE html>
@@ -35,14 +50,23 @@ try {
     <meta charset="UTF-8">
     <title>Editar Cliente</title>
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
-    </head>
+</head>
 <body>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; ?>
     
     <div class="registros-container">
         <h1>Editar Cliente</h1>
+
+        <?php if (isset($_SESSION['error_edicion_cliente'])): ?>
+            <div class="error-mensaje">
+                <?= htmlspecialchars($_SESSION['error_edicion_cliente']) ?>
+            </div>
+            <?php unset($_SESSION['error_edicion_cliente']); ?>
+        <?php endif; ?>
+
         <form action="/TFGPeluqueria/funcionalidades/procesar_edicion_cliente.php" method="POST">
             <input type="hidden" name="id_cliente" value="<?= htmlspecialchars($cliente['id_cliente']) ?>"> 
+
             <div class="form-group">
                 <label>Nombre: 
                     <input type="text" name="nombre" value="<?= htmlspecialchars($cliente['nombre']) ?>" required>

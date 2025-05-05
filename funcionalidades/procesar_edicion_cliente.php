@@ -8,18 +8,39 @@ if (!esAdministrador($conn)) {
 }
 
 $id_cliente = $_POST['id_cliente'];
+$nuevo_telefono = $_POST['telefono'];
+
+// Verificar si el teléfono ya existe en otro cliente
+$stmt_telefono = $conn->prepare("
+    SELECT id_cliente 
+    FROM clientes 
+    WHERE telefono = :telefono 
+    AND id_cliente != :id_cliente
+");
+$stmt_telefono->bindParam(':telefono', $nuevo_telefono);
+$stmt_telefono->bindParam(':id_cliente', $id_cliente, PDO::PARAM_INT);
+$stmt_telefono->execute();
+
+if ($stmt_telefono->rowCount() > 0) {
+    $_SESSION['error_edicion_cliente'] = "El teléfono ya está registrado en otro cliente.";
+    
+    // Restaurar teléfono original y mantener otros campos
+    $_SESSION['form_data_edicion_cliente'] = array_merge(
+        $_POST,
+        ['telefono' => $_SESSION['original_data_cliente']['telefono']]
+    );
+    
+    header("Location: /TFGPeluqueria/paginas/editar_cliente.php?id_cliente=$id_cliente");
+    exit();
+}
+
+// Actualizar campos
 $campos = [
     'nombre' => $_POST['nombre'],
     'apellidos' => $_POST['apellidos'],
     'email' => $_POST['email'],
-    'telefono' => $_POST['telefono']
+    'telefono' => $nuevo_telefono
 ];
-
-// Actualizar contraseña si se proporciona
-if (!empty($_POST['nueva_contraseña'])) {
-    $hashed_password = password_hash($_POST['nueva_contraseña'], PASSWORD_DEFAULT);
-    $campos['contraseña'] = $hashed_password;
-}
 
 try {
     $query = "UPDATE clientes SET 
@@ -27,13 +48,17 @@ try {
                 apellidos = :apellidos,
                 email = :email,
                 telefono = :telefono"
-                . (!empty($_POST['nueva_contraseña']) ? ", contraseña = :contraseña" : "") .
-              " WHERE id_cliente = :id_cliente";
+                . (!empty($_POST['nueva_contraseña']) ? ", contraseña = :contraseña" : "") . "
+              WHERE id_cliente = :id_cliente";
     
     $stmt = $conn->prepare($query);
     $stmt->execute(array_merge([':id_cliente' => $id_cliente], $campos));
     
+    // Limpiar sesión después de éxito
+    unset($_SESSION['original_data_cliente']);
     header("Location: /TFGPeluqueria/paginas/clientes.php");
+
 } catch (PDOException $e) {
-    die("Error al actualizar: " . $e->getMessage());
+    $_SESSION['error_edicion_cliente'] = "Error al actualizar: " . $e->getMessage();
+    header("Location: /TFGPeluqueria/paginas/editar_cliente.php?id_cliente=$id_cliente");
 }

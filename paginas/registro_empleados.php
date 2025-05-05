@@ -14,14 +14,18 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php'; // Verificar si el usuario es administrador
     require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
     
-    if (isset($_SESSION['error'])) {
-        echo "<script>alert('".$_SESSION['error']."');</script>";
-        unset($_SESSION['error']);
-    }
     ?>
     
     <div class="registros-container">
         <h1>Registro de Empleado</h1>
+
+        <?php if (isset($_SESSION['error_empleado'])): ?>
+            <div class="error-mensaje">
+                <?= htmlspecialchars($_SESSION['error_empleado']) ?>
+            </div>
+            <?php unset($_SESSION['error_empleado']); ?>
+        <?php endif; ?>
+        
         <form action="/TFGPeluqueria/funcionalidades/procesar_registro_empleados.php" method="POST">
             <input type="hidden" name="tipo_usuario" value="empleado"> <!-- Campo oculto para diferenciar -->
             

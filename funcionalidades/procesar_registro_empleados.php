@@ -42,7 +42,7 @@ foreach ($verificaciones as $campo => $query) {
     $stmt->bindParam(':valor', ${$campo});
     $stmt->execute();
     if ($stmt->rowCount() > 0) {
-        $_SESSION['error'] = "El $campo ya está registrado.";
+        $_SESSION['error_empleado'] = "El $campo ya está registrado.";
         header('Location: /TFGPeluqueria/paginas/registro_empleados.php'); // Redirigir al formulario
         exit();
     }

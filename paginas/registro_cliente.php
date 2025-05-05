@@ -1,3 +1,10 @@
+<?php 
+    session_start();
+
+    include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,19 +14,17 @@
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css"> <!-- Enlaza tu archivo CSS -->
 </head>
 <body>
-    <?php 
-    session_start();
 
-    include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
-
-    if (isset($_SESSION['error_cliente'])) {
-        echo "<script>alert('".$_SESSION['error_cliente']."');</script>";
-        unset($_SESSION['error_cliente']);
-    }
-    ?>
-    
     <div class="registros-container">
         <h1>Registro de Cliente</h1>
+
+        <?php if (isset($_SESSION['error_cliente'])): ?>
+            <div class="error-mensaje">
+                <?= htmlspecialchars($_SESSION['error_cliente']) ?>
+            </div>
+            <?php unset($_SESSION['error_cliente']); ?>
+        <?php endif; ?>
+
         <form action="/TFGPeluqueria/funcionalidades/procesar_registro_cliente.php" method="POST">
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
