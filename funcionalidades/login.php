@@ -1,10 +1,17 @@
 <?php
 // Incluir la conexión a la base de datos
+session_start();
 include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
 
 // Obtener datos del formulario
 $identificador = $_POST['identificador'];
 $password = $_POST['password'];
+
+if (empty($identificador) || empty($password)) {
+    $_SESSION['login_error'] = "Debes introducir ambos campos.";
+    header("Location: " . $_SERVER['HTTP_REFERER']);
+    exit();
+}
 
 /* Depuración: Verificar datos del formulario
 echo "Identificador proporcionado: $identificador<br>";
@@ -33,11 +40,13 @@ if ($stmt_empleado->rowCount() > 0) {
         $_SESSION['nombre'] = $empleado['nombre'];
         $_SESSION['id_rol'] = $empleado['id_rol'];
         // Redirigir al panel de empleados
-        header('Location: /TFGPeluqueria/');
+        header('Location: /TFGPeluqueria/index.php');
         exit();
     } else {
         // Contraseña incorrecta
-        echo "Contraseña incorrecta (empleado).<br>";
+	$_SESSION['login_error'] = "Contraseña incorrecta.";
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+        exit();
     }
 } else {
     // No es un empleado, verificar si es un cliente
@@ -65,11 +74,16 @@ if ($stmt_empleado->rowCount() > 0) {
             exit();
         } else {
             // Contraseña incorrecta
-            echo "Contraseña incorrecta (cliente).<br>";
+	    $_SESSION['login_error'] = "Contraseña incorrecta.";
+            header("Location: " . $_SERVER['HTTP_REFERER']);
+            exit();
         }
     } else {
         // Usuario no encontrado
-        echo "Usuario no encontrado.<br>";
+        $_SESSION['login_error'] = "Usuario incorrecto.";
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+        exit();
     }
 }
 ?>
+

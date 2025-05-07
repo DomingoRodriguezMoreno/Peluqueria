@@ -53,7 +53,7 @@ $condicion = ($mostrar === 'inactivos') ? 's.activo = 0' : 's.activo = 1';
                             <th>Precio</th>
                         </tr>
                         <?php foreach ($servicios as $servicio): ?>
-                            <tr onclick="window.location='editar_servicio.php?id_servicio=<?= $servicio['id_servicio'] ?>'">
+			    <tr <?= $esAdmin ? 'onclick="window.location=\'editar_servicio.php?id_servicio=' . $servicio['id_servicio'] . '\'"' : '' ?>>
                                 <td><?= htmlspecialchars($servicio['nombre_servicio']) ?></td>
                                 <td><?= htmlspecialchars($servicio['descripcion']) ?></td>
                                 <td><?= $servicio['duracion'] ?> min</td>

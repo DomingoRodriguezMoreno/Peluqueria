@@ -3,6 +3,7 @@
     <a href="/TFGPeluqueria/index.php" class="logo">
         <img src="/TFGPeluqueria/imagenes/Logo2.png" alt="Logo Peluquería" width = 50px>
     </a>
+
     <div class="nav-links">
     <?php // Mostrar "Servicios" a todos excepto empleados
         if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado'): ?>
@@ -30,6 +31,16 @@
         <div class="modal-contenido">
             <span class="cerrar" onclick="cerrarLogin()">&times;</span>
             <h2>Iniciar Sesión</h2>
+
+    	    <?php
+      		if (session_status() == PHP_SESSION_NONE) session_start();
+      		if (!empty($_SESSION['login_error'])) {
+        		echo "<div class='error-mensaje'>" . $_SESSION['login_error'] . "</div>";
+        		echo "<script>window.addEventListener('DOMContentLoaded', () => mostrarLogin());</script>";
+        		unset($_SESSION['login_error']);
+      		}
+    	    ?>
+
             <form action="/TFGPeluqueria/funcionalidades/login.php" method="POST">
                 <label for="identificador">DNI o Teléfono:</label>
                 <input type="text" id="identificador" name="identificador" required>
