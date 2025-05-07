@@ -2,8 +2,8 @@
 // Configuración de la base de datos
 $host = 'localhost'; // Servidor de la base de datos
 $dbname = 'TFGPeluqueria'; // Nombre de la base de datos
-$user = 'root'; // Usuario de MySQL (por defecto en XAMPP es 'root')
-$password = ''; // Contraseña de MySQL (por defecto en XAMPP está vacía)
+$user = 'domingo'; // Usuario de MySQL (por defecto en XAMPP es 'root')
+$password = 'doromo96'; // Contraseña de MySQL (por defecto en XAMPP está vacía)
 
 // Conectar a la base de datos
 try {

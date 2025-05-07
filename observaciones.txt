@@ -64,7 +64,7 @@ Tareas:
 [X] pagina citas
 [X]     Diferencia flujo de eventos Clientes/Trabajador
 [X]         Citas propias (Clientes)
-[ ]             Mensaje de error, si no se coge la cita
+[X]             Mensaje de error, si no se coge la cita
 [X]         Citas Agenas (Emplados)
 
 [X] Sustituir Eliminacion por alteracion > añadir valor esta_activo a BD como identificacion de los
@@ -76,7 +76,6 @@ la librería PHPMailer, que permite enviar correos desde PHP de forma segura y c
 autenticación SMTP. El correo incluirá los datos básicos de la cita 
 (como fecha, hora y servicios contratados), y se enviará justo después de registrar la cita 
 en la base de datos. 
-
 
 Flujo normal
 clientes >> pag coger_citas >> seleccionar servicios >> seleccionar dia/hora
@@ -189,3 +188,51 @@ registro_empleados.php
 registro_servicio.php
 servicios.php
 navbar.php
+
+estructura en servidor:
+ubuntu@ip-172-31-94-16:~$ ls -R /var/www/html/
+/var/www/html/:
+TFGPeluqueria  index.php
+
+/var/www/html/TFGPeluqueria:
+css  funcionalidades  imagenes  index.php  js  paginas  plantillas
+
+/var/www/html/TFGPeluqueria/css:
+styles.css
+
+/var/www/html/TFGPeluqueria/funcionalidades:
+cancelar_cita.php  procesar_cita.php              procesar_edicion_servicio.php    verificar_admin.php
+conexion.php       procesar_edicion_cita.php      procesar_registro_cliente.php
+login.php          procesar_edicion_cliente.php   procesar_registro_empleados.php
+logout.php         procesar_edicion_empleado.php  procesar_servicio.php
+
+/var/www/html/TFGPeluqueria/imagenes:
+Fondo.jpg  Logo.png  Logo2.png  Logo3.png  facebook.png  instagram.png
+
+/var/www/html/TFGPeluqueria/js:
+script.js
+
+/var/www/html/TFGPeluqueria/paginas:
+citas.php        editar_cliente.php     empleados.php         registro_empleados.php
+clientes.php     editar_empleado.php    panel_cliente.php     registro_servicio.php
+coger_citas.php  editar_servicio.php    panel_empleado.php    seleccionar_cliente.php
+editar_cita.php  eliminar_sercicio.php  registro_cliente.php  servicios.php
+
+/var/www/html/TFGPeluqueria/plantillas:
+navbar.php
+
+clave aplicacion: mcyu hirg dnxp kchs
+
+copia de seguridad cada 2 horas para asegurar que una vez arrancada la instancia (4 horas)
+sin importar la hora al menos hará una copia
+
+Tendriamos un carpeta lamada por ejemplo copiaSeguridad (la ubicacion te la dejo a ti par buscar la mejor) me gustaria si fura posible que el script limpie el contenido de la carpeta para eliminar posibles copias anteriores, copie la  base de datos y los archivos de la web (Directorio /var/www/html/TFGPeluqueria/) a la carpeta copiaSeguridad comprima todo en un zip y usando rclone lo suba a mi drive ¿Como lo ves?
+
+
+rclone
+rclone authorize "drive" "eyJzY29wZSI6ImRyaXZlIn0"
+
+codigo rclone
+Paste the following into your remote machine --->
+eyJ0b2tlbiI6IntcImFjY2Vzc190b2tlblwiOlwieWEyOS5hMEFaWWtOWmlVcnBId1BCbmtFUEpnc1pLVnR4Z3hLUnF1YTZqLUJUVzU0ZV9DV3QxZVR0aDRhSWhPQlZnY0hDOUQtcnhsemp1S3l6N2dMaTRpajMzdHAwN3FYdlRlXzJWOThCX3B5a0N6bnRUaHVicXJrLXVnZVNjTG1hQlRVVlA3X3EwMmhIdmpHaGFDRWt1R2ZENllpLU9VeU1yX0RsNHA4ZWg0M1hWaGFDZ1lLQVNVU0FSQVNGUUhHWDJNaUE4MWlLdl90UkUyNXVLcXFlZ0tzNlEwMTc1XCIsXCJ0b2tlbl90eXBlXCI6XCJCZWFyZXJcIixcInJlZnJlc2hfdG9rZW5cIjpcIjEvLzAzejM4MDlfU3o5b0RDZ1lJQVJBQUdBTVNOd0YtTDlJcmEwNVhOeG04bFJuWmRzRU5xYzZ1UTVLazlNRVJJSHRsdkZpSXNhTlJ2cFJfRWVuclF5d1ZmdXFtai1zV1lwdFFKWGNcIixcImV4cGlyeVwiOlwiMjAyNS0wNS0wNlQxMzoyMDowNS42OTAwNjQyKzAyOjAwXCJ9In0
+<---End paste

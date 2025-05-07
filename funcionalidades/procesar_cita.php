@@ -8,6 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception("Debes seleccionar al menos un servicio.");
         }
 
+	$id_cliente = $_POST['id_cliente'];
+	$es_empleado = isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'empleado';
+
         $conn->beginTransaction();
         
         // Insertar cita directamente
@@ -34,7 +37,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         $conn->commit();
-        header("Location: /TFGPeluqueria/paginas/citas.php?success=1");
+
+	// Obtener correo del cliente
+	$stmt = $conn->prepare("SELECT email FROM clientes WHERE id_cliente = ?");
+	$stmt->execute([$id_cliente]);
+	$cliente = $stmt->fetch(PDO::FETCH_ASSOC);
+
+	if ($cliente && !empty($cliente['email'])) {
+    		require_once 'enviar_correo.php';
+    		enviarCorreoCita($cliente['email'], $_POST['fecha'], $_POST['hora']);
+	}
+
+	
+	if ($es_empleado) {
+	        header("Location: /TFGPeluqueria/paginas/citas.php?success=1");
+	} else { 
+		header("Location: /TFGPeluqueria/paginas/panel_cliente.php?success=1");
+	}
     } catch (PDOException $e) {
         $conn->rollBack();
 
