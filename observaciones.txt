@@ -59,7 +59,7 @@ Tareas:
 [X]         (Administrador) Dar alta nuevo citas
 [X]         (Administrador) Editar citas  
 
-[ ]     Gestion errores login
+[X]     Gestion errores login
 
 [X] pagina citas
 [X]     Diferencia flujo de eventos Clientes/Trabajador

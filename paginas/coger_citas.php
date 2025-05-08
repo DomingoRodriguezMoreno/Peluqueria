@@ -107,14 +107,34 @@ include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php
     <script src="/TFGPeluqueria/js/script.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Marcar checkboxes guardados
-        <?php foreach ($servicios_guardados as $servicio_id): ?>
-            document.querySelectorAll('.servicio-checkbox[value="<?= $servicio_id ?>"]')
-                .forEach(checkbox => checkbox.checked = true);
-        <?php endforeach; ?>
-        
-        // Actualizar resumen
-        actualizarResumenCita();
+    	// Nuevo código: Hacer toda la fila clickable
+    	document.querySelectorAll('.tabla-servicios tr').forEach(row => {
+        	row.addEventListener('click', (e) => {
+            	// Evitar acción si se hace clic directamente en el checkbox
+            		if (e.target.tagName === 'INPUT') return;
+            
+            		const checkbox = row.querySelector('.servicio-checkbox');
+            		if (checkbox) {
+                		checkbox.checked = !checkbox.checked;
+                		// Disparar evento change para actualizar el resumen
+                		checkbox.dispatchEvent(new Event('change'));
+            		}
+        	});
+    	});
+
+    // Activar pickers al hacer clic en inputs de fecha/hora
+    const fechaInput = document.getElementById('fecha-cita');
+    const horaInput = document.getElementById('hora-cita');
+
+    [fechaInput, horaInput].forEach(input => {
+        input.addEventListener('click', function() {
+            if ('showPicker' in HTMLInputElement.prototype) {
+                this.showPicker(); // Método moderno
+            }
+            // En navegadores antiguos, el picker se abrirá normalmente al hacer focus
+        });
+    });
+
     });
     </script>
 </body>
