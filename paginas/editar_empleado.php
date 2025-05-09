@@ -19,6 +19,9 @@ try {
     $stmt->execute([$dni]);
     $empleado = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    $empleado_mostrar = isset($_SESSION['original_data']) ? $_SESSION['original_data'] : $empleado;
+
+
     // Lista de roles
     $stmt = $conn->query("SELECT * FROM roles");
     $roles = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -39,31 +42,45 @@ try {
     
     <div class="registros-container">
         <h1>Editar Empleado</h1>
+
+        <?php if (isset($_SESSION['error_edicion_empleado'])): ?>
+            <div class="error-mensaje">
+                <?= htmlspecialchars($_SESSION['error_edicion_empleado']) ?>
+            </div>
+            <?php unset($_SESSION['error_edicion_empleado']); ?>
+        <?php endif; ?>
+
         <form action="/TFGPeluqueria/funcionalidades/procesar_edicion_empleado.php" method="POST">
-            <input type="hidden" name="dni" value="<?= htmlspecialchars($empleado['dni']) ?>">
+            <input type="hidden" name="original_dni" value="<?= htmlspecialchars($empleado['dni']) ?>">
             
             <!-- Campos editables -->
             <div class="form-group">
+                <label>DNI: 
+        		<input type="text" name="dni" value="<?= htmlspecialchars($empleado_mostrar['dni']) ?>" required>
+                </label>
+            </div>
+
+            <div class="form-group">
                 <label>Nombre: 
-                    <input type="text" name="nombre" value="<?= htmlspecialchars($empleado['nombre']) ?>" required>
+                    <input type="text" name="nombre" value="<?= htmlspecialchars($_SESSION['form_data']['nombre'] ?? $empleado['nombre']) ?>" required>
                 </label>
             </div>
 
             <div class="form-group">
                 <label>Apellidos: 
-                    <input type="text" name="apellidos" value="<?= htmlspecialchars($empleado['apellidos']) ?>" required>
+                    <input type="text" name="apellidos" value="<?= htmlspecialchars($_SESSION['form_data']['apellidos'] ?? $empleado['apellidos']) ?>" required>
                 </label>
             </div>
 
             <div class="form-group">
                 <label>Teléfono: 
-                    <input type="text" name="telefono" value="<?= htmlspecialchars($empleado['telefono']) ?>" required>
+                    <input type="text" name="telefono" value="<?= htmlspecialchars($_SESSION['form_data']['telefono'] ?? $empleado['telefono']) ?>" required>
                 </label>
             </div>
 
             <div class="form-group">
                 <label>Email: 
-                    <input type="email" name="email" value="<?= htmlspecialchars($empleado['email']) ?>" required>
+                    <input type="text" name="email" value="<?= htmlspecialchars($_SESSION['form_data']['email'] ?? $empleado['email']) ?>" required>
                 </label>
             </div>
             

@@ -17,17 +17,16 @@ $contraseña = $_POST['contraseña'];
 
 // Validar campos obligatorios
 if (empty($dni) || empty($nombre) || empty($apellidos) || empty($telefono) || empty($email) || empty($id_rol) || empty($contraseña)) {
-    die("Todos los campos son obligatorios.");
+    $_SESSION['error_empleado'] = "Todos los campos son obligatorios";
+    header('Location: /TFGPeluqueria/paginas/registro_empleados.php'); // Redirigir al formulario
+    exit();
 }
 
 // Validar formato de DNI (ejemplo básico)
 if (!preg_match('/^[0-9]{8}[A-Za-z]$/', $dni)) {
-    die("Formato de DNI inválido.");
-}
-
-// Validar rol permitido (1 o 2)
-if (!in_array($id_rol, [1, 2])) {
-    die("Rol seleccionado no válido.");
+    $_SESSION['error_empleado'] = "Error en el formato del DNI.";
+    header('Location: /TFGPeluqueria/paginas/registro_empleados.php'); // Redirigir al formulario
+    exit();
 }
 
 // Verificar unicidad de DNI, teléfono y email

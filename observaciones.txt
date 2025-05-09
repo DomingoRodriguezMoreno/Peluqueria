@@ -98,6 +98,10 @@ ssh -i TFG.pem ubuntu@13.219.48.123
 //Eliminar los registros echos con la ip
 ssh-keygen -R 13.219.48.123 
 
+//Restauracion Backups
+scp -i TFG.pem backup_  ubuntu@13.219.48.123:/home/ubuntu/
+
+
 SCP
 scp -i TFG.pem TFGPeluqueria.sql ubuntu@13.219.48.123:/home/ubuntu/
 sudo mysql -u root -p < ~/TFGPeluqueria.sql
