@@ -27,7 +27,8 @@ try {
 
     // Guardar datos originales para recuperación en errores
     $_SESSION['original_data_cliente'] = [
-        'telefono' => $cliente['telefono']
+        'telefono' => $cliente['telefono'],
+        'email' => $cliente['email']
     ];
 
 } catch (PDOException $e) {

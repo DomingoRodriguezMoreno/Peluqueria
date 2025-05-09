@@ -47,10 +47,12 @@ Tareas:
 [X] pagina perfil trabajador
 [X]     listado empleados
 [X]         (Administrador) Dar alta nuevo empleado
-[X]         (Administrador) Editar empleado  
+[X]         (Administrador) Editar empleado
+[ ]             Manejo de error de duplicidad
 [X]     listado clientes
 [X]         (Administrador) Dar alta nuevo cliente
-[X]         (Administrador) Editar cliente  
+[X]         (Administrador) Editar cliente
+[ ]             Manejo de error de duplicacion de email
 [X]     listado servicios
 [X]         (Administrador) Dar alta nuevo servicio
 [X]         (Administrador) Editar servicio

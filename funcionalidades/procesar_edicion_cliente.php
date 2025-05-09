@@ -34,6 +34,32 @@ if ($stmt_telefono->rowCount() > 0) {
     exit();
 }
 
+$nuevo_email = $_POST['email'];
+
+// Verificar si el teléfono ya existe en otro cliente
+$stmt_email = $conn->prepare("
+    SELECT id_cliente 
+    FROM clientes 
+    WHERE email = :email 
+    AND id_cliente != :id_cliente
+");
+$stmt_email->bindParam(':email', $nuevo_email);
+$stmt_email->bindParam(':id_cliente', $id_cliente, PDO::PARAM_INT);
+$stmt_email->execute();
+
+if ($stmt_email->rowCount() > 0) {
+    $_SESSION['error_edicion_cliente'] = "El email ya está registrado en otro cliente.";
+    
+    // Restaurar teléfono original y mantener otros campos
+    $_SESSION['form_data_edicion_cliente'] = array_merge(
+        $_POST,
+        ['email' => $_SESSION['original_data_cliente']['email']]
+    );
+    
+    header("Location: /TFGPeluqueria/paginas/editar_cliente.php?id_cliente=$id_cliente");
+    exit();
+}
+
 // Actualizar campos
 $campos = [
     'nombre' => $_POST['nombre'],
