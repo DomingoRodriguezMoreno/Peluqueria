@@ -94,6 +94,8 @@ in emleado administrador
         como la verificacion de admin esta encampsulada en una funcionalidad php solo he tenido
         que modificar dicha funcionalidad y la pagina ha continuado su correcto funcionamiento
 
+ademas tengo un dilema y es si poner dni como campo editable, el dilema viene a que dni es la primary key de la tabla empleados, pero como dato insertado por el usuario tambies es suceptible a errores al escribirlo
+
 Servidor AWS
 ssh -i TFG.pem ubuntu@13.219.48.123
 
@@ -242,3 +244,30 @@ codigo rclone
 Paste the following into your remote machine --->
 eyJ0b2tlbiI6IntcImFjY2Vzc190b2tlblwiOlwieWEyOS5hMEFaWWtOWmlVcnBId1BCbmtFUEpnc1pLVnR4Z3hLUnF1YTZqLUJUVzU0ZV9DV3QxZVR0aDRhSWhPQlZnY0hDOUQtcnhsemp1S3l6N2dMaTRpajMzdHAwN3FYdlRlXzJWOThCX3B5a0N6bnRUaHVicXJrLXVnZVNjTG1hQlRVVlA3X3EwMmhIdmpHaGFDRWt1R2ZENllpLU9VeU1yX0RsNHA4ZWg0M1hWaGFDZ1lLQVNVU0FSQVNGUUhHWDJNaUE4MWlLdl90UkUyNXVLcXFlZ0tzNlEwMTc1XCIsXCJ0b2tlbl90eXBlXCI6XCJCZWFyZXJcIixcInJlZnJlc2hfdG9rZW5cIjpcIjEvLzAzejM4MDlfU3o5b0RDZ1lJQVJBQUdBTVNOd0YtTDlJcmEwNVhOeG04bFJuWmRzRU5xYzZ1UTVLazlNRVJJSHRsdkZpSXNhTlJ2cFJfRWVuclF5d1ZmdXFtai1zV1lwdFFKWGNcIixcImV4cGlyeVwiOlwiMjAyNS0wNS0wNlQxMzoyMDowNS42OTAwNjQyKzAyOjAwXCJ9In0
 <---End paste
+
+Empleados
+    * Acceso a registro de citas, clientes, empleados y servicios
+Empleados_admin
+    * Acceso a registro de citas
+        - Coger citas para los clientes
+        - Editar datos citas (dia, horas, estado)
+    * Acceso a registro de clientes
+        - Dar alta nuevo cliente
+        - Editar datos clientes
+    * Acceso a registro de empleados
+        - Dar alta nuevo empleado
+        - Editar datos empleados 
+            + Hacer admin, 
+            + Despedir "activo = 0"
+    * Acceso a registro de servicios
+        - Dar alta nuevo servicio
+        - Editar datos servicios
+            + Desactivarlo (activo = 0)
+Cliente
+    * Visualizar servicios
+    * Coger citas
+    * Visualizacion de sus citas
+        - Cancelar citas futuras
+Usuario no registrado
+    * Visualizar servicios
+    * registrarse

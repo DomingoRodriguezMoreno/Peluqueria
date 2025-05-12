@@ -8,7 +8,7 @@ if (!esAdministrador($conn)) {
     exit();
 }
 
-$dni = $_GET['dni'] ?? null;
+$dni = $_GET['dni'] ?? ($_SESSION['form_data_edicion_empleado']['dni'] ?? null);
 
 // Obtener datos del empleado
 $empleado = [];
@@ -19,12 +19,33 @@ try {
     $stmt->execute([$dni]);
     $empleado = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    if (!$empleado) {
+        die("Empleado no encontrado");
+    }
+
     // Lista de roles
     $stmt = $conn->query("SELECT * FROM roles");
     $roles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Guardar datos originales para recuperación en errores
+    $_SESSION['original_data_empleado'] = [
+        'telefono' => $empleado['telefono'],
+        'email' => $empleado['email'],
+        'dni' => $empleado['dni'],
+        'es_admin' => $empleado['es_admin'],
+        'activo' => $empleado['activo']
+    ];
 } catch (PDOException $e) {
     die("Error: " . $e->getMessage());
 }
+
+$empleado = array_merge(
+    $_SESSION['original_data_empleado'] ?? [],
+    $_SESSION['form_data_edicion_empleado'] ?? $empleado
+);
+
+unset($_SESSION['form_data_edicion_empleado']);
+
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +60,14 @@ try {
     
     <div class="registros-container">
         <h1>Editar Empleado</h1>
+
+        <?php if (isset($_SESSION['error_edicion_empleado'])): ?>
+            <div class="error-mensaje">
+                <?= htmlspecialchars($_SESSION['error_edicion_empleado']) ?>
+            </div>
+            <?php unset($_SESSION['error_edicion_empleado']); ?>
+        <?php endif; ?>
+
         <form action="/TFGPeluqueria/funcionalidades/procesar_edicion_empleado.php" method="POST">
             <input type="hidden" name="dni" value="<?= htmlspecialchars($empleado['dni']) ?>">
             
