@@ -40,7 +40,7 @@ Tareas:
 [X]    pagina perfil cliente
 [X]        listado de citas propias
 [X]             Debe Mostrar todas las citas incluso las canceladas
-[ ]             Alt: Al iniciar sesion tras una cancelacion por parte de
+[X]             Alt: Al iniciar sesion tras una cancelacion por parte de
                 los trabajadores Mostrar un mensaje
 [?]        Cambiar contraseña
 
@@ -48,11 +48,11 @@ Tareas:
 [X]     listado empleados
 [X]         (Administrador) Dar alta nuevo empleado
 [X]         (Administrador) Editar empleado
-[ ]             Manejo de error de duplicidad
+[X]             Manejo de error de duplicidad
 [X]     listado clientes
 [X]         (Administrador) Dar alta nuevo cliente
 [X]         (Administrador) Editar cliente
-[ ]             Manejo de error de duplicacion de email
+[X]             Manejo de error de duplicacion de email
 [X]     listado servicios
 [X]         (Administrador) Dar alta nuevo servicio
 [X]         (Administrador) Editar servicio
@@ -104,7 +104,6 @@ ssh-keygen -R 13.219.48.123
 
 //Restauracion Backups
 scp -i TFG.pem backup_  ubuntu@13.219.48.123:/home/ubuntu/
-
 
 SCP
 scp -i TFG.pem TFGPeluqueria.sql ubuntu@13.219.48.123:/home/ubuntu/

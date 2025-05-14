@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/enviar_correo.php';
 
 // Verificar autenticación y tipo de usuario
 if (!isset($_SESSION['tipo_usuario']) || 
@@ -57,6 +58,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_cita'])) {
         $stmt->execute([':id_cita' => $_POST['id_cita']]);
 
         $conn->commit();
+
+        $stmt = $conn->prepare("SELECT email FROM clientes WHERE id_cliente = ?");
+        $stmt->execute([$cita['id_cliente']]);
+        $email_cliente = $stmt->fetchColumn();
+
+        if ($email_cliente) {
+            enviarCorreoCancelacion($email_cliente, $cita['fecha_cita'], $cita['hora_inicio']);
+        }
 
         // Redirección
         $pagina = ($_SESSION['tipo_usuario'] === 'cliente') ? 'panel_cliente.php' : 'citas.php';
