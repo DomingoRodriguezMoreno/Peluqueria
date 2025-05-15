@@ -26,7 +26,7 @@ coger citas
 Ahora que ya tenemos esto quiero que me ayudes a crear la pagina para las citas, quiero una pagina que use el estilo principal, esta pagina será un interfaz para coger citas, se compondrá de una listados de los servicios disponibles, estos servicios tendrán un checkbox y según se vayan seleccionando servicios en un cuadro resumen en la esquina superior derecha aparecerán el tiempo y coste totales. Tras haber terminado se debe permitir que el cliente escoja el dia y la hora (dentro que las que sean posibles) para su cita
 
 Panel empleado
-Este muestra 3 botones que corresponden a la lista de empleados, clientes y citas. 
+Este muestra 4 botones que corresponden a la lista de empleados, clientes, citas y servicios. 
 En la lista de empleados si el empleado que esta logeado es un admin apareceran las opciones 
 de dar de alta y eliminar un trabajador. esto ocurrira tambien para los empleados
 

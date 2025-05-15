@@ -12,6 +12,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // N
 
 $esAdmin = esAdministrador($conn); 
 
+$filtro = $_GET['filtro'] ?? 'reservadas';
+$condicionEstado = ($filtro === 'reservadas') 
+    ? "c.estado = 'reservada'" 
+    : "c.estado IN ('finalizada', 'cancelada')";
+
+
 // Obtener todas las citas con datos del cliente
 $citas = [];
 try {
@@ -19,11 +25,13 @@ try {
         SELECT c.id_cita, c.fecha_cita, c.hora_inicio, c.estado, 
                c.duracion_total, c.precio_final,
                GROUP_CONCAT(s.nombre_servicio SEPARATOR ', ') AS servicios,
-               CONCAT(cli.nombre, ' ', cli.apellidos) AS cliente
+               CONCAT(cli.nombre, ' ', cli.apellidos) AS cliente,
+	       GROUP_CONCAT(DISTINCT cs.id_empleado SEPARATOR ', ') AS empleados_asignados
         FROM citas c
         JOIN clientes cli ON c.id_cliente = cli.id_cliente
         JOIN citas_servicios cs ON c.id_cita = cs.id_cita
         JOIN servicios s ON cs.id_servicio = s.id_servicio
+	WHERE $condicionEstado
         GROUP BY c.id_cita
         ORDER BY c.fecha_cita DESC, c.hora_inicio DESC
     ");
@@ -45,7 +53,7 @@ try {
         <h1>Citas Registradas</h1>
         
         <?php if (empty($citas)): ?>
-            <p>No hay citas programadas.</p>
+                <p>No hay citas <?= $filtro === 'reservadas' ? 'reservadas' : 'finalizadas o canceladas' ?>.</p>
         <?php else: ?>
             <table class="tabla-citas">
                 <thead>
@@ -53,7 +61,8 @@ try {
                         <th>Fecha</th>
                         <th>Hora</th>
                         <th>Servicios</th>
-                        <th>Duración</th>
+               		<th>Empleados Asignados</th>
+		        <th>Duración</th>
                         <th>Precio</th>
                         <th>Estado</th>
                         <th>Cliente</th>
@@ -73,7 +82,8 @@ try {
                             <td><?= date('d/m/Y', strtotime($cita['fecha_cita'])) ?></td>
                             <td><?= date('H:i', strtotime($cita['hora_inicio'])) ?></td>
                             <td><?= $cita['servicios'] ?></td>
-                            <td><?= $cita['duracion_total'] ?> min</td>
+                            <td><?= $cita['empleados_asignados'] ?></td>
+			    <td><?= $cita['duracion_total'] ?> min</td>
                             <td><?= number_format($cita['precio_final'], 2) ?> €</td>
                             <td><span class="estado-cita estado-<?= $cita['estado'] ?>"><?= ucfirst($cita['estado']) ?></span></td>
                             <td><?= $cita['cliente'] ?></td>
@@ -105,6 +115,12 @@ try {
         <div class="contenedor-botones">
             <?php if ($esAdmin): ?>
                 <a href="/TFGPeluqueria/paginas/seleccionar_cliente.php" class="boton-alta">Nueva cita</a>
+                
+		<!-- Botón para alternar entre estados -->
+                <a href="citas.php?filtro=<?= $filtro === 'reservadas' ? 'finalizadas' : 'reservadas' ?>" 
+                class="boton-baja">
+                    <?= $filtro === 'reservadas' ? 'Ver finalizadas/canceladas' : 'Ver reservadas' ?>
+                </a>
             <?php endif; ?>
         </div>
     </div>
