@@ -19,8 +19,7 @@ try {
         SELECT c.id_cita, c.fecha_cita, c.hora_inicio, c.estado, 
                c.duracion_total, c.precio_final,
                GROUP_CONCAT(s.nombre_servicio SEPARATOR ', ') AS servicios,
-               CONCAT(cli.nombre, ' ', cli.apellidos) AS cliente,
-               cli.telefono
+               CONCAT(cli.nombre, ' ', cli.apellidos) AS cliente
         FROM citas c
         JOIN clientes cli ON c.id_cliente = cli.id_cliente
         JOIN citas_servicios cs ON c.id_cita = cs.id_cita
@@ -58,12 +57,19 @@ try {
                         <th>Precio</th>
                         <th>Estado</th>
                         <th>Cliente</th>
-                        <th>Teléfono</th>
+                        <?php if ($esAdmin): ?>
+                            <th>Acciones</th>
+                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($citas as $cita): ?>
-                        <tr <?= $esAdmin ? 'onclick="window.location=\'editar_cita.php?id_cita=' . htmlspecialchars($cita['id_cita']) . '\'"' : '' ?>>
+                        <?php 
+                        $fechaActual = new DateTime();
+                        $fechaCita = new DateTime($cita['fecha_cita'] . ' ' . $cita['hora_inicio']);
+                        $puedeCancelar = ($fechaCita > $fechaActual) && ($cita['estado'] === 'reservada');
+                        ?>
+                        <tr>
                             <td><?= date('d/m/Y', strtotime($cita['fecha_cita'])) ?></td>
                             <td><?= date('H:i', strtotime($cita['hora_inicio'])) ?></td>
                             <td><?= $cita['servicios'] ?></td>
@@ -71,7 +77,25 @@ try {
                             <td><?= number_format($cita['precio_final'], 2) ?> €</td>
                             <td><span class="estado-cita estado-<?= $cita['estado'] ?>"><?= ucfirst($cita['estado']) ?></span></td>
                             <td><?= $cita['cliente'] ?></td>
-                            <td><?= $cita['telefono'] ?></td>
+                            <?php if ($esAdmin): ?>
+                                <td>
+                                    <?php
+                                    $fechaActual = new DateTime();
+                                    $fechaCita = new DateTime($cita['fecha_cita'] . ' ' . $cita['hora_inicio']);
+                                    $puedeCancelar = ($fechaCita > $fechaActual) && ($cita['estado'] === 'reservada');
+                                    ?>
+                                    <form action="/TFGPeluqueria/funcionalidades/cancelar_cita.php" method="POST">
+                                        <input type="hidden" name="id_cita" value="<?= $cita['id_cita'] ?>">
+                                        <button 
+                                            type="submit" 
+                                            class="cancelar-btn" 
+                                            <?= !$puedeCancelar ? 'disabled title="Solo se pueden cancelar citas futuras en estado reservada."' : '' ?>
+                                        >
+                                            Cancelar
+                                        </button>
+                                    </form>
+                                </td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

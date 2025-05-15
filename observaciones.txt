@@ -249,7 +249,7 @@ Empleados
 Empleados_admin
     * Acceso a registro de citas
         - Coger citas para los clientes
-        - Editar datos citas (dia, horas, estado)
+        - Cancelar citas.
     * Acceso a registro de clientes
         - Dar alta nuevo cliente
         - Editar datos clientes
