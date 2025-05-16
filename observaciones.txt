@@ -42,7 +42,6 @@ Tareas:
 [X]             Debe Mostrar todas las citas incluso las canceladas
 [X]             Alt: Al iniciar sesion tras una cancelacion por parte de
                 los trabajadores Mostrar un mensaje
-[?]        Cambiar contraseña
 
 [X] pagina perfil trabajador
 [X]     listado empleados
@@ -72,6 +71,16 @@ Tareas:
 [X] Sustituir Eliminacion por alteracion > añadir valor esta_activo a BD como identificacion de los
     trabajadores actuales
 
+Nuevas funcionalidades
+[ ] Cambio contraseña
+[ ]     Verificar contraseña previa
+[ ]     Repetir contraseña nueva
+clientes, citas, empleados
+[ ] Cabecera de tablas fija
+[ ] Ordenacion por columnas
+[ ] Busqueda en registros
+
+
 Implementar una funcionalidad que, al completarse la reserva de una cita en la peluquería, 
 envíe automáticamente un correo electrónico de confirmación al cliente. Para ello, se utilizará 
 la librería PHPMailer, que permite enviar correos desde PHP de forma segura y con soporte para 
@@ -99,11 +108,13 @@ ademas tengo un dilema y es si poner dni como campo editable, el dilema viene a 
 Servidor AWS
 ssh -i TFG.pem ubuntu@13.219.48.123
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
 //Eliminar los registros echos con la ip
 ssh-keygen -R 13.219.48.123 
 
 //Restauracion Backups
-scp -i TFG.pem backup_  ubuntu@13.219.48.123:/home/ubuntu/
+scp -i TFG.pem LastUpdate ubuntu@13.219.48.123:/home/ubuntu/
 
 SCP
 scp -i TFG.pem TFGPeluqueria.sql ubuntu@13.219.48.123:/home/ubuntu/

@@ -27,7 +27,7 @@ $condicion = ($mostrar === 'inactivos') ? 's.activo = 0' : 's.activo = 1';
 <body>
 
     <div class="contenedor-principal">
-        <h1>Nuestros Servicios</h1>
+        <h1>Nuestros Servicios <?= $mostrar === 'activos' ? 'Disponibles' : 'Inactivos' ?></h1>
         <br>
         <?php foreach ($tipos as $tipo): ?>
             <details class="desplegable-tipo">

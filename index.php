@@ -32,7 +32,6 @@
         <!-- Redes Sociales -->
         <div class="redes-sociales">
             <a href="https://www.facebook.com/peluqueriavillamarta/" target="_blank"><img src="/TFGPeluqueria/imagenes/facebook.png" alt="Facebook"></a>
-            <a href="https://www.instagram.com/millanyvega/" target="_blank"><img src="/TFGPeluqueria/imagenes/instagram.png" alt="Instagram"></a>
         </div>
     </section>
 

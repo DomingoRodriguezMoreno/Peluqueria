@@ -325,18 +325,40 @@ body::before {
     color: var(--color-primario);
 }
 
+.tabla-citas tr:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Fondo ligeramente más oscuro */
+    transition: background-color 0.2s ease-in-out;
+}
+
 .tabla-citas tr:last-child td {
     border-bottom: none;
 }
 
+/* Pagina Datos Citas */
+.detalles-cita {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   gap: 20px;
+   padding: 20px;
+   border-radius: 10px;
+   margin-bottom: 20px;
+}
+       
+.seccion {
+   background: rgba(0, 0, 255, 0.5);
+   padding: 15px;
+   border-radius: 8px;
+   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
 
-/* Estado de las citas */
+.seccion.span-2{
+   grid-column: span 2;
+}
+
 .estado-cita {
-    display: inline-block;
-    padding: 0.3rem 0.8rem;
-    border-radius: 15px;
-    font-size: 0.9em;
-    font-weight: 500;
+   padding: 5px 10px;
+   border-radius: 5px;
+   display: inline-block;
 }
 
 .estado-pendiente { background: #fff3cd; color: #856404; }
@@ -397,6 +419,16 @@ body::before {
     background-color:  #45a049;
     transform: translateY(-1px);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.boton-volver {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
 }
 
 /* Mensajes de feedback */

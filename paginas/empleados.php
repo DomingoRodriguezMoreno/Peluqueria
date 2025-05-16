@@ -39,7 +39,7 @@ try {
 </head>
 <body>
     <div class="contenedor-principal">
-        <h1>Listado de Empleados</h1>
+        <h1>Listado de Empleados <?= $mostrar === 'activos' ? 'activos' : 'inactivos' ?></h1>
         
         <table class="tabla-citas">
             <thead>
