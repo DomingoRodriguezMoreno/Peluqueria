@@ -86,7 +86,10 @@ try {
                 </tbody>
             </table>
         <?php endif; ?>
-        <a href="/TFGPeluqueria/funcionalidades/logout.php" class="logout-btn">Cerrar sesión</a>
+
+            <a href="/TFGPeluqueria/funcionalidades/logout.php" class="logout-btn">Cerrar sesión</a>
+            <a href="/TFGPeluqueria/paginas/cambiar_contrasena.php" class="boton-alta">Cambiar contraseña</a>
+
     </div>
 </body>
 </html>

@@ -152,15 +152,20 @@ mysql> select * from servicios;
 mysql>
 
 Nuevas funcionalidades
-[ ] Cambio contraseña
-[ ]     Verificar contraseña previa
-[ ]     Repetir contraseña nueva
+[X] Cambio contraseña
+[X]     Verificar contraseña previa
+[X]     Repetir contraseña nueva
+
 clientes, citas, empleados
 [ ] Cabecera de tablas fija
 [ ] Ordenacion por columnas
 [ ] Busqueda en registros
 
+sudo chown www-data:www-data procesar_cambio_contrasena.php && sudo chmod 755 procesar_cambio_contrasena.php
 
+LLAMAR ALFONSO PROBLEMA APP
+
+Completado
 Implementar una funcionalidad que, al completarse la reserva de una cita en la peluquería, 
 envíe automáticamente un correo electrónico de confirmación al cliente. Para ello, se utilizará 
 la librería PHPMailer, que permite enviar correos desde PHP de forma segura y con soporte para 

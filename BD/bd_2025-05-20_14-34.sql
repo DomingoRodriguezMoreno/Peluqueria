@@ -234,7 +234,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (1,'dominrodri5@gmail.com','666777999','Domingo','Rodriguez MorenA','$2y$10$7f5PKdGT2OdjkVSphLN0G.CeoSvdeFKP5BMYXlJdHIsdr7k5Y7mZG'),(2,'drodmor970@g.educaand.es','671673501','Paco','Pepe','$2y$10$8z.OFRDgrsSMTTD006ogBerBpvTxxFYmYZVBsZ3ukQ1YVtFe5H2ua'),(3,'d@g','000000000','pedri','b','$2y$10$XIkUjtfyhi5lYNW8GK/RXeJNvOCXXYZFbFl9RzBFlhZyvRiKSSPDy'),(4,'1@2','000000001','Domingo','Rodriguez Moreno','$2y$10$eat0tKZtOwKhO1IS1tgacO11XV8oiuikhfPjB70Rxw0v7QkVpY1f2');
+INSERT INTO `clientes` VALUES (1,'dominrodri5@gmail.com','666777999','Domingo','Rodriguez MorenA','$2y$10$7f5PKdGT2OdjkVSphLN0G.CeoSvdeFKP5BMYXlJdHIsdr7k5Y7mZG'),(2,'drodmor970@g.educaand.es','671673501','Paco','Pepe','$2y$10$8z.OFRDgrsSMTTD006ogBerBpvTxxFYmYZVBsZ3ukQ1YVtFe5H2ua'),(3,'d@g','000000000','pedri','b','$2y$10$ef8QBpnoSL8PFlSaC11wf.zyyUMsT5H8rGF2CkHqyslI8Q9YwSqOy'),(4,'1@2','000000001','Domingo','Rodriguez Moreno','$2y$10$eat0tKZtOwKhO1IS1tgacO11XV8oiuikhfPjB70Rxw0v7QkVpY1f2');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -504,4 +504,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-20 10:10:14
+-- Dump completed on 2025-05-20 14:34:44
