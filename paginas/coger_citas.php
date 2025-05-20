@@ -59,7 +59,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php
                     $sql_servicios = "SELECT s.* 
                                     FROM servicios s
                                     JOIN servicios_tipos st ON s.id_servicio = st.id_servicio
-                                    WHERE st.id_tipo = :id_tipo";
+                                    WHERE st.id_tipo = :id_tipo AND activo = 1";
                     $stmt = $conn->prepare($sql_servicios);
                     $stmt->execute(['id_tipo' => $tipo['id_tipo']]);
                     $servicios = $stmt->fetchAll(PDO::FETCH_ASSOC);

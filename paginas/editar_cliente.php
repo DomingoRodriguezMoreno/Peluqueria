@@ -49,6 +49,7 @@ unset($_SESSION['form_data_edicion_cliente']);
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Cliente</title>
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
