@@ -27,7 +27,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
             <a href="/TFGPeluqueria/paginas/servicios.php" class="boton-panel">Servicios</a>
         </div>
 
-        <a href="/TFGPeluqueria/funcionalidades/logout.php" class="logout-btn">Cerrar sesión</a>
+            <a href="/TFGPeluqueria/funcionalidades/logout.php" class="logout-btn">Cerrar sesión</a>
+            <a href="/TFGPeluqueria/paginas/cambiar_contrasena.php" class="boton-alta">Cambiar contraseña</a>
+
     </div>
 </body>
 </html>

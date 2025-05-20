@@ -267,7 +267,7 @@ CREATE TABLE `empleados` (
 
 LOCK TABLES `empleados` WRITE;
 /*!40000 ALTER TABLE `empleados` DISABLE KEYS */;
-INSERT INTO `empleados` VALUES ('12345678A','Juan','Pérez García','600111222','juan@peluqueria.com',1,'$2y$10$eane7EyENEvum8sMvryDceDWOVmmbLrYk0OaJ8vh9NiuHhLQGtuOi',1,1),('12345678B','Q','a','111111222','1@2',1,'$2y$10$48cFyhgQ/oVC9b8MBG/hsePMeV/nu1X8KLsqV2J0Z5DT9k948RE4C',0,0),('12345678J','A','B','123456789','K@c',1,'$2y$10$pKSdzxbej4FBFM0VusRRFeCCmH59Sj7JWDREy7zL4uR5AQkO4.C1y',0,0),('12345678X','Laura','Calleja','666111666','L@c',2,'$2y$10$Qb4dFFDDd8Omy.tyoRF8Ze5TpdLMTdmCcV55pYKSYbG/ELBYmQJr.',0,1),('12345678Z','Francisco','Rene ','102304506','1@Z',1,'$2y$10$Hft5Ij2223p7ISAyoHUAEunzEtb7dPbJCrSIRGw8xdKA9mcUhAWT6',0,0),('32154687A','Domingo','Rodriguez Moreno','671673501','aa@Z',4,'$2y$10$qKIWLqvEmHJWhDL0SRz44e0F0g.ZTxDTrHomaHd2BcnUZoE1c.Kyi',0,1),('87654321X','Cafca','lumne','123321123','cafca@L',1,'$2y$10$XUKwD7Du7b9S8OEmAR6UNOEc1aC/LTnP7niacfJFd1ltMI.Eu33P.',1,1);
+INSERT INTO `empleados` VALUES ('12345678A','Juan','Pérez García','600111222','juan@peluqueria.com',1,'$2y$10$eane7EyENEvum8sMvryDceDWOVmmbLrYk0OaJ8vh9NiuHhLQGtuOi',1,1),('12345678B','Q','a','111111222','1@2',1,'$2y$10$48cFyhgQ/oVC9b8MBG/hsePMeV/nu1X8KLsqV2J0Z5DT9k948RE4C',0,0),('12345678J','A','B','123456789','K@c',1,'$2y$10$pKSdzxbej4FBFM0VusRRFeCCmH59Sj7JWDREy7zL4uR5AQkO4.C1y',0,0),('12345678X','Laura','Calleja','666111666','L@c',2,'$2y$10$uE36He6rTd31jq1Fa5VbDeMgf0up03x3qY0Ty.MxkhbeeNpdsc0l2',0,1),('12345678Z','Francisco','Rene ','102304506','1@Z',1,'$2y$10$Hft5Ij2223p7ISAyoHUAEunzEtb7dPbJCrSIRGw8xdKA9mcUhAWT6',0,0),('32154687A','Domingo','Rodriguez Moreno','671673501','aa@Z',4,'$2y$10$qKIWLqvEmHJWhDL0SRz44e0F0g.ZTxDTrHomaHd2BcnUZoE1c.Kyi',0,1),('87654321X','Cafca','lumne','123321123','cafca@L',1,'$2y$10$XUKwD7Du7b9S8OEmAR6UNOEc1aC/LTnP7niacfJFd1ltMI.Eu33P.',1,1);
 /*!40000 ALTER TABLE `empleados` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -504,4 +504,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-20 14:34:44
+-- Dump completed on 2025-05-20 14:46:50
