@@ -17,7 +17,6 @@ $condicionEstado = ($filtro === 'reservadas')
     ? "c.estado = 'reservada'" 
     : "c.estado IN ('finalizada', 'cancelada')";
 
-
 // Obtener todas las citas con datos del cliente
 $citas = [];
 try {
@@ -44,6 +43,7 @@ try {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Empleado - Todas las Citas</title>
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
@@ -58,28 +58,30 @@ try {
     		<input type="text" id="buscador-citas" placeholder="Buscar por cliente, servicios o fecha..." class="input-busqueda">
 	    </div>
 
-            <table class="tabla-citas">
-                <thead>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Hora</th>
-                        <th>Servicios</th>
-                        <th>Precio</th>
-                        <th>Cliente</th>
-		   </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($citas as $cita): ?>
-                        <tr onclick="window.location='/TFGPeluqueria/paginas/datos_cita.php?id_cita=<?= $cita['id_cita'] ?>'" style="cursor: pointer;">
-                            <td><?= date('d/m/Y', strtotime($cita['fecha_cita'])) ?></td>
-                            <td><?= date('H:i', strtotime($cita['hora_inicio'])) ?></td>
-                            <td><?= $cita['servicios'] ?></td>
-                            <td><?= number_format($cita['precio_final'], 2) ?> €</td>
-                            <td><?= $cita['cliente'] ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+	    <div class="tabla-scroll">
+               <table class="tabla-citas">
+                   <thead>
+                       <tr>
+                           <th>Fecha</th>
+                           <th>Hora</th>
+                           <th>Servicios</th>
+                           <th>Precio</th>
+                           <th>Cliente</th>
+		      </tr>
+                   </thead>
+                   <tbody>
+                       <?php foreach ($citas as $cita): ?>
+                           <tr onclick="window.location='/TFGPeluqueria/paginas/datos_cita.php?id_cita=<?= $cita['id_cita'] ?>'" style="cursor: pointer;">
+                               <td><?= date('d/m/Y', strtotime($cita['fecha_cita'])) ?></td>
+                               <td><?= date('H:i', strtotime($cita['hora_inicio'])) ?></td>
+                               <td><?= $cita['servicios'] ?></td>
+                               <td><?= number_format($cita['precio_final'], 2) ?> €</td>
+                               <td><?= $cita['cliente'] ?></td>
+                           </tr>
+                       <?php endforeach; ?>
+                   </tbody>
+               </table>
+	    </div>
         <?php endif; ?>
 
         <div class="contenedor-botones">

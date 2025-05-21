@@ -334,6 +334,11 @@ body::before {
     border-bottom: none;
 }
 
+.tabla-scroll {
+    width: 100%;
+    overflow-x: auto;
+}
+
 .contenedor-busqueda {
     margin: 20px 0;
     width: 90%;

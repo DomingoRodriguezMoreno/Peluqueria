@@ -157,9 +157,8 @@ Nuevas funcionalidades
 [X]     Repetir contraseña nueva
 
 clientes, citas, empleados
-[ ] Cabecera de tablas fija
-[ ] Ordenacion por columnas
-[ ] Busqueda en registros
+[X] Busqueda en registros
+[ ] Paginar tablas (X filas por pagina)
 
 sudo chown www-data:www-data procesar_cambio_contrasena.php && sudo chmod 755 procesar_cambio_contrasena.php
 
