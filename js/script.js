@@ -32,7 +32,37 @@ document.addEventListener('DOMContentLoaded', function() {
         const hoy = new Date();
         fechaInput.min = new Date(hoy.setDate(hoy.getDate() + 1)).toISOString().split('T')[0];
     }
+
+    // Para citas.php
+    crearBuscador('buscador-citas', '.tabla-citas');
+    
+    // Para empleados.php
+    crearBuscador('buscador-empleados', '.tabla-citas');
+    
+    // Para clientes.php
+    crearBuscador('buscador-clientes', '.tabla-citas');
+    
+    if (buscador) {
+        buscador.addEventListener('input', filtrarCitas);
+    }
+
 });
+
+// Función de búsqueda genérica
+function crearBuscador(buscadorId, tablaSelector) {
+    const buscador = document.getElementById(buscadorId);
+    if (buscador) {
+        buscador.addEventListener('input', function() {
+            const filtro = this.value.toLowerCase();
+            const filas = document.querySelectorAll(`${tablaSelector} tbody tr`);
+            
+            filas.forEach(fila => {
+                const textoFila = fila.textContent.toLowerCase();
+                fila.style.display = textoFila.includes(filtro) ? '' : 'none';
+            });
+        });
+    }
+}
 
 function actualizarResumen() {
     let totalTiempo = 0;

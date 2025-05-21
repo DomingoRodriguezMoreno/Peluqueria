@@ -163,8 +163,6 @@ clientes, citas, empleados
 
 sudo chown www-data:www-data procesar_cambio_contrasena.php && sudo chmod 755 procesar_cambio_contrasena.php
 
-LLAMAR ALFONSO PROBLEMA APP
-
 Completado
 Implementar una funcionalidad que, al completarse la reserva de una cita en la peluquería, 
 envíe automáticamente un correo electrónico de confirmación al cliente. Para ello, se utilizará 
@@ -177,7 +175,6 @@ Flujo normal
 clientes >> pag coger_citas >> seleccionar servicios >> seleccionar dia/hora
 Flujo trabajador
 Trabajador >> pag intermedia >> Selecciona cliente >> pag coger_citas >> seleccionar servicios >> seleccionar dia/hora
-
 
 Administrador (Solucionado)
 eliminar el rol de administrador y añadir una columna a los empleados de tipo boolean llamada
@@ -217,6 +214,9 @@ $dbname = 'TFGPeluqueria'; // Nombre de la base de datos
 $user = 'domingo'; // Usuario de MySQL (por defecto en XAMPP es 'root')
 $password = 'doromo96'; // Contraseña de MySQL (por defecto en XAMPP está vacía)
 
+        <div class="contenedor-busqueda">
+                <input type="text" id="buscador-empleados" placeholder="Buscar..." class="input-busqueda">
+        </div>
 
 tree C:\xampp\htdocs\/TFGPeluqueria /F /A
 

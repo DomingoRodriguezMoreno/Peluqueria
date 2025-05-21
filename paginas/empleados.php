@@ -40,7 +40,12 @@ try {
 <body>
     <div class="contenedor-principal">
         <h1>Listado de Empleados <?= $mostrar === 'activos' ? 'activos' : 'inactivos' ?></h1>
-        
+        <br>
+
+	<div class="contenedor-busqueda">
+    		<input type="text" id="buscador-empleados" placeholder="Buscar..." class="input-busqueda">
+	</div>
+
         <table class="tabla-citas">
             <thead>
                 <tr>

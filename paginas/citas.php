@@ -50,10 +50,14 @@ try {
 <body>
     <div class="contenedor-principal">
         <h1>Citas <?= $filtro === 'reservadas' ? 'reservadas' : 'finalizadas o canceladas' ?></h1>
-        
+        <br>
         <?php if (empty($citas)): ?>
                 <p>No hay citas <?= $filtro === 'reservadas' ? 'reservadas' : 'finalizadas o canceladas' ?>.</p>
         <?php else: ?>
+	    <div class="contenedor-busqueda">
+    		<input type="text" id="buscador-citas" placeholder="Buscar por cliente, servicios o fecha..." class="input-busqueda">
+	    </div>
+
             <table class="tabla-citas">
                 <thead>
                     <tr>

@@ -334,6 +334,27 @@ body::before {
     border-bottom: none;
 }
 
+.contenedor-busqueda {
+    margin: 20px 0;
+    width: 90%;
+    max-width: 500px;
+}
+
+.input-busqueda {
+    width: 100%;
+    padding: 12px 20px;
+    border: 2px solid var(--color-primario);
+    border-radius: 25px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+}
+
+.input-busqueda:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(44, 62, 80, 0.3);
+}
+
 /* Pagina Datos Citas */
 .detalles-cita {
    display: grid;
