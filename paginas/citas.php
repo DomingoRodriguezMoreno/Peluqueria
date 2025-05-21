@@ -55,7 +55,7 @@ try {
                 <p>No hay citas <?= $filtro === 'reservadas' ? 'reservadas' : 'finalizadas o canceladas' ?>.</p>
         <?php else: ?>
 	    <div class="contenedor-busqueda">
-    		<input type="text" id="buscador-citas" placeholder="Buscar por cliente, servicios o fecha..." class="input-busqueda">
+                <input type="text" id="buscador-general" class="buscador-general input-busqueda"  placeholder="Buscar..." data-tabla=".tabla-scroll .tabla-citas">
 	    </div>
 
 	    <div class="tabla-scroll">

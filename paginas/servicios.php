@@ -1,5 +1,10 @@
 <?php
 session_start();
+// Verificar autenticación y tipo de usuario
+if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
+    header('Location: /TFGPeluqueria/index.php');
+    exit();
+}
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php'; // Incluir la conexión a la base de datos
 require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php'; // Verificar si el usuario es administrador
@@ -7,13 +12,24 @@ include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // I
 
 // Verificar si es admin
 $esAdmin = esAdministrador($conn);
-// Obtener todos los tipos de tratamiento ordenados por ID
-$query_tipos = "SELECT * FROM tipos_tratamiento ORDER BY id_tipo ASC";
-$stmt_tipos = $conn->query($query_tipos);
-$tipos = $stmt_tipos->fetchAll(PDO::FETCH_ASSOC);
 
+// Obtener lista completa de servicios
 $mostrar = $_GET['mostrar'] ?? 'activos';
 $condicion = ($mostrar === 'inactivos') ? 's.activo = 0' : 's.activo = 1';
+$servicios = [];
+
+try {
+    $sql = "SELECT tt.nombre_tipo AS tipo, s.* 
+            FROM servicios s 
+            JOIN servicios_tipos st ON s.id_servicio = st.id_servicio 
+            JOIN tipos_tratamiento tt ON st.id_tipo = tt.id_tipo
+            WHERE $condicion";
+            
+    $stmt = $conn->query($sql);
+    $servicios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    error_log("Error al obtener servicios: " . $e->getMessage());
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,55 +37,47 @@ $condicion = ($mostrar === 'inactivos') ? 's.activo = 0' : 's.activo = 1';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servicios de Peluquería</title>
+    <title>Gestión de servicios</title>
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
-
     <div class="contenedor-principal">
-        <h1>Nuestros Servicios <?= $mostrar === 'activos' ? 'Disponibles' : 'Inactivos' ?></h1>
+        <h1>Listado de servicios <?= $mostrar === 'activos' ? 'activos' : 'inactivos' ?></h1>
         <br>
-        <?php foreach ($tipos as $tipo): ?>
-            <details class="desplegable-tipo">
-                <summary><?= htmlspecialchars($tipo['nombre_tipo']) ?></summary>
-                
-                <?php
-                // Obtener servicios de este tipo
-                $query_servicios = "SELECT s.* 
-                                FROM servicios s
-                                JOIN servicios_tipos st ON s.id_servicio = st.id_servicio
-                                WHERE st.id_tipo = :id_tipo AND $condicion";
-                $stmt_serv = $conn->prepare($query_servicios);
-                $stmt_serv->execute([':id_tipo' => $tipo['id_tipo']]);
-                $servicios = $stmt_serv->fetchAll(PDO::FETCH_ASSOC);
-                ?>
-                
-                <?php if (!empty($servicios)): ?>
-                    <table class="tabla-servicios">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Duración</th>
-                            <th>Precio</th>
+
+	<div class="contenedor-busqueda">
+    		<input type="text" id="buscador-general" class="buscador-general input-busqueda"  placeholder="Buscar..." data-tabla=".tabla-scroll .tabla-citas">
+	</div>
+
+        <div class="tabla-scroll">
+            <table class="tabla-citas">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                        <th>Duración</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($servicios as $servicio): ?>
+                        <tr <?= $esAdmin ? 'onclick="window.location=\'editar_servicio.php?id_servicio=' . htmlspecialchars($servicio['id_servicio']) . '\'"' : '' ?> 
+                        class="<?= $esAdmin ? 'clickable-row' : '' ?>">
+                            <td><?= htmlspecialchars($servicio['nombre_servicio']) ?></td>
+                            <td><?= htmlspecialchars($servicio['tipo']) ?></td>
+                            <td><?= htmlspecialchars($servicio['descripcion']) ?></td>
+                            <td><?= htmlspecialchars($servicio['duracion']) ?> min</td>
+                            <td><?= number_format($servicio['precio'], 2) ?>€</td>
                         </tr>
-                        <?php foreach ($servicios as $servicio): ?>
-			    <tr <?= $esAdmin ? 'onclick="window.location=\'editar_servicio.php?id_servicio=' . $servicio['id_servicio'] . '\'"' : '' ?>>
-                                <td><?= htmlspecialchars($servicio['nombre_servicio']) ?></td>
-                                <td><?= htmlspecialchars($servicio['descripcion']) ?></td>
-                                <td><?= $servicio['duracion'] ?> min</td>
-                                <td><?= number_format($servicio['precio'], 2) ?>€</td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </table>
-                <?php else: ?>
-                    <div class="sin-servicios">No hay servicios disponibles</div>
-                <?php endif; ?>
-            </details>
-        <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
 
         <div class="contenedor-botones">
             <?php if ($esAdmin): ?>
-                <a href="/TFGPeluqueria/paginas/registro_servicio.php" class="boton-alta">Nuevo Servicio</a>
+                <a href="/TFGPeluqueria/paginas/registro_servicio.php" class="boton-alta">Alta servicio</a>
                 <a href="servicios.php?mostrar=<?= $mostrar === 'activos' ? 'inactivos' : 'activos' ?>" class="boton-baja">
                     <?= $mostrar === 'activos' ? 'Ver inactivos' : 'Ver activos' ?>
                 </a>
@@ -78,3 +86,4 @@ $condicion = ($mostrar === 'inactivos') ? 's.activo = 0' : 's.activo = 1';
     </div>
 </body>
 </html>
+

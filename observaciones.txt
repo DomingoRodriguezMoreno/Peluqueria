@@ -188,9 +188,10 @@ ademas tengo un dilema y es si poner dni como campo editable, el dilema viene a 
 
 Servidor AWS
 ssh -i TFG.pem ubuntu@13.219.48.123
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+                <input type="text" id="buscador-general" class="buscador-general input-busqueda"  placeholder="Buscar..." data-tabla=".tabla-scroll .tabla-citas">
+
+
 //Eliminar los registros echos con la ip
 ssh-keygen -R 13.219.48.123 
 

@@ -33,25 +33,15 @@ document.addEventListener('DOMContentLoaded', function() {
         fechaInput.min = new Date(hoy.setDate(hoy.getDate() + 1)).toISOString().split('T')[0];
     }
 
-    // Para citas.php
-    crearBuscador('buscador-citas', '.tabla-citas');
-    
-    // Para empleados.php
-    crearBuscador('buscador-empleados', '.tabla-citas');
-    
-    // Para clientes.php
-    crearBuscador('buscador-clientes', '.tabla-citas');
-    
-    if (buscador) {
-        buscador.addEventListener('input', filtrarCitas);
-    }
+    crearBuscadorGeneral();
 
 });
 
 // Función de búsqueda genérica
-function crearBuscador(buscadorId, tablaSelector) {
-    const buscador = document.getElementById(buscadorId);
-    if (buscador) {
+function crearBuscadorGeneral() {
+    document.querySelectorAll('.buscador-general').forEach(buscador => {
+        const tablaSelector = buscador.dataset.tabla; // Obtener selector de data-attribute
+        
         buscador.addEventListener('input', function() {
             const filtro = this.value.toLowerCase();
             const filas = document.querySelectorAll(`${tablaSelector} tbody tr`);
@@ -61,7 +51,7 @@ function crearBuscador(buscadorId, tablaSelector) {
                 fila.style.display = textoFila.includes(filtro) ? '' : 'none';
             });
         });
-    }
+    });
 }
 
 function actualizarResumen() {

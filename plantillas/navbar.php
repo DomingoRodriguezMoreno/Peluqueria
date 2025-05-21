@@ -7,7 +7,7 @@
     <div class="nav-links">
     <?php // Mostrar "Servicios" a todos excepto empleados
         if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado'): ?>
-            <a href="/TFGPeluqueria/paginas/servicios.php">Servicios</a>
+            <a href="/TFGPeluqueria/paginas/catalogo_servicios.php">Servicios</a>
         <?php endif; ?>
 
         <?php // Mostrar "Coger Citas" solo a clientes logueados

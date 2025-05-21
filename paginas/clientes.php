@@ -39,7 +39,7 @@ try {
         <br>
 
         <div class="contenedor-busqueda">
-                <input type="text" id="buscador-empleados" placeholder="Buscar..." class="input-busqueda">
+                <input type="text" id="buscador-general" class="buscador-general input-busqueda"  placeholder="Buscar..." data-tabla=".tabla-scroll .tabla-citas">
         </div>
 
         <div class="tabla-scroll">
