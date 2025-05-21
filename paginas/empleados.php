@@ -47,32 +47,34 @@ try {
     		<input type="text" id="buscador-empleados" placeholder="Buscar..." class="input-busqueda">
 	</div>
 
-        <table class="tabla-citas">
-            <thead>
-                <tr>
-                    <th>DNI</th>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Teléfono</th>
-                    <th>Email</th>
-                    <th>Rol</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($empleados as $empleado): ?>
-                    <tr <?= $esAdmin ? 'onclick="window.location=\'editar_empleado.php?dni=' . htmlspecialchars($empleado['dni']) . '\'"' : '' ?> 
-                    class="<?= $esAdmin ? 'clickable-row' : '' ?>">
-                        <td><?= htmlspecialchars($empleado['dni']) ?></td>
-                        <td><?= htmlspecialchars($empleado['nombre']) ?></td>
-                        <td><?= htmlspecialchars($empleado['apellidos']) ?></td>
-                        <td><?= htmlspecialchars($empleado['telefono']) ?></td>
-                        <td><?= htmlspecialchars($empleado['email']) ?></td>
-                        <td><?= htmlspecialchars($empleado['nombre_rol']) ?></td>
+        <div class="tabla-scroll">
+            <table class="tabla-citas">
+                <thead>
+                    <tr>
+                        <th>DNI</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Rol</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        
+                </thead>
+                <tbody>
+                    <?php foreach ($empleados as $empleado): ?>
+                        <tr <?= $esAdmin ? 'onclick="window.location=\'editar_empleado.php?dni=' . htmlspecialchars($empleado['dni']) . '\'"' : '' ?> 
+                        class="<?= $esAdmin ? 'clickable-row' : '' ?>">
+                            <td><?= htmlspecialchars($empleado['dni']) ?></td>
+                            <td><?= htmlspecialchars($empleado['nombre']) ?></td>
+                            <td><?= htmlspecialchars($empleado['apellidos']) ?></td>
+                            <td><?= htmlspecialchars($empleado['telefono']) ?></td>
+                            <td><?= htmlspecialchars($empleado['email']) ?></td>
+                            <td><?= htmlspecialchars($empleado['nombre_rol']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
         <div class="contenedor-botones">
             <?php if ($esAdmin): ?>
                 <a href="/TFGPeluqueria/paginas/registro_empleados.php" class="boton-alta">Alta empleado</a>

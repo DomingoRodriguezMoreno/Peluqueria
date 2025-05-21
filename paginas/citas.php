@@ -59,28 +59,28 @@ try {
 	    </div>
 
 	    <div class="tabla-scroll">
-               <table class="tabla-citas">
-                   <thead>
-                       <tr>
-                           <th>Fecha</th>
-                           <th>Hora</th>
-                           <th>Servicios</th>
-                           <th>Precio</th>
-                           <th>Cliente</th>
-		      </tr>
-                   </thead>
-                   <tbody>
-                       <?php foreach ($citas as $cita): ?>
-                           <tr onclick="window.location='/TFGPeluqueria/paginas/datos_cita.php?id_cita=<?= $cita['id_cita'] ?>'" style="cursor: pointer;">
-                               <td><?= date('d/m/Y', strtotime($cita['fecha_cita'])) ?></td>
-                               <td><?= date('H:i', strtotime($cita['hora_inicio'])) ?></td>
-                               <td><?= $cita['servicios'] ?></td>
-                               <td><?= number_format($cita['precio_final'], 2) ?> €</td>
-                               <td><?= $cita['cliente'] ?></td>
-                           </tr>
-                       <?php endforeach; ?>
-                   </tbody>
-               </table>
+            <table class="tabla-citas">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Servicios</th>
+                        <th>Precio</th>
+                        <th>Cliente</th>
+		            </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($citas as $cita): ?>
+                        <tr onclick="window.location='/TFGPeluqueria/paginas/datos_cita.php?id_cita=<?= $cita['id_cita'] ?>'" style="cursor: pointer;">
+                            <td><?= date('d/m/Y', strtotime($cita['fecha_cita'])) ?></td>
+                            <td><?= date('H:i', strtotime($cita['hora_inicio'])) ?></td>
+                            <td><?= $cita['servicios'] ?></td>
+                            <td><?= number_format($cita['precio_final'], 2) ?> €</td>
+                            <td><?= $cita['cliente'] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
 	    </div>
         <?php endif; ?>
 

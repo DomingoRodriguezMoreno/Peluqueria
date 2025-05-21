@@ -42,27 +42,29 @@ try {
                 <input type="text" id="buscador-empleados" placeholder="Buscar..." class="input-busqueda">
         </div>
 
-        <table class="tabla-citas">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Teléfono</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($clientes as $cliente): ?>
-                    <tr <?= $esAdmin ? 'onclick="window.location=\'editar_cliente.php?id_cliente=' . htmlspecialchars($cliente['id_cliente']) . '\'"' : '' ?>>
-                        <td><?= htmlspecialchars($cliente['nombre']) ?></td>
-                        <td><?= htmlspecialchars($cliente['apellidos']) ?></td>
-                        <td><?= htmlspecialchars($cliente['telefono']) ?></td>
-                        <td><?= htmlspecialchars($cliente['email']) ?></td>
+        <div class="tabla-scroll">
+            <table class="tabla-citas">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        
+                </thead>
+                <tbody>
+                    <?php foreach ($clientes as $cliente): ?>
+                        <tr <?= $esAdmin ? 'onclick="window.location=\'editar_cliente.php?id_cliente=' . htmlspecialchars($cliente['id_cliente']) . '\'"' : '' ?>>
+                            <td><?= htmlspecialchars($cliente['nombre']) ?></td>
+                            <td><?= htmlspecialchars($cliente['apellidos']) ?></td>
+                            <td><?= htmlspecialchars($cliente['telefono']) ?></td>
+                            <td><?= htmlspecialchars($cliente['email']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
         <div class="contenedor-botones">
             <?php if ($esAdmin): ?>
                 <a href="registro_cliente.php" class="boton-alta">Registrar Cliente</a>
