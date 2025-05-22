@@ -1,44 +1,3 @@
-<?php
-session_start();
-// Verificar que sea un empleado
-if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
-    header('Location: /TFGPeluqueria/index.php');
-    exit();
-}
-
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // Navbar específico para empleados
-
-$esAdmin = esAdministrador($conn); 
-
-$filtro = $_GET['filtro'] ?? 'reservadas';
-$condicionEstado = ($filtro === 'reservadas') 
-    ? "c.estado = 'reservada'" 
-    : "c.estado IN ('finalizada', 'cancelada')";
-
-// Obtener todas las citas con datos del cliente
-$citas = [];
-try {
-    $stmt = $conn->prepare("
-        SELECT c.id_cita, c.fecha_cita, c.hora_inicio, c.estado, 
-               c.precio_final,
-               GROUP_CONCAT(s.nombre_servicio SEPARATOR ', ') AS servicios,
-               CONCAT(cli.nombre, ' ', cli.apellidos) AS cliente
-        FROM citas c
-        JOIN clientes cli ON c.id_cliente = cli.id_cliente
-        JOIN citas_servicios cs ON c.id_cita = cs.id_cita
-        JOIN servicios s ON cs.id_servicio = s.id_servicio
-	WHERE $condicionEstado
-        GROUP BY c.id_cita
-        ORDER BY c.fecha_cita DESC, c.hora_inicio DESC
-    ");
-    $stmt->execute();
-    $citas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    echo "Error al obtener citas: " . $e->getMessage();
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -48,6 +7,48 @@ try {
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
+    <?php
+        session_start();
+        // Verificar que sea un empleado
+        if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
+            header('Location: /TFGPeluqueria/index.php');
+            exit();
+        }
+
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // Navbar específico para empleados
+
+        $esAdmin = esAdministrador($conn); 
+
+        $filtro = $_GET['filtro'] ?? 'reservadas';
+        $condicionEstado = ($filtro === 'reservadas') 
+            ? "c.estado = 'reservada'" 
+            : "c.estado IN ('finalizada', 'cancelada')";
+
+        // Obtener todas las citas con datos del cliente
+        $citas = [];
+        try {
+            $stmt = $conn->prepare("
+                SELECT c.id_cita, c.fecha_cita, c.hora_inicio, c.estado, 
+                    c.precio_final,
+                    GROUP_CONCAT(s.nombre_servicio SEPARATOR ', ') AS servicios,
+                    CONCAT(cli.nombre, ' ', cli.apellidos) AS cliente
+                FROM citas c
+                JOIN clientes cli ON c.id_cliente = cli.id_cliente
+                JOIN citas_servicios cs ON c.id_cita = cs.id_cita
+                JOIN servicios s ON cs.id_servicio = s.id_servicio
+            WHERE $condicionEstado
+                GROUP BY c.id_cita
+                ORDER BY c.fecha_cita DESC, c.hora_inicio DESC
+            ");
+            $stmt->execute();
+            $citas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Error al obtener citas: " . $e->getMessage();
+        }
+    ?>
+
     <div class="contenedor-principal">
         <h1>Citas <?= $filtro === 'reservadas' ? 'reservadas' : 'finalizadas o canceladas' ?></h1>
         <br>

@@ -1,53 +1,3 @@
-<?php
-session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php';
-
-if (!esAdministrador($conn)) {
-    header('Location: /TFGPeluqueria/index.php');
-    exit();
-}
-
-$dni = $_GET['dni'] ?? ($_SESSION['form_data_edicion_empleado']['dni'] ?? null);
-
-// Obtener datos del empleado
-$empleado = [];
-$roles = [];
-try {
-    // Datos del empleado
-    $stmt = $conn->prepare("SELECT * FROM empleados WHERE dni = ?");
-    $stmt->execute([$dni]);
-    $empleado = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$empleado) {
-        die("Empleado no encontrado");
-    }
-
-    // Lista de roles
-    $stmt = $conn->query("SELECT * FROM roles");
-    $roles = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // Guardar datos originales para recuperación en errores
-    $_SESSION['original_data_empleado'] = [
-        'telefono' => $empleado['telefono'],
-        'email' => $empleado['email'],
-        'dni' => $empleado['dni'],
-        'es_admin' => $empleado['es_admin'],
-        'activo' => $empleado['activo']
-    ];
-} catch (PDOException $e) {
-    die("Error: " . $e->getMessage());
-}
-
-$empleado = array_merge(
-    $_SESSION['original_data_empleado'] ?? [],
-    $_SESSION['form_data_edicion_empleado'] ?? $empleado
-);
-
-unset($_SESSION['form_data_edicion_empleado']);
-
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -57,7 +7,55 @@ unset($_SESSION['form_data_edicion_empleado']);
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; ?>
+    <?php
+        session_start();
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
+
+        if (!esAdministrador($conn)) {
+            header('Location: /TFGPeluqueria/index.php');
+            exit();
+        }
+
+        $dni = $_GET['dni'] ?? ($_SESSION['form_data_edicion_empleado']['dni'] ?? null);
+
+        // Obtener datos del empleado
+        $empleado = [];
+        $roles = [];
+        try {
+            // Datos del empleado
+            $stmt = $conn->prepare("SELECT * FROM empleados WHERE dni = ?");
+            $stmt->execute([$dni]);
+            $empleado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$empleado) {
+                die("Empleado no encontrado");
+            }
+
+            // Lista de roles
+            $stmt = $conn->query("SELECT * FROM roles");
+            $roles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Guardar datos originales para recuperación en errores
+            $_SESSION['original_data_empleado'] = [
+                'telefono' => $empleado['telefono'],
+                'email' => $empleado['email'],
+                'dni' => $empleado['dni'],
+                'es_admin' => $empleado['es_admin'],
+                'activo' => $empleado['activo']
+            ];
+        } catch (PDOException $e) {
+            die("Error: " . $e->getMessage());
+        }
+
+        $empleado = array_merge(
+            $_SESSION['original_data_empleado'] ?? [],
+            $_SESSION['form_data_edicion_empleado'] ?? $empleado
+        );
+
+        unset($_SESSION['form_data_edicion_empleado']);
+    ?>
     
     <div class="registros-container">
         <h1>Editar Empleado</h1>

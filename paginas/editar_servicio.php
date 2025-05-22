@@ -1,26 +1,3 @@
-<?php
-session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php';
-
-if (!esAdministrador($conn)) {
-    header('Location: /TFGPeluqueria/index.php');
-    exit();
-}
-
-$id_servicio = $_GET['id_servicio'] ?? null;
-
-// Obtener datos del servicio
-$servicio = [];
-try {
-    $stmt = $conn->prepare("SELECT * FROM servicios WHERE id_servicio = ?");
-    $stmt->execute([$id_servicio]);
-    $servicio = $stmt->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    die("Error: " . $e->getMessage());
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -30,7 +7,29 @@ try {
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; ?>
+    <?php
+        session_start();
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
+
+        if (!esAdministrador($conn)) {
+            header('Location: /TFGPeluqueria/index.php');
+            exit();
+        }
+
+        $id_servicio = $_GET['id_servicio'] ?? null;
+
+        // Obtener datos del servicio
+        $servicio = [];
+        try {
+            $stmt = $conn->prepare("SELECT * FROM servicios WHERE id_servicio = ?");
+            $stmt->execute([$id_servicio]);
+            $servicio = $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            die("Error: " . $e->getMessage());
+        }
+    ?>
     
     <div class="registros-container">
         <h1>Editar Servicio</h1>

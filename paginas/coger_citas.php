@@ -1,20 +1,3 @@
-<?php
-session_start();
-
-if (isset($_GET['id_cliente']) && isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'empleado') {
-    $id_cliente = $_GET['id_cliente'];
-} else {
-    // Verificar que el cliente esté logueado
-    if (!isset($_SESSION['id_cliente'])) {
-        header('Location: /TFGPeluqueria/index.php');
-        exit();
-    }
-    $id_cliente = $_SESSION['id_cliente'];
-}
-include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
-
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,7 +7,22 @@ include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; ?>
+    <?php
+        session_start();
+
+        if (isset($_GET['id_cliente']) && isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'empleado') {
+            $id_cliente = $_GET['id_cliente'];
+        } else {
+            // Verificar que el cliente esté logueado
+            if (!isset($_SESSION['id_cliente'])) {
+                header('Location: /TFGPeluqueria/index.php');
+                exit();
+            }
+            $id_cliente = $_SESSION['id_cliente'];
+        }
+        include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
+    ?>
     
     <section class="contenedor-principal citas">
         <!-- Resumen flotante -->

@@ -1,18 +1,3 @@
-<?php
-session_start();
-
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php'; // Incluir la conexión a la base de datos
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php'; // Verificar si el usuario es administrador
-include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // Incluir la barra de navegación
-
-// Verificar si es admin
-$esAdmin = esAdministrador($conn);
-// Obtener todos los tipos de tratamiento ordenados por ID
-$query_tipos = "SELECT * FROM tipos_tratamiento ORDER BY id_tipo ASC";
-$stmt_tipos = $conn->query($query_tipos);
-$tipos = $stmt_tipos->fetchAll(PDO::FETCH_ASSOC);
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -22,6 +7,21 @@ $tipos = $stmt_tipos->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
+    <?php
+        session_start();
+
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php'; // Incluir la conexión a la base de datos
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php'; // Verificar si el usuario es administrador
+        include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // Incluir la barra de navegación
+
+        // Verificar si es admin
+        $esAdmin = esAdministrador($conn);
+        
+        // Obtener todos los tipos de tratamiento ordenados por ID
+        $query_tipos = "SELECT * FROM tipos_tratamiento ORDER BY id_tipo ASC";
+        $stmt_tipos = $conn->query($query_tipos);
+        $tipos = $stmt_tipos->fetchAll(PDO::FETCH_ASSOC);
+    ?>
 
     <div class="contenedor-principal">
         <h1>Nuestros Servicios <?= $mostrar === 'activos' ? 'Disponibles' : 'Inactivos' ?></h1>

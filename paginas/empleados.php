@@ -1,35 +1,3 @@
-<?php
-session_start();
-// Verificar autenticación y tipo de usuario
-if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
-    header('Location: /TFGPeluqueria/index.php');
-    exit();
-}
-
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php'; // Incluir la conexión a la base de datos
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php'; // Verificar si el usuario es administrador
-include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // Incluir la barra de navegación
-
-// Verificar si es admin
-$esAdmin = esAdministrador($conn);
-
-// Obtener lista completa de empleados
-$mostrar = $_GET['mostrar'] ?? 'activos';
-$condicion = ($mostrar === 'inactivos') ? 'e.activo = 0' : 'e.activo = 1';
-$empleados = [];
-
-try {
-    $sql = "SELECT e.dni, e.nombre, e.apellidos, e.telefono, e.email, r.nombre_rol 
-            FROM empleados e
-            INNER JOIN roles r ON e.id_rol = r.id_rol
-            WHERE $condicion";
-    $stmt = $conn->query($sql);
-    $empleados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Error al obtener empleados: " . $e->getMessage());
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -39,6 +7,38 @@ try {
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
+    <?php
+        session_start();
+        // Verificar autenticación y tipo de usuario
+        if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
+            header('Location: /TFGPeluqueria/index.php');
+            exit();
+        }
+
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php'; // Incluir la conexión a la base de datos
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php'; // Verificar si el usuario es administrador
+        include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // Incluir la barra de navegación
+
+        // Verificar si es admin
+        $esAdmin = esAdministrador($conn);
+
+        // Obtener lista completa de empleados
+        $mostrar = $_GET['mostrar'] ?? 'activos';
+        $condicion = ($mostrar === 'inactivos') ? 'e.activo = 0' : 'e.activo = 1';
+        $empleados = [];
+
+        try {
+            $sql = "SELECT e.dni, e.nombre, e.apellidos, e.telefono, e.email, r.nombre_rol 
+                    FROM empleados e
+                    INNER JOIN roles r ON e.id_rol = r.id_rol
+                    WHERE $condicion";
+            $stmt = $conn->query($sql);
+            $empleados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error al obtener empleados: " . $e->getMessage());
+        }
+    ?>
+
     <div class="contenedor-principal">
         <h1>Listado de Empleados <?= $mostrar === 'activos' ? 'activos' : 'inactivos' ?></h1>
         <br>

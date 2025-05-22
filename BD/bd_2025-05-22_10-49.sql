@@ -35,7 +35,7 @@ CREATE TABLE `citas` (
   KEY `id_cliente` (`id_cliente`),
   KEY `idx_fecha_cita` (`fecha_cita`),
   CONSTRAINT `citas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `citas` (
 
 LOCK TABLES `citas` WRITE;
 /*!40000 ALTER TABLE `citas` DISABLE KEYS */;
-INSERT INTO `citas` VALUES (23,1,'2025-05-06','09:01:00','13:01:00','finalizada',240,1.00),(24,1,'2025-05-07','09:13:00','13:13:00','finalizada',240,1.00),(25,1,'2025-05-08','09:18:00','13:18:00','finalizada',240,1.00),(26,1,'2025-05-06','09:07:00','13:07:00','finalizada',240,1.00),(27,1,'2025-05-06','09:07:00','09:57:00','finalizada',50,20.50),(28,1,'2025-05-06','09:07:00','09:37:00','finalizada',30,20.01),(39,1,'2025-05-09','09:30:00','10:20:00','cancelada',50,20.50),(40,1,'2025-05-08','09:00:00','13:00:00','finalizada',240,1.00),(43,1,'2025-05-14','09:00:00','10:00:00','cancelada',60,50.00),(44,1,'2025-05-13','10:01:00','11:01:00','finalizada',60,50.00),(45,2,'2025-05-20','10:51:00','11:21:00','cancelada',30,20.01),(46,2,'2025-05-26','11:07:00','12:07:00','cancelada',60,50.00),(47,1,'2025-05-25','11:12:00','12:12:00','cancelada',60,50.00),(48,2,'2025-05-23','09:31:00','10:51:00','cancelada',80,40.51),(51,2,'2025-05-30','10:34:00','11:34:00','cancelada',60,50.00),(53,3,'2025-05-30','09:29:00','10:49:00','cancelada',80,40.51),(55,3,'2025-05-28','10:46:00','11:46:00','reservada',60,50.00),(56,2,'2025-05-21','11:40:00','12:55:00','reservada',75,50.01),(58,1,'2025-05-29','13:07:00','13:37:00','cancelada',30,20.01),(59,1,'2025-05-26','11:07:00','12:07:00','cancelada',60,50.00),(62,1,'2025-06-19','10:00:00','10:30:00','cancelada',30,40.51),(66,1,'2025-05-28','09:18:00','09:48:00','cancelada',30,40.51),(67,1,'2025-06-19','09:20:00','09:50:00','cancelada',30,40.51),(71,1,'2025-05-26','09:08:00','10:43:00','reservada',95,50.50),(72,1,'2025-05-29','10:09:00','11:29:00','reservada',80,40.51);
+INSERT INTO `citas` VALUES (23,1,'2025-05-06','09:01:00','13:01:00','finalizada',240,1.00),(24,1,'2025-05-07','09:13:00','13:13:00','finalizada',240,1.00),(25,1,'2025-05-08','09:18:00','13:18:00','finalizada',240,1.00),(26,1,'2025-05-06','09:07:00','13:07:00','finalizada',240,1.00),(27,1,'2025-05-06','09:07:00','09:57:00','finalizada',50,20.50),(28,1,'2025-05-06','09:07:00','09:37:00','finalizada',30,20.01),(39,1,'2025-05-09','09:30:00','10:20:00','cancelada',50,20.50),(40,1,'2025-05-08','09:00:00','13:00:00','finalizada',240,1.00),(43,1,'2025-05-14','09:00:00','10:00:00','cancelada',60,50.00),(44,1,'2025-05-13','10:01:00','11:01:00','finalizada',60,50.00),(45,2,'2025-05-20','10:51:00','11:21:00','cancelada',30,20.01),(46,2,'2025-05-26','11:07:00','12:07:00','cancelada',60,50.00),(47,1,'2025-05-25','11:12:00','12:12:00','cancelada',60,50.00),(48,2,'2025-05-23','09:31:00','10:51:00','cancelada',80,40.51),(51,2,'2025-05-30','10:34:00','11:34:00','cancelada',60,50.00),(53,3,'2025-05-30','09:29:00','10:49:00','cancelada',80,40.51),(55,3,'2025-05-28','10:46:00','11:46:00','reservada',60,50.00),(56,2,'2025-05-21','11:40:00','12:55:00','finalizada',75,50.01),(58,1,'2025-05-29','13:07:00','13:37:00','cancelada',30,20.01),(59,1,'2025-05-26','11:07:00','12:07:00','cancelada',60,50.00),(62,1,'2025-06-19','10:00:00','10:30:00','cancelada',30,40.51),(66,1,'2025-05-28','09:18:00','09:48:00','cancelada',30,40.51),(67,1,'2025-06-19','09:20:00','09:50:00','cancelada',30,40.51),(71,1,'2025-05-26','09:08:00','10:43:00','reservada',95,50.50),(72,1,'2025-05-29','10:09:00','11:29:00','reservada',80,40.51),(73,1,'2025-05-30','09:30:00','10:50:00','reservada',80,40.51),(75,2,'2025-05-30','09:32:00','10:17:00','reservada',45,30.00),(76,5,'2025-05-26','11:16:00','13:06:00','cancelada',110,70.50);
 /*!40000 ALTER TABLE `citas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -102,7 +102,7 @@ CREATE TABLE `citas_servicios` (
 
 LOCK TABLES `citas_servicios` WRITE;
 /*!40000 ALTER TABLE `citas_servicios` DISABLE KEYS */;
-INSERT INTO `citas_servicios` VALUES (23,10,'12345678A'),(24,10,'12345678A'),(25,10,'12345678A'),(26,10,'12345678A'),(27,4,'12345678A'),(28,1,'12345678A'),(39,4,'12345678A'),(43,2,'12345678A'),(44,2,'12345678A'),(45,1,'12345678A'),(46,2,'12345678A'),(47,2,'12345678A'),(48,1,'12345678A'),(51,2,'12345678A'),(53,1,'12345678A'),(55,2,'12345678A'),(56,1,'12345678A'),(58,1,'12345678A'),(59,2,'12345678A'),(62,1,'12345678A'),(62,4,'12345678A'),(66,1,'12345678A'),(66,4,'12345678A'),(67,1,'12345678A'),(67,4,'12345678A'),(71,4,'12345678A'),(72,1,'12345678A'),(48,4,'12345678B'),(53,4,'12345678B'),(56,3,'12345678X'),(71,3,'12345678X'),(40,10,'87654321X'),(72,4,'87654321X');
+INSERT INTO `citas_servicios` VALUES (23,10,'12345678A'),(24,10,'12345678A'),(25,10,'12345678A'),(26,10,'12345678A'),(27,4,'12345678A'),(28,1,'12345678A'),(39,4,'12345678A'),(43,2,'12345678A'),(44,2,'12345678A'),(45,1,'12345678A'),(46,2,'12345678A'),(47,2,'12345678A'),(48,1,'12345678A'),(51,2,'12345678A'),(53,1,'12345678A'),(55,2,'12345678A'),(56,1,'12345678A'),(58,1,'12345678A'),(59,2,'12345678A'),(62,1,'12345678A'),(62,4,'12345678A'),(66,1,'12345678A'),(66,4,'12345678A'),(67,1,'12345678A'),(67,4,'12345678A'),(71,4,'12345678A'),(72,1,'12345678A'),(73,1,'12345678A'),(76,4,'12345678A'),(48,4,'12345678B'),(53,4,'12345678B'),(56,3,'12345678X'),(71,3,'12345678X'),(75,3,'12345678X'),(40,10,'87654321X'),(72,4,'87654321X'),(73,4,'87654321X'),(76,2,'87654321X');
 /*!40000 ALTER TABLE `citas_servicios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -225,7 +225,7 @@ CREATE TABLE `clientes` (
   PRIMARY KEY (`id_cliente`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `telefono` (`telefono`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -234,7 +234,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (1,'dominrodri5@gmail.com','666777999','Domingo','Rodriguez MorenA','$2y$10$7f5PKdGT2OdjkVSphLN0G.CeoSvdeFKP5BMYXlJdHIsdr7k5Y7mZG'),(2,'drodmor970@g.educaand.es','671673501','Paco','Pepe','$2y$10$8z.OFRDgrsSMTTD006ogBerBpvTxxFYmYZVBsZ3ukQ1YVtFe5H2ua'),(3,'d@g','000000000','pedri','b','$2y$10$ef8QBpnoSL8PFlSaC11wf.zyyUMsT5H8rGF2CkHqyslI8Q9YwSqOy'),(4,'1@2','000000001','Domingo','Rodriguez Moreno','$2y$10$eat0tKZtOwKhO1IS1tgacO11XV8oiuikhfPjB70Rxw0v7QkVpY1f2');
+INSERT INTO `clientes` VALUES (1,'dominrodri5@gmail.com','666777999','Domingo','Rodriguez MorenA','$2y$10$7f5PKdGT2OdjkVSphLN0G.CeoSvdeFKP5BMYXlJdHIsdr7k5Y7mZG'),(2,'drodmor970@g.educaand.es','671673501','Paco','Pepe','$2y$10$8z.OFRDgrsSMTTD006ogBerBpvTxxFYmYZVBsZ3ukQ1YVtFe5H2ua'),(3,'d@g','000000000','pedri','b','$2y$10$ef8QBpnoSL8PFlSaC11wf.zyyUMsT5H8rGF2CkHqyslI8Q9YwSqOy'),(4,'1@2','000000001','Domingo','Rodriguez Moreno','$2y$10$eat0tKZtOwKhO1IS1tgacO11XV8oiuikhfPjB70Rxw0v7QkVpY1f2'),(5,'maribelmorenocalvo54@gmail.com','676451222','Maria Isabel ','Moreno','$2y$10$2nmva6efn06rxd.v7choMOrfE1MaW9fzo.OFUIy5mxfG64NkoKQ1a');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -504,4 +504,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-20 14:46:50
+-- Dump completed on 2025-05-22 10:49:54

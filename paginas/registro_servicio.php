@@ -1,21 +1,3 @@
-<?php
-session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php';
-
-try {
-    // Obtener roles y tipos de tratamiento
-    $sql_roles = "SELECT id_rol, nombre_rol FROM roles";
-    $sql_tipos = "SELECT id_tipo, nombre_tipo FROM tipos_tratamiento";
-    
-    $roles = $conn->query($sql_roles)->fetchAll(PDO::FETCH_ASSOC);
-    $tipos = $conn->query($sql_tipos)->fetchAll(PDO::FETCH_ASSOC);
-
-} catch (PDOException $e) {
-    die("Error: " . $e->getMessage());
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,7 +6,24 @@ try {
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; ?>
+    <?php
+        session_start();
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
+        
+        try {
+            // Obtener roles y tipos de tratamiento
+            $sql_roles = "SELECT id_rol, nombre_rol FROM roles";
+            $sql_tipos = "SELECT id_tipo, nombre_tipo FROM tipos_tratamiento";
+            
+            $roles = $conn->query($sql_roles)->fetchAll(PDO::FETCH_ASSOC);
+            $tipos = $conn->query($sql_tipos)->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            die("Error: " . $e->getMessage());
+        }
+    ?>
 
     <div class="contenedor-principal registros-container">
         <h1>Registrar Nuevo Tratamiento</h1>

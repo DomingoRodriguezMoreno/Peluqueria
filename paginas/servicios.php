@@ -1,37 +1,3 @@
-<?php
-session_start();
-// Verificar autenticación y tipo de usuario
-if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
-    header('Location: /TFGPeluqueria/index.php');
-    exit();
-}
-
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php'; // Incluir la conexión a la base de datos
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php'; // Verificar si el usuario es administrador
-include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // Incluir la barra de navegación
-
-// Verificar si es admin
-$esAdmin = esAdministrador($conn);
-
-// Obtener lista completa de servicios
-$mostrar = $_GET['mostrar'] ?? 'activos';
-$condicion = ($mostrar === 'inactivos') ? 's.activo = 0' : 's.activo = 1';
-$servicios = [];
-
-try {
-    $sql = "SELECT tt.nombre_tipo AS tipo, s.* 
-            FROM servicios s 
-            JOIN servicios_tipos st ON s.id_servicio = st.id_servicio 
-            JOIN tipos_tratamiento tt ON st.id_tipo = tt.id_tipo
-            WHERE $condicion";
-            
-    $stmt = $conn->query($sql);
-    $servicios = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Error al obtener servicios: " . $e->getMessage());
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -41,6 +7,40 @@ try {
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
+    <?php
+        session_start();
+        // Verificar autenticación y tipo de usuario
+        if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
+            header('Location: /TFGPeluqueria/index.php');
+            exit();
+        }
+
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php'; // Incluir la conexión a la base de datos
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php'; // Verificar si el usuario es administrador
+        include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // Incluir la barra de navegación
+
+        // Verificar si es admin
+        $esAdmin = esAdministrador($conn);
+
+        // Obtener lista completa de servicios
+        $mostrar = $_GET['mostrar'] ?? 'activos';
+        $condicion = ($mostrar === 'inactivos') ? 's.activo = 0' : 's.activo = 1';
+        $servicios = [];
+
+        try {
+            $sql = "SELECT tt.nombre_tipo AS tipo, s.* 
+                    FROM servicios s 
+                    JOIN servicios_tipos st ON s.id_servicio = st.id_servicio 
+                    JOIN tipos_tratamiento tt ON st.id_tipo = tt.id_tipo
+                    WHERE $condicion";
+                    
+            $stmt = $conn->query($sql);
+            $servicios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error al obtener servicios: " . $e->getMessage());
+        }
+    ?>
+
     <div class="contenedor-principal">
         <h1>Listado de servicios <?= $mostrar === 'activos' ? 'activos' : 'inactivos' ?></h1>
         <br>

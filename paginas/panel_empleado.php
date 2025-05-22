@@ -1,13 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
-    header('Location: /TFGPeluqueria/index.php');
-    exit();
-}
-
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php'; // Asegúrate de incluir la conexión si es necesaria
-include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,6 +7,17 @@ include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
+    <?php
+        session_start();
+        if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
+            header('Location: /TFGPeluqueria/index.php');
+            exit();
+        }
+
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
+    ?>
+
     <div class="contenedor-principal">
         <h1>Bienvenido, <?php echo $_SESSION['nombre']; ?></h1>
         

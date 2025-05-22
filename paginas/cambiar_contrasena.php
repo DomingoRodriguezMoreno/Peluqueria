@@ -1,15 +1,3 @@
-<?php
-session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
-
-if (!isset($_SESSION['tipo_usuario'])) {
-    header("Location: /TFGPeluqueria/index.php");
-    exit();
-}
-
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +7,17 @@ if (!isset($_SESSION['tipo_usuario'])) {
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
+    <?php
+        session_start();
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
+
+        if (!isset($_SESSION['tipo_usuario'])) {
+            header("Location: /TFGPeluqueria/index.php");
+            exit();
+        }
+    ?>
+
     <div class="registros-container">
         <h2>Cambiar contraseña</h2>
         <br>

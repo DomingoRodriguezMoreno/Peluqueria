@@ -1,45 +1,3 @@
-<?php
-session_start();
-// Verificar que sea un empleado
-if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
-    header('Location: /TFGPeluqueria/index.php');
-    exit();
-}
-
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
-
-$esAdmin = esAdministrador($conn);
-$id_cita = $_GET['id_cita'] ?? null;
-
-// Obtener datos completos de la cita
-$cita = [];
-try {
-    // Datos principales de la cita
-    $stmt = $conn->prepare("
-        SELECT c.*, 
-               CONCAT(cli.nombre, ' ', cli.apellidos) AS cliente,
-               cli.telefono,
-               ADDTIME(c.hora_inicio, SEC_TO_TIME(SUM(s.duracion)*60)) AS hora_fin,
-               GROUP_CONCAT(DISTINCT s.nombre_servicio SEPARATOR ', ') AS servicios,
-               GROUP_CONCAT(DISTINCT CONCAT(e.nombre, ' ', e.apellidos) SEPARATOR ', ') AS empleados
-        FROM citas c
-        JOIN clientes cli ON c.id_cliente = cli.id_cliente
-        JOIN citas_servicios cs ON c.id_cita = cs.id_cita
-        JOIN servicios s ON cs.id_servicio = s.id_servicio
-        JOIN empleados e ON cs.id_empleado = e.dni
-        WHERE c.id_cita = ?
-        GROUP BY c.id_cita
-    ");
-    $stmt->execute([$id_cita]);
-    $cita = $stmt->fetch(PDO::FETCH_ASSOC);
-
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -49,6 +7,48 @@ try {
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
+    <?php
+        session_start();
+        // Verificar que sea un empleado
+        if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'empleado') {
+            header('Location: /TFGPeluqueria/index.php');
+            exit();
+        }
+
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/verificar_admin.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
+
+        $esAdmin = esAdministrador($conn);
+        $id_cita = $_GET['id_cita'] ?? null;
+
+        // Obtener datos completos de la cita
+        $cita = [];
+        try {
+            // Datos principales de la cita
+            $stmt = $conn->prepare("
+                SELECT c.*, 
+                    CONCAT(cli.nombre, ' ', cli.apellidos) AS cliente,
+                    cli.telefono,
+                    ADDTIME(c.hora_inicio, SEC_TO_TIME(SUM(s.duracion)*60)) AS hora_fin,
+                    GROUP_CONCAT(DISTINCT s.nombre_servicio SEPARATOR ', ') AS servicios,
+                    GROUP_CONCAT(DISTINCT CONCAT(e.nombre, ' ', e.apellidos) SEPARATOR ', ') AS empleados
+                FROM citas c
+                JOIN clientes cli ON c.id_cliente = cli.id_cliente
+                JOIN citas_servicios cs ON c.id_cita = cs.id_cita
+                JOIN servicios s ON cs.id_servicio = s.id_servicio
+                JOIN empleados e ON cs.id_empleado = e.dni
+                WHERE c.id_cita = ?
+                GROUP BY c.id_cita
+            ");
+            $stmt->execute([$id_cita]);
+            $cita = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    ?>
+
     <div class="contenedor-principal">
         <h1>Detalles de la Cita #<?= $cita['id_cita'] ?? 'N/A' ?></h1>
         

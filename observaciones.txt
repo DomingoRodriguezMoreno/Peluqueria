@@ -158,7 +158,7 @@ Nuevas funcionalidades
 
 clientes, citas, empleados
 [X] Busqueda en registros
-[ ] Paginar tablas (X filas por pagina)
+[ ] Paginar tablas (N filas por pagina)
 
 sudo chown www-data:www-data procesar_cambio_contrasena.php && sudo chmod 755 procesar_cambio_contrasena.php
 

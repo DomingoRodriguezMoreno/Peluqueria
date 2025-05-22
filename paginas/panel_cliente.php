@@ -1,33 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'cliente') {
-    header('Location: /TFGPeluqueria/index.php');
-    exit();
-}
-
-require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php'; // Ajusta la ruta según tu estructura
-
-include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
-// Obtener citas del cliente
-$citas = [];
-try {
-    $stmt = $conn->prepare("
-        SELECT c.id_cita, c.fecha_cita, c.hora_inicio, c.estado, 
-               c.duracion_total, c.precio_final,
-               GROUP_CONCAT(s.nombre_servicio SEPARATOR ', ') AS servicios
-        FROM citas c
-        JOIN citas_servicios cs ON c.id_cita = cs.id_cita
-        JOIN servicios s ON cs.id_servicio = s.id_servicio
-        WHERE c.id_cliente = :id_cliente
-        GROUP BY c.id_cita
-        ORDER BY c.fecha_cita DESC, c.hora_inicio DESC
-    ");
-    $stmt->execute([':id_cliente' => $_SESSION['id_cliente']]);
-    $citas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    echo "Error al obtener citas: " . $e->getMessage();
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -37,6 +7,37 @@ try {
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
+    <?php
+        session_start();
+        if (!isset($_SESSION['tipo_usuario']) || $_SESSION['tipo_usuario'] !== 'cliente') {
+            header('Location: /TFGPeluqueria/index.php');
+            exit();
+        }
+
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/funcionalidades/conexion.php'; // Ajusta la ruta según tu estructura
+
+        include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php';
+        // Obtener citas del cliente
+        $citas = [];
+        try {
+            $stmt = $conn->prepare("
+                SELECT c.id_cita, c.fecha_cita, c.hora_inicio, c.estado, 
+                    c.duracion_total, c.precio_final,
+                    GROUP_CONCAT(s.nombre_servicio SEPARATOR ', ') AS servicios
+                FROM citas c
+                JOIN citas_servicios cs ON c.id_cita = cs.id_cita
+                JOIN servicios s ON cs.id_servicio = s.id_servicio
+                WHERE c.id_cliente = :id_cliente
+                GROUP BY c.id_cita
+                ORDER BY c.fecha_cita DESC, c.hora_inicio DESC
+            ");
+            $stmt->execute([':id_cliente' => $_SESSION['id_cliente']]);
+            $citas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Error al obtener citas: " . $e->getMessage();
+        }
+    ?>
+
     <div class="contenedor-principal">
         <h1>Bienvenido, <?php echo $_SESSION['nombre']; ?></h1>
 
