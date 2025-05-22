@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Seleccionar Cliente</title>
+    <link rel="icon" type="image/png" href="/TFGPeluqueria/imagenes/Logo2.png">
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>

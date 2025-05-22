@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peluquería Millan Vega</title>
+    <link rel="icon" type="image/png" href="/TFGPeluqueria/imagenes/Logo2.png">
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
     <?php
-        // Esto debe ser LO PRIMERO en el archivo (sin espacios ni saltos de línea antes)
         session_start();
 
-        // Luego puedes incluir otros archivos
-        include './plantillas/navbar.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // Incluir la barra de navegación
     ?>
 
     <!-- Sección contenedor-principal con Introducción -->

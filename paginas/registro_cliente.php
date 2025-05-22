@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Cliente</title>
-    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css"> <!-- Enlaza tu archivo CSS -->
+    <link rel="icon" type="image/png" href="/TFGPeluqueria/imagenes/Logo2.png">
+    <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">
 </head>
 <body>
     <?php 
