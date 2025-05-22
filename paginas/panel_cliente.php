@@ -28,7 +28,7 @@
                 FROM citas c
                 JOIN citas_servicios cs ON c.id_cita = cs.id_cita
                 JOIN servicios s ON cs.id_servicio = s.id_servicio
-                WHERE c.id_cliente = :id_cliente
+                WHERE c.id_cliente = :id_cliente AND c.estado ='reservada'
                 GROUP BY c.id_cita
                 ORDER BY c.fecha_cita DESC, c.hora_inicio DESC
             ");

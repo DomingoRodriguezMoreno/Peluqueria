@@ -160,6 +160,11 @@ clientes, citas, empleados
 [X] Busqueda en registros
 [ ] Paginar tablas (N filas por pagina)
 
+Cambio (¿?)
+un tipo de Trabajador hara todos los servicios de su tipo asociados a una cita
+es decir si una cita tiene 2 servcios que requieren de peluquero, solo se asignara a un peluquero que se encargara de ambos servicios
+
+
 sudo chown www-data:www-data procesar_cambio_contrasena.php && sudo chmod 755 procesar_cambio_contrasena.php
 
 Completado
