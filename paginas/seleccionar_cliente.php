@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seleccionar Cliente</title>
     <link rel="icon" type="image/png" href="/TFGPeluqueria/imagenes/Logo2.png">
     <link rel="stylesheet" href="/TFGPeluqueria/css/styles.css">

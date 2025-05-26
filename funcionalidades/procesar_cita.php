@@ -65,12 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $userMessage = "Lo sentimos, no se ha podido reservar su cita para el dia y hora especificados. Por favor, pruebe otros horarios/dias.";
 
         // Analizar el tipo de error
-        if (strpos($e->getMessage(), 'No hay empleados disponibles') !== false) {
+        if (strpos($e->getMessage(), 'Horario no válido') !== false) {
+            $userMessage = "El horario debe ser entre 9:00-14:00 o 16:00-19:00 horas.";
+        } 
+        elseif (strpos($e->getMessage(), 'No hay empleados disponibles') !== false) {
             $userMessage = "No hay profesionales disponibles para el servicio seleccionado. Pruebe otra hora/fecha.";
         } 
-        elseif (strpos($e->getMessage(), 'Horario no válido') !== false) {
-            $userMessage = "El horario debe ser entre 9:00-14:00 o 16:00-19:00 horas.";
-        }
         elseif (strpos($e->getMessage(), 'precio final no coincide') !== false) {
             $userMessage = "Error en el cálculo del precio. Verifique los servicios seleccionados.";
         }
