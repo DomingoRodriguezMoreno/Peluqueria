@@ -44,11 +44,13 @@ function crearBuscadorGeneral() {
         
         buscador.addEventListener('input', function() {
             const filtro = this.value.toLowerCase();
+            const palabrasFiltro = filtro.split(/\s+/); // Divide por espacios
             const filas = document.querySelectorAll(`${tablaSelector} tbody tr`);
             
             filas.forEach(fila => {
                 const textoFila = fila.textContent.toLowerCase();
-                fila.style.display = textoFila.includes(filtro) ? '' : 'none';
+                const contieneTodas = palabrasFiltro.every(palabra => textoFila.includes(palabra)); // Verifica cada palabra
+                fila.style.display = contieneTodas ? '' : 'none';
             });
         });
     });
