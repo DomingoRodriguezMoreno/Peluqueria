@@ -62,10 +62,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errorMessage = $e->getMessage();
 
         // Mensajes personalizados
-        $userMessage = "Error al procesar la cita. Por favor, inténtalo de nuevo.";
+        $userMessage = "Lo sentimos, no se ha podido reservar su cita para el dia y hora especificados. Por favor, pruebe otros horarios/dias.";
+
+        // Analizar el tipo de error
+        if (strpos($e->getMessage(), 'No hay empleados disponibles') !== false) {
+            $userMessage = "No hay profesionales disponibles para el servicio seleccionado. Pruebe otra hora/fecha.";
+        } 
+        elseif (strpos($e->getMessage(), 'Horario no válido') !== false) {
+            $userMessage = "El horario debe ser entre 9:00-14:00 o 16:00-19:00 horas.";
+        }
+        elseif (strpos($e->getMessage(), 'precio final no coincide') !== false) {
+            $userMessage = "Error en el cálculo del precio. Verifique los servicios seleccionados.";
+        }
+        elseif ($e->errorInfo[1] == 1062) { // Código para duplicados
+            $userMessage = "Ya existe una cita reservada en ese horario.";
+        }
+        elseif (strpos($e->getMessage(), 'Debes seleccionar al menos un servicio') !== false) {
+            $userMessage = $e->getMessage(); // Mensaje directo de la validación inicial
+        }
 
         $_SESSION['error_cita'] = $userMessage;
-        header("Location: /TFGPeluqueria/paginas/coger_citas.php");
+
+        // Redirigir manteniendo el id_cliente si es empleado
+        if ($es_empleado) {
+            header("Location: /TFGPeluqueria/paginas/coger_citas.php?id_cliente=" . $id_cliente); // Añade el parámetro
+        } else { 
+            header("Location: /TFGPeluqueria/paginas/coger_citas.php");
+        }
+
         exit();
     }
 } else {
