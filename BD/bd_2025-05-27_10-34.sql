@@ -35,7 +35,7 @@ CREATE TABLE `citas` (
   KEY `id_cliente` (`id_cliente`),
   KEY `idx_fecha_cita` (`fecha_cita`),
   CONSTRAINT `citas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `citas` (
 
 LOCK TABLES `citas` WRITE;
 /*!40000 ALTER TABLE `citas` DISABLE KEYS */;
-INSERT INTO `citas` VALUES (1,7,'2025-05-26','09:06:00','10:36:00','cancelada',90,70.01),(2,7,'2025-05-27','09:12:00','10:42:00','reservada',90,70.01),(3,5,'2025-05-28','09:01:00','10:21:00','reservada',80,40.51),(7,5,'2025-05-28','09:02:00','09:47:00','reservada',45,30.00);
+INSERT INTO `citas` VALUES (1,7,'2025-05-26','09:06:00','10:36:00','cancelada',90,70.01),(2,7,'2025-05-27','09:12:00','10:42:00','reservada',90,70.01),(3,5,'2025-05-28','09:01:00','10:21:00','reservada',80,40.51),(7,5,'2025-05-28','09:02:00','09:47:00','reservada',45,30.00),(15,7,'2025-05-29','09:19:00','09:49:00','reservada',30,20.01),(16,7,'2025-05-29','09:26:00','10:11:00','reservada',45,30.00),(17,7,'2025-05-30','09:33:00','10:33:00','cancelada',60,50.00),(18,7,'2025-05-30','09:37:00','10:37:00','cancelada',60,50.00),(19,7,'2025-05-30','09:45:00','10:45:00','cancelada',60,50.00),(20,7,'2025-05-30','09:17:00','10:17:00','cancelada',60,50.00),(21,7,'2025-05-30','09:33:00','10:33:00','cancelada',60,50.00);
 /*!40000 ALTER TABLE `citas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -102,7 +102,7 @@ CREATE TABLE `citas_servicios` (
 
 LOCK TABLES `citas_servicios` WRITE;
 /*!40000 ALTER TABLE `citas_servicios` DISABLE KEYS */;
-INSERT INTO `citas_servicios` VALUES (1,1,'12345678A'),(2,1,'12345678A'),(3,1,'12345678A'),(7,3,'12345678X'),(1,2,'87654321X'),(2,2,'87654321X'),(3,4,'87654321X');
+INSERT INTO `citas_servicios` VALUES (1,1,'12345678A'),(2,1,'12345678A'),(3,1,'12345678A'),(15,1,'12345678A'),(17,2,'12345678A'),(18,2,'12345678A'),(19,2,'12345678A'),(20,2,'12345678A'),(21,2,'12345678A'),(7,3,'12345678X'),(16,3,'12345678X'),(1,2,'87654321X'),(2,2,'87654321X'),(3,4,'87654321X');
 /*!40000 ALTER TABLE `citas_servicios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -225,7 +225,7 @@ CREATE TABLE `clientes` (
   PRIMARY KEY (`id_cliente`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `telefono` (`telefono`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -234,7 +234,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (5,'maribelmorenocalvo54@gmail.com','676451222','Maria Isabel ','Moreno','$2y$10$2nmva6efn06rxd.v7choMOrfE1MaW9fzo.OFUIy5mxfG64NkoKQ1a'),(7,'dominrodri5@gmail.com','671673501','Domingo','Rodriguez Moreno','$2y$10$ZVRPLKT0lahWMPj5w0wREeHcrZSf1IwiWmPgZQr6ylK3A7IOt4r4q');
+INSERT INTO `clientes` VALUES (5,'maribelmorenocalvo54@gmail.com','676451222','Maria Isabel ','Moreno','$2y$10$2nmva6efn06rxd.v7choMOrfE1MaW9fzo.OFUIy5mxfG64NkoKQ1a'),(7,'dominrodri5@gmail.com','671673501','Domingo','Rodriguez Moreno','$2y$10$1CtjMpxUjdj8FPcMOOo7SeEVEgw8w.MRIPsq0eHEQQcmhIPdZ44IO');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -267,7 +267,7 @@ CREATE TABLE `empleados` (
 
 LOCK TABLES `empleados` WRITE;
 /*!40000 ALTER TABLE `empleados` DISABLE KEYS */;
-INSERT INTO `empleados` VALUES ('12345678A','Juan','Pérez García','600111222','juan@peluqueria.com',1,'$2y$10$eane7EyENEvum8sMvryDceDWOVmmbLrYk0OaJ8vh9NiuHhLQGtuOi',1,1),('12345678B','Q','a','111111222','1@2',1,'$2y$10$48cFyhgQ/oVC9b8MBG/hsePMeV/nu1X8KLsqV2J0Z5DT9k948RE4C',0,0),('12345678J','A','B','123456789','K@c',1,'$2y$10$pKSdzxbej4FBFM0VusRRFeCCmH59Sj7JWDREy7zL4uR5AQkO4.C1y',0,0),('12345678X','Laura','Calleja','666111666','L@c',2,'$2y$10$uE36He6rTd31jq1Fa5VbDeMgf0up03x3qY0Ty.MxkhbeeNpdsc0l2',0,1),('12345678Z','Francisco','Rene ','102304506','1@Z',2,'$2y$10$Hft5Ij2223p7ISAyoHUAEunzEtb7dPbJCrSIRGw8xdKA9mcUhAWT6',0,1),('32091870Y','Pedro','Garcia','666111999','pedro@correo',4,'$2y$10$PX1DQDaGNWzrrxOiS8V2a.8KnIHRWz3GqDrc0A6oPHSBpvwTGjKE6',1,1),('32154687A','Domingo','Rodriguez Moreno','671673501','aa@Z',4,'$2y$10$qKIWLqvEmHJWhDL0SRz44e0F0g.ZTxDTrHomaHd2BcnUZoE1c.Kyi',0,0),('87654321X','Cafca','lumne','123321123','cafca@L',1,'$2y$10$XUKwD7Du7b9S8OEmAR6UNOEc1aC/LTnP7niacfJFd1ltMI.Eu33P.',0,1);
+INSERT INTO `empleados` VALUES ('12345678A','Juan','Pérez García','600111222','juan@peluqueria.com',1,'$2y$10$eane7EyENEvum8sMvryDceDWOVmmbLrYk0OaJ8vh9NiuHhLQGtuOi',1,1),('12345678X','Laura','Calleja','666111666','laur@correo.com',2,'$2y$10$uE36He6rTd31jq1Fa5VbDeMgf0up03x3qY0Ty.MxkhbeeNpdsc0l2',0,1),('12345678Z','Francisco','Rene ','102304506','francis@correo.net',2,'$2y$10$Hft5Ij2223p7ISAyoHUAEunzEtb7dPbJCrSIRGw8xdKA9mcUhAWT6',0,1),('32091870Y','Pedro','Garcia','666111999','pedro@correo.es',4,'$2y$10$PX1DQDaGNWzrrxOiS8V2a.8KnIHRWz3GqDrc0A6oPHSBpvwTGjKE6',1,1),('32154687A','Domingo','Rodriguez Moreno','671673501','dominrodri5@gmail.com',4,'$2y$10$pM/451Ebl8fH.SfQ9pXptuuTmdUrQwten4K30aPmczUn26FfJT3cK',0,0),('87654321X','Cafca','lumne','123321123','cafca@lambda.com',1,'$2y$10$XUKwD7Du7b9S8OEmAR6UNOEc1aC/LTnP7niacfJFd1ltMI.Eu33P.',0,1);
 /*!40000 ALTER TABLE `empleados` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -504,4 +504,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-26 12:46:31
+-- Dump completed on 2025-05-27 10:34:41

@@ -70,12 +70,13 @@ try {
     $stmt->bindParam(':contrasena', $hash);
 
     if ($stmt->execute()) {
-        echo "Empleado registrado exitosamente.";
-        // Redirigir después de 3 segundos
         unset($_SESSION['form_data']);  // Limpiar datos de sesión
         unset($_SESSION['error']); // Limpiar error de sesión
-        header("Refresh: 1; url=/TFGPeluqueria/paginas/empleados.php");
+        $_SESSION['exito_registro'] = "Empleado registrado exitosamente.";
+        header("Location: /TFGPeluqueria/paginas/empleados.php");
+        exit();
     }
+
 } catch (PDOException $e) {
     if ($e->getCode() == 23000) {
         die("Error: Datos duplicados (DNI, teléfono o email ya existen).");

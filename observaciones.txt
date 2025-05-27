@@ -189,7 +189,7 @@ in emleado administrador
         como la verificacion de admin esta encampsulada en una funcionalidad php solo he tenido
         que modificar dicha funcionalidad y la pagina ha continuado su correcto funcionamiento
 
-ademas tengo un dilema y es si poner dni como campo editable, el dilema viene a que dni es la primary key de la tabla empleados, pero como dato insertado por el usuario tambies es suceptible a errores al escribirlo
+Dilema poner dni como campo editable, el  dni es la primary key de la tabla empleados, pero como dato insertado por el usuario tambien es suceptible a errores al escribirlo
 
 Servidor AWS
 ssh -i TFG.pem ubuntu@13.219.48.123

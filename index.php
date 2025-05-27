@@ -14,6 +14,22 @@
         include $_SERVER['DOCUMENT_ROOT'] . '/TFGPeluqueria/plantillas/navbar.php'; // Incluir la barra de navegación
     ?>
 
+    <?php if (isset($_SESSION['exito_registro'])): ?>
+        <div class="mensaje-exito">
+            <?php
+            echo $_SESSION['exito_registro'];
+            unset($_SESSION['exito_registro']);
+            ?>
+        </div>
+    <?php elseif (isset($_SESSION['exito_login'])): ?>
+        <div class="mensaje-exito">
+            <?php
+            echo $_SESSION['exito_login'];
+            unset($_SESSION['exito_login']);
+            ?>
+        </div>
+    <?php endif; ?>
+
     <!-- Sección contenedor-principal con Introducción -->
     <section class="contenedor-principal">
         <div class="intro-texto">

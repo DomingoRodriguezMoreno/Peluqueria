@@ -42,6 +42,15 @@
     <div class="contenedor-principal">
         <h1>Bienvenido, <?php echo $_SESSION['nombre']; ?></h1>
 
+        <?php if (isset($_SESSION['exito_cita'])): ?>
+            <div class="mensaje-exito">
+                <?php
+                echo $_SESSION['exito_cita'];
+                unset($_SESSION['exito_cita']);
+                ?>
+            </div>
+        <?php endif; ?>
+
         <h2>Tus Citas</h2>
         <?php if (empty($citas)): ?>
             <p>No tienes citas programadas.</p>

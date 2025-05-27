@@ -19,6 +19,15 @@
         }
     ?>
 
+    <?php if (isset($_SESSION['exito_cambio_contrasena'])): ?>
+        <div class="mensaje-exito">
+            <?php
+            echo $_SESSION['exito_cambio_contrasena'];
+            unset($_SESSION['exito_cambio_contrasena']);
+            ?>
+        </div>
+    <?php endif; ?>
+
     <div class="registros-container">
         <h2>Cambiar contraseña</h2>
         <br>

@@ -40,6 +40,15 @@
         }
     ?>
 
+    <?php if (isset($_SESSION['exito_registro'])): ?>
+        <div class="mensaje-exito">
+            <?php
+            echo $_SESSION['exito_registro'];
+            unset($_SESSION['exito_registro']);
+            ?>
+        </div>
+    <?php endif; ?>
+
     <div class="contenedor-principal">
         <h1>Listado de Empleados <?= $mostrar === 'activos' ? 'activos' : 'inactivos' ?></h1>
         <br>

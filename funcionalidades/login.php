@@ -39,6 +39,9 @@ if ($stmt_empleado->rowCount() > 0) {
         $_SESSION['dni'] = $empleado['dni'];
         $_SESSION['nombre'] = $empleado['nombre'];
         $_SESSION['id_rol'] = $empleado['id_rol'];
+
+        $_SESSION['exito_login'] = "Bienvenido, " . $empleado['nombre'] . "!";
+
         // Redirigir al panel de empleados
         header('Location: /TFGPeluqueria/index.php');
         exit();
@@ -69,6 +72,9 @@ if ($stmt_empleado->rowCount() > 0) {
             $_SESSION['tipo_usuario'] = 'cliente';
             $_SESSION['id_cliente'] = $cliente['id_cliente'];
             $_SESSION['nombre'] = $cliente['nombre'];
+
+            $_SESSION['exito_login'] = "Bienvenido, " . $cliente['nombre'] . "!";
+
             // Redirigir al panel de clientes
             header('Location: /TFGPeluqueria/index.php');
             exit();

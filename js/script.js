@@ -33,7 +33,11 @@ document.addEventListener('DOMContentLoaded', function() {
         fechaInput.min = new Date(hoy.setDate(hoy.getDate() + 1)).toISOString().split('T')[0];
     }
 
+    // Crear buscador general para tablas
     crearBuscadorGeneral();
+
+    // Mensajes de éxito automáticos
+    autoOcultarMensajes();
 
 });
 
@@ -53,6 +57,18 @@ function crearBuscadorGeneral() {
                 fila.style.display = contieneTodas ? '' : 'none';
             });
         });
+    });
+}
+
+// Función para auto-ocultar mensajes de éxito
+function autoOcultarMensajes() {
+    const mensajesExito = document.querySelectorAll('.mensaje-exito');
+    
+    mensajesExito.forEach(mensaje => {
+        setTimeout(() => {
+            mensaje.classList.add('oculto');
+            setTimeout(() => mensaje.remove(), 500);
+        }, 3000);
     });
 }
 
