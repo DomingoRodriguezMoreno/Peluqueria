@@ -52,6 +52,5 @@
             <a href="/TFGPeluqueria/paginas/panel_<?= $_SESSION['tipo_usuario'] ?>.php" class="cancelar-btn">Cancelar</a>
         </form>
     </div>
-    <script src="/TFGPeluqueria/js/scripts.js"></script>
 </body>
 </html>

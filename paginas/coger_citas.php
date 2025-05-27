@@ -103,7 +103,6 @@
             </div>
         </div>
     </section>
-    <script src="/TFGPeluqueria/js/script.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
     	// Nuevo código: Hacer toda la fila clickable
