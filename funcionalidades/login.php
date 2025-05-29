@@ -40,7 +40,7 @@ if ($stmt_empleado->rowCount() > 0) {
         $_SESSION['nombre'] = $empleado['nombre'];
         $_SESSION['id_rol'] = $empleado['id_rol'];
 
-        $_SESSION['exito_login'] = "Bienvenido, " . $empleado['nombre'] . "!";
+        $_SESSION['exito_login'] = "Bienvenid@, " . $empleado['nombre'] . "!";
 
         // Redirigir al panel de empleados
         header('Location: /TFGPeluqueria/index.php');
