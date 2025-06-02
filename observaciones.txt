@@ -209,6 +209,8 @@ sudo mysql -u root -p < ~/TFGPeluqueria.sql
 
 scp -i TFG.pem -r "TFGPeluqueria\*" ubuntu@13.219.48.123:~/TFGPeluqueria
 
+scp -i TFG.pem ubuntu@13.219.48.123:/home/ubuntu/backup.sh C:\Users\domin\Desktop\TFG\
+
 CREATE USER 'domingo'@'localhost' IDENTIFIED BY 'doromo96';
 GRANT ALL PRIVILEGES ON TFGPeluqueria.* TO 'domingo'@'localhost';
 FLUSH PRIVILEGES;
